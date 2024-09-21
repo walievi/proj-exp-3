@@ -1,0 +1,20 @@
+.page-container {
+
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+
+    background: #FFFFFF;
+    box-sizing: border-box;
+}
+
+.sideMenu-container {
+    display: flex;
+    width: auto;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+}
