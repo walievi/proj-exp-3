@@ -1,18 +1,12 @@
 import React from 'react';
-import Equipments from './pages/Equipments';
-import './App.css'; // Importar estilos
+import RoutesApp from './routes';
+import { BrowserRouter } from 'react-router-dom'
 
 function App() {
   return (
-    // <Router>
-    //   <Routes>
-    //     <Route path="/dashboard" element={<Dashboard />} />
-    //     {/* Adicione outras rotas aqui */}
-    //   </Routes>
-    // </Router>
-    <div>
-      <Equipments />
-    </div>
+    <BrowserRouter>
+      <RoutesApp />
+    </BrowserRouter>
   );
 }
 

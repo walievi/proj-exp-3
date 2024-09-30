@@ -1,7 +1,8 @@
-import React from 'react';
-import BasicLayout from '../components/BasicLayout.jsx'; // Importando o Layout base do diretório components
-import BasicTable  from '../components/BasicTable.jsx'; // Importando a Tabela base do diretório components
-import './Equipments.css'; // Importar estilos
+import React, { useState } from 'react';
+import BasicTable  from '../../components/TableList'; // Importando a Tabela base do diretório components
+import './index.css'; // Importar estilos
+
+import Modal from '../../components/Modal'
 
 const Equipamentos = () => {
   const columns = ["Equipamento", "Tipo", "Quantidade", "Disponível", "Status"];
@@ -27,10 +28,12 @@ const Equipamentos = () => {
     {Equipamento: "Cama Hospitalar", Tipo: "Leito", Quantidade: "20", Disponível: 5, Status: "Inativo" },
     {Equipamento: "Tubo Oxigênio", Tipo: "Auxilio Respiratório", Quantidade: "20", Disponível: 5, Status: "Ativo" },
   ];
-  return (
-    <div className="equipment-container">
 
-      <BasicLayout>  {/* Chamando o Layout base */}
+  const [showCreateModal, setShowCreateModal] = useState(true)
+
+  return (
+    <>
+    <div className="equipment-container">
         
         <div className="count-equipment-container">
           <div className="count-container">
@@ -65,9 +68,11 @@ const Equipamentos = () => {
           columns={columns}
           data={data} 
         />
-
-      </BasicLayout> 
     </div>
+    {
+      showCreateModal ? <Modal /> : null
+    }
+    </>
   );
 };
 

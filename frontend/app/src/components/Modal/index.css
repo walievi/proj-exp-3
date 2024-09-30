@@ -1,0 +1,87 @@
+#modal-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100vh;
+    background: rgba(90, 90, 90, 0.65);
+    z-index: 99999;
+}
+
+#modal-container {
+    /* Frame 629016 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 50px;
+    gap: 20px;
+
+    width: 1320px;
+    height: auto;
+
+    background: #FFFFFF;
+    border-radius: 15px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+#modal-header {
+    /* Frame 629017 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+
+    width: 100%;
+    height: auto;
+
+}
+
+#modal-title {
+    text-align: left;
+
+    /* Cadastro de Equipamento */
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+
+    color: #0070FF;
+
+}
+
+#modal-content {
+    width: 100%;
+    height: auto;
+}
+
+
+.modal-form {
+    width: 100%;
+    height: auto;
+
+     /* Frame 629018 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 20px;
+}

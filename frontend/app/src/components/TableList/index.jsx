@@ -1,5 +1,7 @@
-import React from 'react';
-import './BasicTable.css'; // Importar estilos
+import React, { useState } from 'react';
+import './index.css'; // Importar estilos
+
+import Icon from '@mui/material/Icon';
 
 //Icones de Material UI
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -11,8 +13,8 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 //Importando checkbox de Material UI
 import Checkbox from '@mui/material/Checkbox';
 
-
 const BasicTable = ({ title, subtitle, columns, data }) => {
+
     const renderStatus = (status) => {
         if(status === "Ativo") {
             return <span className="status-active">Ativo</span>;
@@ -21,7 +23,9 @@ const BasicTable = ({ title, subtitle, columns, data }) => {
         }
         return status || "N/A";
     };
+
     return (
+        <>
         <div className="list-container">
             <div className="table-container">
                 <div className="table-header-container">
@@ -60,7 +64,7 @@ const BasicTable = ({ title, subtitle, columns, data }) => {
                             <div className="item-header">
                                 <button className="create-button">
                                     <div className="button-icon">
-                                        <AddCircleOutlineIcon />
+                                        <Icon><AddCircleOutlineIcon /></Icon>
                                     </div>
                                     Adicionar
                                 </button>
@@ -106,6 +110,7 @@ const BasicTable = ({ title, subtitle, columns, data }) => {
                 </table>
             </div> 
         </div>
+        </>
     );
 };
 

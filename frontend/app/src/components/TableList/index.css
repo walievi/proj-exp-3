@@ -356,3 +356,12 @@ border-bottom: 0.961594px solid #EAECF0;
     scrollbar-width: thin; /* Define uma barra de rolagem mais fina */
     scrollbar-color: #c1c1c1 #f1f1f1; /* Cor do polegar e do fundo */
   }
+
+.item-header {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
