@@ -13,6 +13,7 @@ import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 
 const SideMenu = () => {
 
@@ -34,7 +35,15 @@ const SideMenu = () => {
             </li>
             <li className='navlink'>
               <div><Icon fontSize="medium"><Inventory2OutlinedIcon /></Icon></div>
-              <div><Link>Patrimônios</Link></div>
+              <div><Link to='/patrimonios'>Patrimônios</Link></div>
+            </li>
+            <li className='navlink'>
+              <div><Icon fontSize="medium"><Inventory2OutlinedIcon /></Icon></div>
+              <div><Link to='/emprestimos'>Empréstimos</Link></div>
+            </li>
+            <li className='navlink'>
+              <div><Icon fontSize="medium"><SupervisedUserCircleIcon /></Icon></div>
+              <div><Link to='/emprestimos'>Pacientes</Link></div>
             </li>
             <li className='navlink'>
               <div><Icon fontSize='medium'><TrendingUpIcon /></Icon></div>
