@@ -50,7 +50,7 @@ const SideMenu = () => {
       <div className="footer-sidebar">
         <div className="profile-block">
           <div className='profile-avatar'>
-            <Icon fontSize='large'><AccountCircleIcon classNane="profile-icon"/> </Icon>
+            <Icon fontSize='large'><AccountCircleIcon className="profile-icon"/> </Icon>
           </div>
           <div className="profile-info">
             <div className="profile-name">Usuario</div>

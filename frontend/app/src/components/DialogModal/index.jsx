@@ -1,0 +1,27 @@
+import React from "react";
+
+import './index.css'
+
+import Button from "../Button";
+
+const DialogModal = ({title, description, handleCancel, handleConfirmation}) => {
+
+    return (
+        <div id="modal-blur">
+            <div id="modal-dialog-container">
+                <div id="modal-dialog-header">
+                   {title}
+                </div>
+                <div id="modal-dialog-content">
+                    {description}
+                </div>
+                <div id="modal-dialog-footer">
+                    <Button text="Continuar" opacity="100%" width="100%" type="button" onClickEvent={handleConfirmation} />
+                    <Button text="Cancelar" opacity="70%" width="100%" type="button" onClickEvent={handleCancel} />
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default DialogModal

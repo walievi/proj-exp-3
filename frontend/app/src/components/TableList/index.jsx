@@ -12,8 +12,10 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 
 //Importando checkbox de Material UI
 import Checkbox from '@mui/material/Checkbox';
+import { useTableList } from '../../providers/TableListProvider';
 
-const BasicTable = ({ title, subtitle, columns, data }) => {
+const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
+    const tableListContext = useTableList()
 
     const renderStatus = (status) => {
         if(status === "Ativo") {
@@ -23,6 +25,10 @@ const BasicTable = ({ title, subtitle, columns, data }) => {
         }
         return status || "N/A";
     };
+
+    function handleClickAdd() {
+        tableListContext.write.showCreateModal(true)
+    }
 
     return (
         <>
@@ -62,7 +68,7 @@ const BasicTable = ({ title, subtitle, columns, data }) => {
                                 </button>
                             </div>
                             <div className="item-header">
-                                <button className="create-button">
+                                <button className="create-button" onClick={handleClickAdd}>
                                     <div className="button-icon">
                                         <Icon><AddCircleOutlineIcon /></Icon>
                                     </div>
@@ -110,6 +116,9 @@ const BasicTable = ({ title, subtitle, columns, data }) => {
                 </table>
             </div> 
         </div>
+        {
+            tableListContext.read.showCreateModal ? createModal : null
+        }
         </>
     );
 };

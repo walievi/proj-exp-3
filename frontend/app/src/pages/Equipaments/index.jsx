@@ -3,6 +3,9 @@ import BasicTable  from '../../components/TableList'; // Importando a Tabela bas
 import './index.css'; // Importar estilos
 
 import Modal from '../../components/Modal'
+import InputText from '../../components/InputText';
+import Dropdown from '../../components/Dropdown';
+import TextArea from '../../components/TextArea';
 
 const Equipamentos = () => {
   const columns = ["Equipamento", "Tipo", "Quantidade", "Disponível", "Status"];
@@ -28,8 +31,24 @@ const Equipamentos = () => {
     {Equipamento: "Cama Hospitalar", Tipo: "Leito", Quantidade: "20", Disponível: 5, Status: "Inativo" },
     {Equipamento: "Tubo Oxigênio", Tipo: "Auxilio Respiratório", Quantidade: "20", Disponível: 5, Status: "Ativo" },
   ];
-
-  const [showCreateModal, setShowCreateModal] = useState(true)
+  const modalForm = [
+    {
+      id: 1,
+      field: <InputText label='Código' description='Obrigatório' identifier='codEquipament' required={true} />
+    },
+    {
+      id: 2,
+      field: <InputText label='Modelo' description='Obrigatório' identifier='modelEquipament' required={true} />
+    },
+    {
+      id: 3,
+      field: <Dropdown label='Categoria' description='Obrigatório' identifier='categEquipament' required={true} data={[{value: 1, description: 'Teclado'}]} />
+    },
+    {
+      id: 4,
+      field: <TextArea label='Descrição' description='Obrigatório' identifier='descEquipament' required={true} />
+    }
+  ]
 
   return (
     <>
@@ -66,12 +85,16 @@ const Equipamentos = () => {
           title="Equipamentos"
           subtitle="Listagem de Equipamentos" 
           columns={columns}
-          data={data} 
+          data={data}
+          createModal={
+            <Modal 
+              modalTitle="Cadastro de Equipamento" 
+              modalForm={modalForm} 
+              dialogModal={ { title: "Deseja continuar com o cadastro de Patrimônio desse Equipamento?", description: "Se continuar com o cadastro de Patrimônio todos os dados do Equipamento serão carregados automaticamente no formulário." } }
+            />
+          }
         />
     </div>
-    {
-      showCreateModal ? <Modal /> : null
-    }
     </>
   );
 };

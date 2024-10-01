@@ -71,7 +71,6 @@
     height: auto;
 }
 
-
 .modal-form {
     width: 100%;
     height: auto;
@@ -84,4 +83,27 @@
     align-items: flex-start;
     padding: 0px;
     gap: 20px;
+}
+
+.modal-form div {
+    width: 100%;
+}
+
+#modal-footer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#modal-close {
+    width: 20px;
+    height: 20px;
+}
+
+#modal-close button {
+    background-color: #fff;
+    color: #000;
 }
