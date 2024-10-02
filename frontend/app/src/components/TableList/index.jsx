@@ -46,7 +46,7 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                             <div className="item-header">
                                 <button className="delete-button">
                                     <div>
-                                        <DeleteOutlineIcon />
+                                        <Icon><DeleteOutlineIcon /></Icon>
                                     </div>
                                     Deletar
                                 </button>
@@ -54,7 +54,7 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                             <div className="item-header">
                                 <button className="filter-button">
                                     <div className="button-icon">
-                                        <FilterListIcon />
+                                        <Icon><FilterListIcon /></Icon>
                                     </div>
                                     Filtrar
                                 </button>
@@ -62,7 +62,7 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                             <div className="item-header">
                                 <button className="export-button">
                                     <div className="button-icon">
-                                        <CloudDownloadOutlinedIcon />
+                                        <Icon><CloudDownloadOutlinedIcon /></Icon>
                                     </div>
                                     Exportar
                                 </button>

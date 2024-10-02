@@ -33,7 +33,8 @@ const modal = ({modalTitle, modalForm, dialogModal}) => {
     function handleConfirmationDialogModal() {
         setShowPosModal(false)
         handleCloseButton()
-        navigate('/patrimonio')
+        navigate('/patrimonios')
+        tableListContext.write.showCreateModal(true)
     }
 
     return (
