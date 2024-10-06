@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id').notNullable()
       table.string('code', 36)
       table.text('model')
-      table.integer('category_id').notNullable().unsigned().references('id').inTable('categories')
+      table.integer('category_id').notNullable().unsigned().references('id').inTable('Categories')
       table.string('description')
       table.timestamp('created_at')
       table.timestamp('updated_at')

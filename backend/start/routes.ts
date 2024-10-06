@@ -9,8 +9,11 @@
 
 import router from '@adonisjs/core/services/router'
 
-router.get('/', async () => {
-  return {
-    hello: 'world',
-  }
-})
+const CategoryController = () => import('#controllers/category_controller')
+
+router
+  .group(() => {
+    router.get('/', [CategoryController, 'index'])
+    router.post('/', [CategoryController, 'store'])
+  })
+  .prefix('/category')
