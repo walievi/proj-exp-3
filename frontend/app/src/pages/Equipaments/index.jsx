@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BasicTable  from '../../components/TableList'; // Importando a Tabela base do diretório components
 import './index.css'; // Importar estilos
 
@@ -6,6 +6,7 @@ import Modal from '../../components/Modal'
 import InputText from '../../components/InputText';
 import Dropdown from '../../components/Dropdown';
 import TextArea from '../../components/TextArea';
+import { useCategory } from '../../providers/CategoryContext';
 
 const Equipamentos = () => {
   const columns = ["Equipamento", "Tipo", "Quantidade", "Disponível", "Status"];
@@ -31,6 +32,17 @@ const Equipamentos = () => {
     {Equipamento: "Cama Hospitalar", Tipo: "Leito", Quantidade: "20", Disponível: 5, Status: "Inativo" },
     {Equipamento: "Tubo Oxigênio", Tipo: "Auxilio Respiratório", Quantidade: "20", Disponível: 5, Status: "Ativo" },
   ];
+  const categoriesContext = useCategory()
+
+  function serializeCategories() {
+    return categoriesContext.read.categories.map(category => {
+      return {
+        value: category.id,
+        description: category.name
+      }
+    })
+  }
+
   const modalForm = [
     {
       id: 1,
@@ -42,7 +54,7 @@ const Equipamentos = () => {
     },
     {
       id: 3,
-      field: <Dropdown label='Categoria' description='Obrigatório' identifier='categEquipament' required={true} data={[{value: 1, description: 'Teclado'}]} />
+      field: <Dropdown label='Categoria' description='Obrigatório' identifier='categEquipament' required={true} data={serializeCategories()} />
     },
     {
       id: 4,
