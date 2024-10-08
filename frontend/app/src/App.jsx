@@ -3,16 +3,19 @@ import RoutesApp from './routes';
 import { BrowserRouter } from 'react-router-dom'
 import { TableListProvider } from './providers/TableListProvider';
 import { CategoryProvider } from './providers/CategoryContext';
+import { EquipamentsProvider } from './providers/EquipamentsContext';
 
 function App() {
   return (
-    <CategoryProvider>
-      <TableListProvider>
-        <BrowserRouter>
-          <RoutesApp />
-        </BrowserRouter>
-      </TableListProvider>
-    </CategoryProvider>
+    <EquipamentsProvider>
+      <CategoryProvider>
+        <TableListProvider>
+          <BrowserRouter>
+            <RoutesApp />
+          </BrowserRouter>
+        </TableListProvider>
+      </CategoryProvider>
+    </EquipamentsProvider>
   );
 }
 

@@ -7,31 +7,11 @@ import InputText from '../../components/InputText';
 import Dropdown from '../../components/Dropdown';
 import TextArea from '../../components/TextArea';
 import { useCategory } from '../../providers/CategoryContext';
+import { useEquipament } from '../../providers/EquipamentsContext';
 
 const Equipamentos = () => {
-  const columns = ["Equipamento", "Tipo", "Quantidade", "Disponível", "Status"];
-  const data = [
-    {Equipamento: "Cadeira de Rodas", Tipo: "Locomoção", Quantidade: "20", Disponível: 5, Status: "Ativo" },
-    {Equipamento: "Muleta", Tipo: "Locomoção", Quantidade: "20", Disponível: 5, Status: "Inativo" },
-    {Equipamento: "Cama Hospitalar", Tipo: "Leito", Quantidade: "20", Disponível: 5, Status: "Inativo" },
-    {Equipamento: "Tubo Oxigênio", Tipo: "Auxilio Respiratório", Quantidade: "20", Disponível: 5, Status: "Ativo" },
-    {Equipamento: "Cadeira de Rodas", Tipo: "Locomoção", Quantidade: "20", Disponível: 5, Status: "Ativo" },
-    {Equipamento: "Muleta", Tipo: "Locomoção", Quantidade: "20", Disponível: 5, Status: "Inativo" },
-    {Equipamento: "Cama Hospitalar", Tipo: "Leito", Quantidade: "20", Disponível: 5, Status: "Inativo" },
-    {Equipamento: "Tubo Oxigênio", Tipo: "Auxilio Respiratório", Quantidade: "20", Disponível: 5, Status: "Ativo" },
-    {Equipamento: "Cadeira de Rodas", Tipo: "Locomoção", Quantidade: "20", Disponível: 5, Status: "Ativo" },
-    {Equipamento: "Muleta", Tipo: "Locomoção", Quantidade: "20", Disponível: 5, Status: "Inativo" },
-    {Equipamento: "Cama Hospitalar", Tipo: "Leito", Quantidade: "20", Disponível: 5, Status: "Inativo" },
-    {Equipamento: "Tubo Oxigênio", Tipo: "Auxilio Respiratório", Quantidade: "20", Disponível: 5, Status: "Ativo" },
-    {Equipamento: "Cadeira de Rodas", Tipo: "Locomoção", Quantidade: "20", Disponível: 5, Status: "Ativo" },
-    {Equipamento: "Muleta", Tipo: "Locomoção", Quantidade: "20", Disponível: 5, Status: "Inativo" },
-    {Equipamento: "Cama Hospitalar", Tipo: "Leito", Quantidade: "20", Disponível: 5, Status: "Inativo" },
-    {Equipamento: "Tubo Oxigênio", Tipo: "Auxilio Respiratório", Quantidade: "20", Disponível: 5, Status: "Ativo" },
-    {Equipamento: "Cadeira de Rodas", Tipo: "Locomoção", Quantidade: "20", Disponível: 5, Status: "Ativo" },
-    {Equipamento: "Muleta", Tipo: "Locomoção", Quantidade: "20", Disponível: 5, Status: "Inativo" },
-    {Equipamento: "Cama Hospitalar", Tipo: "Leito", Quantidade: "20", Disponível: 5, Status: "Inativo" },
-    {Equipamento: "Tubo Oxigênio", Tipo: "Auxilio Respiratório", Quantidade: "20", Disponível: 5, Status: "Ativo" },
-  ];
+  const columns = ["Código", "Equipamento", "Categoria", "Quantidade", "Disponível", "Status"];
+  const equipamentsContext = useEquipament();
   const categoriesContext = useCategory()
 
   function serializeCategories() {
@@ -42,6 +22,21 @@ const Equipamentos = () => {
       }
     })
   }
+
+  function serializeEquipaments() {
+    return equipamentsContext.read.equipaments.map(equipament => {
+      return {
+        Código: equipament.code,
+        Equipamento: equipament.model,
+        Categoria: equipament.category,
+        Quantidade: equipament.quantity,
+        Disponível: 5,
+        Status: equipament.status.name
+      }
+    })
+  }
+
+  console.log(categoriesContext.read.categories)
 
   const modalForm = [
     {
@@ -58,7 +53,7 @@ const Equipamentos = () => {
     },
     {
       id: 4,
-      field: <TextArea label='Descrição' description='Obrigatório' identifier='descEquipament' required={true} />
+      field: <TextArea label='Descrição' description='Obrigatório' identifier='descEquipament' required={false} />
     }
   ]
 
@@ -97,7 +92,7 @@ const Equipamentos = () => {
           title="Equipamentos"
           subtitle="Listagem de Equipamentos" 
           columns={columns}
-          data={data}
+          data={serializeEquipaments()}
           createModal={
             <Modal 
               modalTitle="Cadastro de Equipamento" 

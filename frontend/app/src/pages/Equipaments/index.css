@@ -33,7 +33,6 @@
 
 .count-name-container {
     height: 25px;
-    font-family: 'Inter';
     font-weight: 400;
     font-size: 25px;
     line-height: 30px;
@@ -43,7 +42,6 @@
 
 .count-quantity-container {
     height: 85px;
-    font-family: 'Inter';
     font-weight: 700;
     font-size: 40px;
     line-height: 48px;
