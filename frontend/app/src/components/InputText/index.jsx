@@ -17,9 +17,9 @@ const InputText = ({label, description, identifier, required}) => {
             <div className="input-content">
                 {
                     required === true ?
-                        <input type="text" name={identifier} id={identifier} required />
+                        <input type="text" name={identifier} id={identifier} defaultValue="" required />
                     :
-                        <input type="text" name={identifier} id={identifier} />
+                        <input type="text" name={identifier} id={identifier} defaultValue="" />
                 }
             </div>
         </div>

@@ -10,7 +10,7 @@ import { useCategory } from '../../providers/CategoryContext';
 import { useEquipament } from '../../providers/EquipamentsContext';
 
 const Equipamentos = () => {
-  const columns = ["Código", "Equipamento", "Categoria", "Quantidade", "Disponível", "Status"];
+  const columns = ["Modelo", "Fabricante", "Categoria"];
   const equipamentsContext = useEquipament();
   const categoriesContext = useCategory()
 
@@ -26,34 +26,29 @@ const Equipamentos = () => {
   function serializeEquipaments() {
     return equipamentsContext.read.equipaments.map(equipament => {
       return {
-        Código: equipament.code,
-        Equipamento: equipament.model,
-        Categoria: equipament.category,
-        Quantidade: equipament.quantity,
-        Disponível: 5,
-        Status: equipament.status.name
+        Modelo: equipament.model,
+        Fabricante: equipament.manufacturer,
+        Categoria: equipament.category.name,
       }
     })
   }
 
-  console.log(categoriesContext.read.categories)
-
   const modalForm = [
     {
       id: 1,
-      field: <InputText label='Código' description='Obrigatório' identifier='codEquipament' required={true} />
+      field: <InputText label='Modelo' description='Obrigatório' identifier='model' required={true} />
     },
     {
       id: 2,
-      field: <InputText label='Modelo' description='Obrigatório' identifier='modelEquipament' required={true} />
+      field: <InputText label='Fabricante' description='Obrigatório' identifier='manufacturer' required={true} />
     },
     {
       id: 3,
-      field: <Dropdown label='Categoria' description='Obrigatório' identifier='categEquipament' required={true} data={serializeCategories()} />
+      field: <Dropdown label='Categoria' description='Obrigatório' identifier='categoryId' required={true} data={serializeCategories()} />
     },
     {
       id: 4,
-      field: <TextArea label='Descrição' description='Obrigatório' identifier='descEquipament' required={false} />
+      field: <TextArea label='Descrição' description='Opcional' identifier='description' required={false} />
     }
   ]
 
@@ -98,6 +93,7 @@ const Equipamentos = () => {
               modalTitle="Cadastro de Equipamento" 
               modalForm={modalForm} 
               dialogModal={ { title: "Deseja continuar com o cadastro de Patrimônio desse Equipamento?", description: "Se continuar com o cadastro de Patrimônio todos os dados do Equipamento serão carregados automaticamente no formulário." } }
+              action={equipamentsContext.write.equipaments}
             />
           }
         />

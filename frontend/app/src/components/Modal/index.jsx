@@ -11,7 +11,7 @@ import Button from "../Button";
 import DialogModal from '../DialogModal'
 import { useTableList } from '../../providers/TableListProvider'
 
-const modal = ({modalTitle, modalForm, dialogModal}) => {
+const modal = ({modalTitle, modalForm, dialogModal, action}) => {
     const tableListContext = useTableList();
     const [showPosModal, setShowPosModal] = useState(false)
     const navigate = useNavigate()
@@ -20,9 +20,17 @@ const modal = ({modalTitle, modalForm, dialogModal}) => {
         tableListContext.write.showCreateModal(false)
     }
 
-    function handleSubmit(e) {
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        action({
+            model: event.target.model.value,
+            manufacturer: event.target.manufacturer.value,
+            categoryId: event.target.categoryId.value,
+            description: event.target.description.value
+        })
+
         setShowPosModal(true)
-        e.preventDefault();
     }
 
     function handleCloseDialogModal() {

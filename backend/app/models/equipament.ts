@@ -1,23 +1,20 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, beforeCreate } from '@adonisjs/lucid/orm'
 import Category from './category.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
-import Status from './status.js'
+import { randomUUID } from 'node:crypto'
 
 export default class Equipament extends BaseModel {
-  static table = 'Equipaments'
+  static table = 'Equipament'
 
   @column({ isPrimary: true })
-  declare id: number
-
-  @column()
-  declare code: string
+  declare id: string
 
   @column()
   declare model: string
 
-  @column({ serializeAs: null })
-  declare statusId: number
+  @column()
+  declare manufacturer: string
 
   @column({ serializeAs: null })
   declare categoryId: number
@@ -25,18 +22,20 @@ export default class Equipament extends BaseModel {
   @belongsTo(() => Category)
   declare category: BelongsTo<typeof Category>
 
-  @belongsTo(() => Status)
-  declare status: BelongsTo<typeof Status>
-
   @column()
   declare description: string | null
-
-  @column()
-  declare quantity: number
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @column.dateTime({ autoCreate: false, autoUpdate: false })
+  declare deletedAt: DateTime
+
+  @beforeCreate()
+  static assignUuid(equipament: Equipament) {
+    equipament.id = randomUUID()
+  }
 }

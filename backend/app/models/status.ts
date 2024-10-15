@@ -12,9 +12,6 @@ export default class Status extends BaseModel {
   @column()
   declare name: string
 
-  @hasMany(() => Equipament)
-  declare equipaments: HasMany<typeof Equipament>
-
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
