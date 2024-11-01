@@ -82,7 +82,6 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                     <thead>
                         <tr>
                             <th className="checkbox-header">
-                                {/* <input className="checkbox-base" type="checkbox" /> */}
                                 <Checkbox />
                             </th>
                             {columns && columns.length > 0 && columns.map((column, index) => (
@@ -99,7 +98,6 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                         {data && data.length > 0 && data.map((row, rowIndex) => (
                             <tr key={rowIndex}>
                                 <td className="checkbox-column">
-                                    {/* <input className="checkbox-base" type="checkbox" /> */}
                                     <Checkbox />
                                 </td>
                                 {columns.map((column, colIndex) => (

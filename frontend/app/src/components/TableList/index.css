@@ -145,22 +145,6 @@ button {
     background-color: #0056b3;
 }
 
-/* .button-icon {
-    width: 19.23px;
-    height: 19.23px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-}
-
-.button-icon svg {
-    display: block; 
-} 
-*/
-
 /* Texto e ícone alinhados no botão */
 button span {
     vertical-align: middle; /* Alinha o texto no meio */
@@ -325,8 +309,10 @@ border-bottom: 0.961594px solid #EAECF0;
     font-size: 12px;
 }
 
-.action-button {
+.action-button:hover {
     cursor: pointer;
+    background-color: #9fa1a373;
+    border-radius: 10px;
 }
 
 /* Estiliza a barra de rolagem para navegadores WebKit (Chrome, Safari, Edge) */
