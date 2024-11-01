@@ -4,6 +4,7 @@ import DefaultLayout from './components/DefaultLayout'
 import Equipaments from './pages/Equipaments'
 import Patrimony from './pages/Patrimony'
 import Loans from './pages/Loans'
+import People from './pages/People'
 
 const RoutesApp = () => {
     return (
@@ -12,6 +13,7 @@ const RoutesApp = () => {
                 <Route path='/' Component={Equipaments}/>
                 <Route path='/patrimonios' Component={Patrimony}/>
                 <Route path='/emprestimos' Component={Loans}/>
+                <Route path='/pacientes' Component={People}/>
             </Route>
         </Routes>
     )
