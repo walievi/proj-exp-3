@@ -18,7 +18,7 @@ const Dropdown = ({label, description, identifier, required, data}) => {
                 {
                     required === true ?
                         <select name={identifier} id={identifier}>
-                            <option selected>Selecione</option>
+                            <option value="">Selecione</option>
                             { 
                                 data.map(dt => (
                                     <option value={dt.value} key={dt.value}>{dt.description}</option>
