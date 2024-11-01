@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './index.css'; // Importar estilos
 
 import Icon from '@mui/material/Icon';
+import ActionMenu from '../ActionMenu/index.jsx';
 
 //Icones de Material UI
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -106,7 +107,7 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                                     </td>
                                 ))}
                                 <td className="table-row-data">
-                                    <MoreVertOutlinedIcon className="action-button"/>
+                                    <ActionMenu />
                                 </td>
                             </tr>
                         ))}
