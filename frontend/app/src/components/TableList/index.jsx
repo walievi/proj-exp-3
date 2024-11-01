@@ -1,21 +1,34 @@
 import React, { useState } from 'react';
 import './index.css'; // Importar estilos
 
-import Icon from '@mui/material/Icon';
-import ActionMenu from '../ActionMenu/index.jsx';
+//Importar componentes do projeto
+import ActionMenu from '../ActionMenu';
+import FilterModal from '../FilterModal';
+import { useTableList } from '../../providers/TableListProvider';
 
 // Icones de Material UI
+import Icon from '@mui/material/Icon';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+
 
 // Importando checkbox de Material UI
 import Checkbox from '@mui/material/Checkbox';
-import { useTableList } from '../../providers/TableListProvider';
+
 
 const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
+    const [isFilterModalOpen, setFilterModalOpen] = useState(false);
+
+    const handleOpenFilterModal = () => {
+        setFilterModalOpen(true);
+    };
+
+    const handleCloseFilterModal = () => {
+        setFilterModalOpen(false);
+    };
+
     const tableListContext = useTableList();
 
     const renderStatus = (status) => {
@@ -85,7 +98,7 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                                     </button>
                                 </div>
                                 <div className="item-header">
-                                    <button className="filter-button">
+                                    <button className="filter-button" onClick={handleOpenFilterModal}>
                                         <div className="button-icon">
                                             <Icon><FilterListIcon /></Icon>
                                         </div>
@@ -170,6 +183,7 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                     </table>   
                 </div>
             </div>
+            {isFilterModalOpen && <FilterModal onClose={handleCloseFilterModal} />}
             {tableListContext.read.showCreateModal ? createModal : null}
         </>
     );

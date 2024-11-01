@@ -16,8 +16,8 @@ const DialogModal = ({title, description, handleCancel, handleConfirmation}) => 
                     {description}
                 </div>
                 <div id="modal-dialog-footer">
-                    <Button text="Continuar" opacity="100%" width="100%" type="button" onClickEvent={handleConfirmation} />
-                    <Button text="Cancelar" opacity="70%" width="100%" type="button" onClickEvent={handleCancel} />
+                    <Button text="Continuar" opacity="100%" width="100%" type="button" onClick={handleConfirmation} />
+                    <Button text="Cancelar" opacity="70%" width="100%" type="button" onClick={handleCancel} />
                 </div>
             </div>
         </div>
