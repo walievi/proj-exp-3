@@ -3,7 +3,13 @@ export const getPaginationPages = (currentPage, totalPages) => {
 
     // Se a página atual for 1, 2 ou 3, adiciona as primeiras 5 páginas
     if (currentPage <= 3) {
-        pages.push(1, 2, 3, 4, 5);
+        if (totalPages >= 5) {
+            pages.push(1, 2, 3, 4, 5);
+        }else {
+            for (let i = 1; i <= totalPages; i++) {
+                pages.push(i);
+            }
+        }  
     } 
     // Se a página atual estiver entre 4 e totalPages - 3
     else if (currentPage >= 4 && currentPage <= totalPages - 3) {
