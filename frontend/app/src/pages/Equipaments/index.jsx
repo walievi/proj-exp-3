@@ -33,6 +33,10 @@ const Equipamentos = () => {
     })
   }
 
+  function getTotalEquipments() {
+    return equipamentsContext.read.equipaments.length;
+  }
+
   const modalForm = [
     {
       id: 1,
@@ -59,26 +63,10 @@ const Equipamentos = () => {
         <div className="count-equipment-container">
           <div className="count-container">
             <div className="count-name-container"> 
-              Total Equipamentos
+              Equipamentos Cadastrados
             </div>
             <div className="count-quantity-container">
-              100
-            </div>
-          </div>
-          <div className="count-container">
-            <div className="count-name-container"> 
-              Total Equipamentos
-            </div>
-            <div className="count-quantity-container">
-              100
-            </div>
-          </div>
-          <div className="count-container">
-            <div className="count-name-container"> 
-              Total Equipamentos
-            </div>
-            <div className="count-quantity-container">
-              100
+              {getTotalEquipments()}  
             </div>
           </div>
         </div>
