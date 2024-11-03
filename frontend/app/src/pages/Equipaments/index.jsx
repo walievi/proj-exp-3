@@ -33,10 +33,39 @@ const Equipamentos = () => {
     })
   }
 
+//Funções de contagem de cadastros
   function getTotalEquipments() {
     return equipamentsContext.read.equipaments.length;
   }
 
+  function getTotalCategories() {
+    const uniqueCategories = new Set();
+  
+    equipamentsContext.read.equipaments.forEach(equipament => {
+      uniqueCategories.add(equipament.category.name);
+    });
+  
+    return {
+      categoriesCount: uniqueCategories.size,
+    };
+  }
+
+  function getTotalManufacturers() {
+    const uniqueManufacturers = new Set();
+  
+    equipamentsContext.read.equipaments.forEach(equipament => {
+      uniqueManufacturers.add(equipament.manufacturer);
+    });
+  
+    return {
+      manufacturersCount: uniqueManufacturers.size,
+    };
+  }
+
+  
+
+
+//Função controladora dos campos da modal de cadastro
   const modalForm = [
     {
       id: 1,
@@ -69,6 +98,22 @@ const Equipamentos = () => {
               {getTotalEquipments()}  
             </div>
           </div>
+          <div className="count-container">
+            <div className="count-name-container"> 
+              Fabricantes Cadastrados
+            </div>
+            <div className="count-quantity-container">
+              {getTotalManufacturers().manufacturersCount}  
+            </div>
+          </div>
+          <div className="count-container">
+            <div className="count-name-container"> 
+              Categorias Cadastradas
+            </div>
+            <div className="count-quantity-container">
+              {getTotalCategories().categoriesCount}  
+            </div>
+          </div>  
         </div>
 
         <BasicTable 
