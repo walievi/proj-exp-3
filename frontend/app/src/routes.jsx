@@ -10,10 +10,10 @@ const RoutesApp = () => {
     return (
         <Routes>
             <Route element={<DefaultLayout />}>
-                <Route path='/' Component={Equipment}/>
-                <Route path='/patrimonios' Component={Patrimony}/>
-                <Route path='/emprestimos' Component={Loans}/>
-                <Route path='/pacientes' Component={People}/>
+                <Route path='/' element={<Equipment />}/>
+                <Route path='/patrimonios' element={<Patrimony />}/>
+                <Route path='/emprestimos' element={<Loans />}/>
+                <Route path='/pacientes' element={<People />}/>
             </Route>
         </Routes>
     )

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BasicTable  from '../../components/TableList'; // Importando a Tabela base do diretório components
 import './index.css'; // Importar estilos
 
-import Modal from '../../components/Modal'
+import Modal from '../../components/Modal';
 import InputText from '../../components/InputText';
 import Dropdown from '../../components/Dropdown';
 import TextArea from '../../components/TextArea';
@@ -52,10 +52,10 @@ const Equipamentos = () => {
     }
   ]
 
+
   return (
     <>
-    <div className="equipment-container">
-        
+      <div className="equipment-container"> 
         <div className="count-equipment-container">
           <div className="count-container">
             <div className="count-name-container"> 
@@ -97,7 +97,7 @@ const Equipamentos = () => {
             />
           }
         />
-    </div>
+      </div>
     </>
   );
 };

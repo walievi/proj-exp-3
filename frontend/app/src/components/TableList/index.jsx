@@ -4,7 +4,9 @@ import './index.css'; // Importar estilos
 //Importar componentes do projeto
 import ActionMenu from '../ActionMenu';
 import FilterModal from '../FilterModal';
+// import InformationModal from '../InformationModal';
 import { useTableList } from '../../providers/TableListProvider';
+import { getPaginationPages} from './PaginationUtils.js';
 
 // Icones de Material UI
 import Icon from '@mui/material/Icon';
@@ -12,13 +14,12 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
-
 // Importando checkbox de Material UI
 import Checkbox from '@mui/material/Checkbox';
 
 
 const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
+//Configuração modal filtro
     const [isFilterModalOpen, setFilterModalOpen] = useState(false);
 
     const handleOpenFilterModal = () => {
@@ -29,6 +30,7 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
         setFilterModalOpen(false);
     };
 
+//Configuração tabela
     const tableListContext = useTableList();
 
     const renderStatus = (status) => {
@@ -44,37 +46,16 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
         tableListContext.write.showCreateModal(true);
     }
 
+//Configuração de paginação
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 9;
     const totalPages = Math.ceil(data.length / itemsPerPage);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-
-    // -------------- função de paginação ---------------
-    // const handlePageChange = (page) => {
-    //     if (page >= 1 && page <= totalPages) {
-    //         setCurrentPage(page);
-    //     }
-    // };
-
-    // const renderPagination = () => {
-    //     const pages = [];
-    //     for (let i = 1; i <= totalPages; i++) {
-    //         pages.push(
-    //             <button
-    //                 key={i}
-    //                 onClick={() => handlePageChange(i)}
-    //                 className={`page-button ${i === currentPage ? 'active' : ''}`}
-    //             >
-    //                 {i}
-    //             </button>
-    //         );
-    //     }
-    //     return pages;
-    // };
+    const paginationPages = getPaginationPages(currentPage, totalPages);
 
     return (
         <>
@@ -153,34 +134,48 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                                 </tr>
                             ))}
                         </tbody>
-                        {/* <tfoot>
-                            <tr>
-                                <td>
-                                    <div className="pagination-controls">
-                                        <button 
-                                            className="pagination-button" 
-                                            onClick={() => handlePageChange(currentPage - 1)} 
-                                            disabled={currentPage === 1}
-                                        >
-                                            Anterior
-                                        </button>
-                                        
-                                        <div className="page-numbers">
-                                            {renderPagination()} 
-                                        </div>
-                                        
-                                        <button 
-                                            className="pagination-button" 
-                                            onClick={() => handlePageChange(currentPage + 1)} 
-                                            disabled={currentPage === totalPages}
-                                        >
-                                            Próxima
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tfoot> */}
-                    </table>   
+                        
+                    </table>
+
+                    <div className="pagination-container">
+                    <button
+                            className="pagination-button"
+                            onClick={() => setCurrentPage(1)}
+                            disabled={currentPage === 1}
+                        >
+                            &laquo;
+                        </button>
+                        <button
+                            className="pagination-button"
+                            disabled={currentPage === 1}
+                            onClick={() => setCurrentPage(currentPage - 1)}
+                        >
+                            &larr;
+                        </button>
+                        {paginationPages.map((page) => (
+                            <button
+                                key={page}
+                                className={`pagination-button-number ${currentPage === page ? 'active' : ''}`}
+                                onClick={() => setCurrentPage(page)}
+                            >
+                                {page}
+                            </button>
+                        ))}
+                        <button
+                            className="pagination-button"
+                            disabled={currentPage === totalPages}
+                            onClick={() => setCurrentPage(currentPage + 1)}
+                        >
+                            &rarr;
+                        </button>
+                        <button
+                            className="pagination-button"
+                            onClick={() => setCurrentPage(totalPages)}
+                            disabled={currentPage === totalPages}
+                        >
+                            &raquo;
+                        </button>
+                    </div>   
                 </div>
             </div>
             {isFilterModalOpen && <FilterModal onClose={handleCloseFilterModal} />}
