@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import BasicTable  from '../../components/TableList'; // Importando a Tabela base do diretório components
 import './index.css'; // Importar estilos
@@ -7,9 +6,78 @@ import Modal from '../../components/Modal'
 import InputText from '../../components/InputText';
 import Dropdown from '../../components/Dropdown';
 import TextArea from '../../components/TextArea';
+// import { useLoan } from '../../providers/LoanContext';
+// import { usePatrimony } from '../../providers/PatrimonyContext';
+// import { useEquipament } from '../../providers/EquipamentsContext';
+// import { usePeople } from '../..providers/PeopleContext';
 
 const Emprestimos = () => {
   const columns = ["Empréstimo", "Patrimônio", "Disponível", "Status"];
+
+  //Serialization dos dados necessário para a page
+  // const equipamentsContext = useEquipament();
+  // const loansContext = useLoan();
+  // const patrimonysContext = usePatrimony();
+
+  // function serializeEquipaments() {
+  //   return equipamentsContext.read.equipaments.map(equipament => {
+  //     return {
+  //       Modelo: equipament.model,
+  //       Fabricante: equipament.manufacturer,
+  //     }
+  //   })
+  // }
+
+  // function serializePatrimony() {
+  //   return patrimonysContext.read.patrimonys.map(patrimony => {
+  //     return {
+  //       Patrimônio: patrimony.code,
+  //       Equipamento: patrimony.equipament.id,
+  //     }
+  //   })
+  // }
+
+  // function serializeLoan() {
+  //   return loansContext.read.loans.map(loan => {
+  //     return {
+  //       Patrimônio: loan.patrimony.code,
+  //       Status: loan.status,
+  //     }
+  //   })
+  // }
+
+
+  //Funções de contagem de cadastros
+  // function getTotalLoans() {
+  //   return loansContext.read.loans.length;
+  // }
+
+  // function getTotalActiveLoans() {
+  //   const activeLoans = new Set();
+  
+  //   loansContext.read.loans.forEach(loan => {
+  //     activeLoans.add(loan.status.active);
+  //   });
+  
+  //   return {
+  //     totalActiveLoans: activeLoans.size,
+  //   };
+  // }
+
+  // function getTotalInactiveLoans() {
+  //   const inactiveLoans = new Set();
+  
+  //   loansContext.read.loans.forEach(loan => {
+  //     inactiveLoans.add(loans.status.inactive);
+  //   });
+  
+  //   return {
+  //     totalInactiveLoans: inactiveLoans.size,
+  //   };
+  // }
+
+
+
   const data = [
     {Empréstimo: "1" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
     {Empréstimo: "2" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Inativo" },
@@ -32,6 +100,8 @@ const Emprestimos = () => {
     {Empréstimo: "19" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Inativo" },
     {Empréstimo: "20" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
   ];
+
+  //Função controladora dos campos da modal de cadastro
   const modalForm = [
     {
       id: 1,
@@ -57,31 +127,30 @@ const Emprestimos = () => {
 
   return (
     <>
-    <div className="equipment-container">
-        
+      <div className="equipment-container">
         <div className="count-equipment-container">
           <div className="count-container">
             <div className="count-name-container"> 
               Total Empréstimos
             </div>
             <div className="count-quantity-container">
-              100
+              {/* {getTotalLoans()} */}
             </div>
           </div>
           <div className="count-container">
             <div className="count-name-container"> 
-              Total Empréstimos
+              Empréstimos Ativos
             </div>
             <div className="count-quantity-container">
-              100
+              {/* {getTotalActiveLoans().totalActiveLoans} */}
             </div>
           </div>
           <div className="count-container">
             <div className="count-name-container"> 
-              Total Emprestimos
+              Emprestimos Inativos
             </div>
             <div className="count-quantity-container">
-              100
+              {/* {getTotalInactiveLoans().totalInactiveLoans} */}
             </div>
           </div>
         </div>
@@ -91,14 +160,16 @@ const Emprestimos = () => {
           subtitle="Listagem de Empréstimos" 
           columns={columns}
           data={data}
+          // data={serializeLoans()}
           createModal={
             <Modal 
               modalTitle="Cadastro de Empréstimo" 
-              modalForm={modalForm} 
+              modalForm={modalForm}
+              // action={loansContext.write.loans} 
             />
           }
         />
-    </div>
+      </div>
     </>
   );
 };

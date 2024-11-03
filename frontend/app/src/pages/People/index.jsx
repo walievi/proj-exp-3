@@ -5,9 +5,33 @@ import './index.css'; // Importar estilos
 import Modal from '../../components/Modal'
 import InputText from '../../components/InputText';
 import TextArea from '../../components/TextArea';
+// import { usePeople } from '../..providers/PeopleContext';
 
 const Emprestimos = () => {
   const columns = ["Nome", "CPF", "Endereço", "Telefone", "Email"];
+
+  //Serialization dos dados necessário para a page
+  // const peopleContext = usePeople();
+
+  // function serializePeople() {
+  //   return peopleContext.read.people.map(person => {
+  //     return {
+  //       Nome: person.first_name + ' ' + person.surname,
+  //       CPF: person.cpf,
+  //       Endereço: person.address,
+  //       Telefone: person.phone,
+  //       Email: person.email,
+  //       Data de Nasicmento: person.birthday,
+  //     }
+  //   })
+  // }
+
+  //Funções de contagem de cadastros
+  // function getTotalPeople() {
+  //   return peopleContext.read.people.length;
+  // }
+
+
   const data = [
     {Nome: "Fulao da Silva" , CPF: "099.9xx.xxx-xx", Endereço: "Rua dos Bobos", Telefone: "(XX)XXXXX-XXXX", Email: "fulano@gmail.com" },
     {Nome: "Fulao da Silva" , CPF: "099.9xx.xxx-xx", Endereço: "Rua dos Bobos", Telefone: "(XX)XXXXX-XXXX", Email: "fulano@gmail.com" },
@@ -160,23 +184,7 @@ const Emprestimos = () => {
               Total Empréstimos
             </div>
             <div className="count-quantity-container">
-              100
-            </div>
-          </div>
-          <div className="count-container">
-            <div className="count-name-container"> 
-              Total Empréstimos
-            </div>
-            <div className="count-quantity-container">
-              100
-            </div>
-          </div>
-          <div className="count-container">
-            <div className="count-name-container"> 
-              Total Emprestimos
-            </div>
-            <div className="count-quantity-container">
-              100
+              {/* {getTotalPeople)} */}
             </div>
           </div>
         </div>
@@ -186,10 +194,12 @@ const Emprestimos = () => {
           subtitle="Listagem de Pacientes" 
           columns={columns}
           data={data}
+          // data={serializePeople()}
           createModal={
             <Modal 
               modalTitle="Cadastro de Pacientes" 
               modalForm={modalForm} 
+              // action={peopleContext.write.people} 
             />
           }
         />
