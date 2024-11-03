@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './index.css'; // Importar estilos
+import { exportToCSV} from './ExportUtils'; // Importar script de exportação de dados
 
 //Importar componentes do projeto
 import ActionMenu from '../ActionMenu';
@@ -57,6 +58,11 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
 
     const paginationPages = getPaginationPages(currentPage, totalPages);
 
+//Função de exportação de dados da tabela
+    const handleExport = () => {
+        exportToCSV(data, columns); // Chama a função exportando os dados
+    };
+
     return (
         <>
             <div className="list-container">
@@ -87,7 +93,7 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                                     </button>
                                 </div>
                                 <div className="item-header">
-                                    <button className="export-button">
+                                    <button className="export-button" onClick={handleExport}>
                                         <div className="button-icon">
                                             <Icon><CloudDownloadOutlinedIcon /></Icon>
                                         </div>
