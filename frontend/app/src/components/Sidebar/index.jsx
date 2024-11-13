@@ -20,8 +20,8 @@ const SideMenu = () => {
   }, [location.pathname]);
 
   const menuItems = [
-    { path: '/dashboard', label: '     Dashboard', icon: <PiPulseBold /> },
-    { path: '/', label: '     Equipamentos', icon: <Inventory2OutlinedIcon /> },
+    { path: '/', label: '     Home', icon: <PiPulseBold /> },
+    { path: '/equipamentos', label: '     Equipamentos', icon: <Inventory2OutlinedIcon /> },
     { path: '/patrimonios', label: '     Patrimônios', icon: <Inventory2OutlinedIcon /> },
     { path: '/emprestimos', label: '     Empréstimos', icon: <Inventory2OutlinedIcon /> },
     { path: '/pacientes', label: '     Pacientes', icon: <SupervisedUserCircleIcon /> },
