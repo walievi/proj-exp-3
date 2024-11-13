@@ -4,6 +4,9 @@ import './index.css'
 
 import Button from "../Button";
 
+import { Modal, Button as BootstrapButton, Form } from 'react-bootstrap';
+
+
 const DialogModal = ({title, description, handleCancel, handleConfirmation}) => {
 
     return (

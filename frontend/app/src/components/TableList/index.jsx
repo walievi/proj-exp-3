@@ -15,6 +15,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 // Importando checkbox de Material UI
 import Checkbox from '@mui/material/Checkbox';
 
@@ -65,77 +66,65 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
 
     return (
         <>
-            <div className="list-container">
-                <div className="table-container">
-                    <div className="table-header-container">
-                        <div className="items-table-header-container">
-                            <div className="title-header">
-                                <div className="principal-item-header">
-                                    <div className="text-item-header">{title}</div>
-                                </div>
+            <div className="list-container container">
+                <div className="table-container bg-white border rounded">
+                    <div className="table-header-container sticky-top bg-white">
+                        <div className="items-table-header-container d-flex align-items-center justify-content-between py-3">
+                            <div>
+                                <div className="text-item-header">{title}</div>
                                 <div className="sub-item-header">{subtitle}</div>
                             </div>
-                            <div className="action-item-header">
-                                <div className="item-header">
-                                    <button className="delete-button">
-                                        <div>
-                                            <Icon><DeleteOutlineIcon /></Icon>
-                                        </div>
-                                        Deletar
-                                    </button>
-                                </div>
-                                <div className="item-header">
-                                    <button className="filter-button" onClick={handleOpenFilterModal}>
-                                        <div className="button-icon">
-                                            <Icon><FilterListIcon /></Icon>
-                                        </div>
-                                        Filtrar
-                                    </button>
-                                </div>
-                                <div className="item-header">
-                                    <button className="export-button" onClick={handleExport}>
-                                        <div className="button-icon">
-                                            <Icon><CloudDownloadOutlinedIcon /></Icon>
-                                        </div>
-                                        Exportar
-                                    </button>
-                                </div>
-                                <div className="item-header">
-                                    <button className="create-button" onClick={handleClickAdd}>
-                                        <div className="button-icon">
-                                            <Icon><AddCircleOutlineIcon /></Icon>
-                                        </div>
-                                        Adicionar
-                                    </button>
-                                </div>
+                            <div className="action-item-header d-flex">
+                                <button className="btn btn-danger me-2">
+                                    <DeleteOutlineIcon /> {' '} 
+                                    Deletar
+                                </button>
+                                <button className="btn btn-warning me-2" onClick={handleOpenFilterModal}>
+                                    <FilterListIcon /> {' '}
+                                    Filtrar
+                                </button>
+                                <button className="btn btn-success me-2" onClick={handleExport}>
+                                    <CloudDownloadOutlinedIcon /> {' '}
+                                    Exportar
+                                </button>
+                                <button className="btn btn-primary" onClick={handleClickAdd}>
+                                    <AddCircleOutlineIcon /> {' '}
+                                    Adicionar
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <table className="table-content-container">
+                    <table className="table table-sm align-middle">
                         <thead>
                             <tr>
-                                <th className="checkbox-header">
+                                <th className="checkbox-header" scope="col">
                                     <Checkbox />
                                 </th>
                                 {columns && columns.length > 0 && columns.map((column, index) => (
-                                    <th key={index} className="table-row-header">{column}</th>
+                                    <th key={index} className="table-row-header" scope="col">{column}</th>
                                 ))}
-                                <th className="table-row-header"></th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             {currentItems.map((row, rowIndex) => (
                                 <tr key={rowIndex}>
-                                    <td className="checkbox-column">
+                                    <td className="checkbox-column" scope="row">
                                         <Checkbox />
                                     </td>
                                     {columns.map((column, colIndex) => (
-                                        <td key={colIndex} className="table-row-data">
+                                        <td key={colIndex} className="table-row-data" scope="row">
                                             {column === "Status" ? renderStatus(row[column]) : row[column] || 'N/A'}
                                         </td>
                                     ))}
-                                    <td className="table-row-data">
-                                        <ActionMenu />
+                                    <td className="table-row-data" scope="row">
+                                        <button 
+                                            className='btn btn-outline-info'
+                                            onClick={() => handleView(row)}
+                                        >
+                                            <VisibilityOutlinedIcon />{' '}
+                                            Visualizar
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
@@ -145,14 +134,14 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
 
                     <div className="pagination-container">
                     <button
-                            className="pagination-button"
+                            className="btn btn-outline-primary"
                             onClick={() => setCurrentPage(1)}
                             disabled={currentPage === 1}
                         >
                             &laquo;
                         </button>
                         <button
-                            className="pagination-button"
+                            className="btn btn-outline-primary"
                             disabled={currentPage === 1}
                             onClick={() => setCurrentPage(currentPage - 1)}
                         >
@@ -161,21 +150,21 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                         {paginationPages.map((page) => (
                             <button
                                 key={page}
-                                className={`pagination-button-number ${currentPage === page ? 'active' : ''}`}
+                                className={`btn btn-outline-primary ${currentPage === page ? 'active' : ''}`}
                                 onClick={() => setCurrentPage(page)}
                             >
                                 {page}
                             </button>
                         ))}
                         <button
-                            className="pagination-button"
+                            className="btn btn-outline-primary"
                             disabled={currentPage === totalPages}
                             onClick={() => setCurrentPage(currentPage + 1)}
                         >
                             &rarr;
                         </button>
                         <button
-                            className="pagination-button"
+                            className="btn btn-outline-primary"
                             onClick={() => setCurrentPage(totalPages)}
                             disabled={currentPage === totalPages}
                         >

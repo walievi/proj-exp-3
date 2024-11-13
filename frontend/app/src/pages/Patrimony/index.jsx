@@ -107,31 +107,31 @@ const Patrimonios = () => {
   return (
     <>
       <div className="equipment-container"> 
-        <div className="count-equipment-container">
-          <div className="count-container">
-            <div className="count-name-container"> 
-              Total Patrimônios
+        <div className="count-equipment-container d-flex flex-row align-items-center p-3 gap-4 w-100" style={{ maxWidth: '1552px', height: '200px' }}>
+          <div className="count-container d-flex flex-column align-items-start p-3 gap-3 w-25 h-25 h-100 bg-primary rounded">
+            <div className="count-name-container fs-4 fw-normal text-white"> 
+              Total
             </div>
-            <div className="count-quantity-container">
+            <div className="count-quantity-container fs-1 fw-bold d-flex align-items-end text-white">
               {/* {getTotalPatrimonys()} */}
             </div>
           </div>
-          <div className="count-container">
-            <div className="count-name-container"> 
-              Patrimônios Ativos
+          <div className="count-container d-flex flex-column align-items-start p-3 gap-3 w-25 h-100 bg-primary rounded">
+            <div className="count-name-container fs-4 fw-normal text-white"> 
+              Ativos
             </div>
-            <div className="count-quantity-container">
-              {/* {getTotalActivePatrimonys().totalActivePatrimonys} */}
+            <div className="count-quantity-container fs-1 fw-bold d-flex align-items-end text-white">
+              {/* {getTotalActivePatrimonys().totalActivePatrimonys} */} 
             </div>
           </div>
-          <div className="count-container">
-            <div className="count-name-container"> 
-              Patrimonios Inativos
+          <div className="count-container d-flex flex-column align-items-start p-3 gap-3 w-25 h-100 bg-primary rounded">
+            <div className="count-name-container fs-4 fw-normal text-white"> 
+            Inativos
             </div>
-            <div className="count-quantity-container">
+            <div className="count-quantity-container fs-1 fw-bold d-flex align-items-end text-white">
               {/* {getTotalInactivePatrimonys().totalInactivePatrimonys} */}
             </div>
-          </div>
+          </div>  
         </div>
 
         <BasicTable 

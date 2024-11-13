@@ -30,44 +30,41 @@ const SideMenu = () => {
   ];
 
   return (
-    <div className="container-sidebar">
-      <div className="logo">
+    <div className="d-flex flex-column vh-100 bg-primary text-white p-3">
+      <div className="text-center mb-4">
         <h2>Sistema CFA/CRAs</h2>
       </div>
-      <div className="content-sidebar">
-        <nav>
-          <ul className="sidebar-items">
+        <nav className='flex-grow-1'>
+          <ul className="nav flex-column">
             {menuItems.map((item) => (
-              <li
-                key={item.path}
-                className={`navlink ${activePath === item.path ? 'selected' : ''}`} // Garantir que a expressão é sempre uma string
-              >
-                <NavLink to={item.path} onClick={() => setActivePath(item.path)}>
-                  <Icon fontSize="medium">{item.icon}</Icon>
-                  <span>{item.label}</span>
-                </NavLink>
-              </li>
+              <li key={item.path} className="nav-item">
+               <NavLink
+                 to={item.path}
+                 className={`nav-link d-flex align-items-center ${activePath === item.path ? 'active-link' : 'hover-effect'}`}
+                 onClick={() => setActivePath(item.path)}
+               >
+                 {item.icon}
+                 <span className="ms-2">{item.label}</span>
+               </NavLink>
+             </li>
             ))}
           </ul>
         </nav>
-      </div>
-      <div className="footer-sidebar">
-        <div className="profile-block">
-          <div className='profile-avatar'>
-            <Icon fontSize='large'><AccountCircleIcon className="profile-icon" /> </Icon>
-          </div>
-          <div className="profile-info">
-            <div className="profile-name">Usuário</div>
-            <div className="profile-type">Role</div>
+        <div className="mt-auto pt-3 border-top border-light text-center">
+          <div className='d-flex flex-column align-items-center'>
+            <Icon fontSize='large'><AccountCircleIcon className="mb-2" fontSize='large' /> </Icon>         
+            <div className="profile-info">
+              <div className="fw-bold">Usuário</div>
+              <div className="text-muted">Role</div>
+            </div>
           </div>
         </div>
         <div>
-          <button className="edit-profile">
-            <FaEdit />
+          <button className="btn btn-light mt-3 w-100 d-flex align-items-center justify-content-center">
+            <FaEdit className='me-2'/>
             Editar Perfil
           </button>
         </div>
-      </div>
     </div>
   );
 };

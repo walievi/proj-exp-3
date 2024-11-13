@@ -1,0 +1,41 @@
+/* Container principal - Ajuste para o layout do Flexbox */
+.equipment-container {
+    width: 100%;
+    max-width: 1552px;
+    margin: 0 auto;
+  }
+  
+  .count-equipment-container {
+    padding: 0px 20px; /* Ajuste do espaçamento */
+    gap: 20px;
+    height: 200px;
+  }
+  
+  /* Container de contagem - ajustes do fundo e do layout */
+  .count-container {
+    height: 140px; /* Dimensão fixada */
+  }
+  
+  /* Ajuste de texto dentro do container de contagem */
+  .count-name-container, 
+  .count-quantity-container {
+    width: 338px; /* Largura do container */
+  }
+  
+  .count-name-container {
+    height: 25px;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .count-quantity-container {
+    height: 85px;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    display: flex;
+    align-items: flex-end;
+  }
