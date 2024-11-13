@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import BasicTable  from '../../components/TableList'; // Importando a Tabela base do diretório components
 import './index.css'; // Importar estilos
 
-import Modal from '../../components/Modal'
+import Modal from '../../components/CreateModal';
 import InputText from '../../components/InputText';
 import Dropdown from '../../components/Dropdown';
 import TextArea from '../../components/TextArea';
@@ -105,23 +105,23 @@ const Emprestimos = () => {
   const modalForm = [
     {
       id: 1,
-      field: <Dropdown label='Patrimônio' description='Obrigatório' identifier='categEquipament' required={true} data={[{value: 1, description: 'dd4ebb0d-2352-4105-b502-092bc9c2ac60'}, {value: 2, description: 'dd4ebb0d-2352-4105-b502-092bc9c2ac60'}]} />
+      field: <Dropdown label='Patrimônio' description='Obrigatório' identifier='patrimonyId' required={true} data={[{value: 1, description: 'dd4ebb0d-2352-4105-b502-092bc9c2ac60'}, {value: 2, description: 'dd4ebb0d-2352-4105-b502-092bc9c2ac60'}]} />
     },
     {
       id: 2,
-      field: <Dropdown label='Paciente Responsável' description='Obrigatório' identifier='categEquipament' required={true} data={[{value: 1, description: 'Juliana'}, {value: 2, description: 'William'}, {value: 3, description: 'Daniel'}]} />
+      field: <Dropdown label='Paciente Responsável' description='Obrigatório' identifier='pacient' required={true} data={[{value: 1, description: 'Juliana'}, {value: 2, description: 'William'}, {value: 3, description: 'Daniel'}]} />
     },
     {
       id: 4,
-      field: <InputText label='Data de Empréstimo' description='Obrigatório' identifier='descEquipament' required={true} />
+      field: <InputText label='Data de Empréstimo' description='Obrigatório' identifier='startDate' required={true} />
     },
     {
       id: 5,
-      field: <InputText label='Data de Vencimento' description='Obrigatório' identifier='descEquipament' required={true} />
+      field: <InputText label='Data de Vencimento' description='Obrigatório' identifier='endDate' required={true} />
     },
     {
       id: 6,
-      field: <TextArea label='Comentários' description='Obrigatório' identifier='descEquipament' required={true} />
+      field: <TextArea label='Comentários' description='Obrigatório' identifier='descLoan' required={true} />
     }
   ]
 

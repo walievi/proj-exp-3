@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import BasicTable  from '../../components/TableList'; // Importando a Tabela base do diretório components
 import './index.css'; // Importar estilos
 
-import Modal from '../../components/Modal'
+import Modal from '../../components/CreateModal';
 import InputText from '../../components/InputText';
 import Dropdown from '../../components/Dropdown';
 import TextArea from '../../components/TextArea';
@@ -92,7 +92,7 @@ const Patrimonios = () => {
   const modalForm = [
     {
       id: 1,
-      field: <InputText label='Código' description='Obrigatório' identifier='codEquipament' required={true} />
+      field: <InputText label='Código' description='Obrigatório' identifier='EquipamentId' required={true} />
     },
     {
       id: 2,

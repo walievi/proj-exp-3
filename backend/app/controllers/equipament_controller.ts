@@ -43,6 +43,7 @@ export default class EquipamentController {
     const equipamentoToStore = new Equipament()
     equipamentoToStore.manufacturer = payload.manufacturer
     equipamentoToStore.model = payload.model
+    // equipamentoToStore.serialNumber = payload.serialNumber
     equipamentoToStore.description = payload.description
 
     await equipamentoToStore.related('category').associate(categoryFound)

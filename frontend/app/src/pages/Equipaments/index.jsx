@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BasicTable  from '../../components/TableList'; // Importando a Tabela base do diretório components
 import './index.css'; // Importar estilos
 
-import Modal from '../../components/Modal';
+import Modal from '../../components/CreateModal';
 import InputText from '../../components/InputText';
 import Dropdown from '../../components/Dropdown';
 import TextArea from '../../components/TextArea';
@@ -27,6 +27,7 @@ const Equipamentos = () => {
     return equipamentsContext.read.equipaments.map(equipament => {
       return {
         Modelo: equipament.model,
+        // numeroSerie: equipament.serialNumber,
         Fabricante: equipament.manufacturer,
         Categoria: equipament.category.name,
       }
@@ -71,6 +72,10 @@ const Equipamentos = () => {
       id: 1,
       field: <InputText label='Modelo' description='Obrigatório' identifier='model' required={true} />
     },
+    // {
+    //   id: 2,
+    //   field: <InputText label='Número de série' description='Obrigatório' identifier='serialNumber' required={true} />
+    // },
     {
       id: 2,
       field: <InputText label='Fabricante' description='Obrigatório' identifier='manufacturer' required={true} />

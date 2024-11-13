@@ -13,6 +13,9 @@ export default class Equipament extends BaseModel {
   @column()
   declare model: string
 
+  // @column()
+  // declare serialNumber: string
+
   @column()
   declare manufacturer: string
 
