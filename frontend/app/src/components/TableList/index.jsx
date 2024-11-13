@@ -3,21 +3,19 @@ import './index.css'; // Importar estilos
 import { exportToCSV} from './ExportUtils'; // Importar script de exportação de dados
 
 //Importar componentes do projeto
-import ActionMenu from '../ActionMenu';
 import FilterModal from '../FilterModal';
-// import InformationModal from '../InformationModal';
 import { useTableList } from '../../providers/TableListProvider';
 import { getPaginationPages} from './PaginationUtils.js';
 
 // Icones de Material UI
-import Icon from '@mui/material/Icon';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-// Importando checkbox de Material UI
+// Importando componentes de Material UI
 import Checkbox from '@mui/material/Checkbox';
+import InformationModal from '../InformationModal/index.jsx';
 
 
 const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
@@ -31,6 +29,17 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
     const handleCloseFilterModal = () => {
         setFilterModalOpen(false);
     };
+
+//Configuração modal visualização
+    const [selectedItem, setSelectedItem] = useState(null);
+
+    const handleView = (item) => {
+        setSelectedItem(item);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedItem(null);
+    }
 
 //Configuração tabela
     const tableListContext = useTableList();
@@ -132,8 +141,15 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                         
                     </table>
 
+                    <InformationModal
+                        open={Boolean(selectedItem)}
+                        item={selectedItem}
+                        columns={columns}
+                        onClose={handleCloseModal}
+                    />
+
                     <div className="pagination-container">
-                    <button
+                        <button
                             className="btn btn-outline-primary"
                             onClick={() => setCurrentPage(1)}
                             disabled={currentPage === 1}
@@ -170,7 +186,7 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                         >
                             &raquo;
                         </button>
-                    </div>   
+                    </div>  
                 </div>
             </div>
             {isFilterModalOpen && <FilterModal onClose={handleCloseFilterModal} />}
