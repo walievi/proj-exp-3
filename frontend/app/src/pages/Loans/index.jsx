@@ -79,26 +79,16 @@ const Emprestimos = () => {
 
 
   const data = [
-    {Empréstimo: "1" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
-    {Empréstimo: "2" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Inativo" },
-    {Empréstimo: "3" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Inativo" },
-    {Empréstimo: "4" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
-    {Empréstimo: "5" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
-    {Empréstimo: "6" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Inativo" },
-    {Empréstimo: "7" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Inativo" },
-    {Empréstimo: "8" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
-    {Empréstimo: "9" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
-    {Empréstimo: "10" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Inativo" },
-    {Empréstimo: "11" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Inativo" },
-    {Empréstimo: "12" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
-    {Empréstimo: "13" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
-    {Empréstimo: "14" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Inativo" },
-    {Empréstimo: "15" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Inativo" },
-    {Empréstimo: "16" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
-    {Empréstimo: "17" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
-    {Empréstimo: "18" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Inativo" },
-    {Empréstimo: "19" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Inativo" },
-    {Empréstimo: "20" , Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
+    { Empréstimo: 1, Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
+    { Empréstimo: 2, Patrimônio: "a1d5b2c9-134b-4c8d-9b82-ef4ac7c1a1c2", Status: "Inativo" },
+    { Empréstimo: 3, Patrimônio: "b5ff4e00-2235-4d7f-a5b7-01babc8b4533", Status: "Em Manutenção" },
+    { Empréstimo: 4, Patrimônio: "fa3dc2d8-3af4-47a5-b1b1-e9f4bb234d10", Status: "Ativo" },
+    { Empréstimo: 5, Patrimônio: "c6aa5d22-16a7-42c8-a987-53c5f3b23445", Status: "Inativo" },
+    { Empréstimo: 6, Patrimônio: "ee4dc340-46f4-441f-9654-a32bc6c4d1a3", Status: "Em Manutenção" },
+    { Empréstimo: 7, Patrimônio: "dc0ebb0d-87e2-4f10-b4c1-092b9d2c3a60", Status: "Ativo" },
+    { Empréstimo: 8, Patrimônio: "fb2a4d55-3456-4b0e-8c7f-d22bcb4f14a7", Status: "Inativo" },
+    { Empréstimo: 9, Patrimônio: "ab2f2c11-33c7-4231-897d-f32a1c6b1f65", Status: "Ativo" },
+    { Empréstimo: 10, Patrimônio: "c2bb0d1e-9d8e-4f2f-b6c1-12cde7f8c5b4", Status: "Em Manutenção" }
   ];
 
   //Função controladora dos campos da modal de cadastro

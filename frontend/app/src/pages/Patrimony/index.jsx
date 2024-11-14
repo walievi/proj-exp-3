@@ -37,26 +37,16 @@ const Patrimonios = () => {
 
 
   const data = [
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Cadeira de Rodas", Status: "Ativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Muleta", Status: "Inativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Cama Hospitalar", Status: "Inativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Tubo Oxigênio", Status: "Ativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Cadeira de Rodas", Status: "Ativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Muleta", Status: "Inativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Cama Hospitalar", Status: "Inativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Tubo Oxigênio", Status: "Ativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Cadeira de Rodas", Status: "Ativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Muleta", Status: "Inativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Cama Hospitalar", Status: "Inativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Tubo Oxigênio", Status: "Ativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Cadeira de Rodas", Status: "Ativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Muleta", Status: "Inativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Cama Hospitalar", Status: "Inativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Tubo Oxigênio", Status: "Ativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Cadeira de Rodas", Status: "Ativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Muleta", Status: "Inativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Cama Hospitalar", Status: "Inativo" },
-    {Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60" , Equipamento: "Tubo Oxigênio", Status: "Ativo" },
+    { Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Equipamento: "Cadeira de Rodas", Status: "Ativo" },
+    { Patrimônio: "a1d5b2c9-134b-4c8d-9b82-ef4ac7c1a1c2", Equipamento: "Cadeira de Escritório", Status: "Inativo" },
+    { Patrimônio: "b5ff4e00-2235-4d7f-a5b7-01babc8b4533", Equipamento: "Mesa de Escritório", Status: "Em Manutenção" },
+    { Patrimônio: "fa3dc2d8-3af4-47a5-b1b1-e9f4bb234d10", Equipamento: "Computador", Status: "Ativo" },
+    { Patrimônio: "c6aa5d22-16a7-42c8-a987-53c5f3b23445", Equipamento: "Impressora", Status: "Inativo" },
+    { Patrimônio: "ee4dc340-46f4-441f-9654-a32bc6c4d1a3", Equipamento: "Projetor", Status: "Em Manutenção" },
+    { Patrimônio: "dc0ebb0d-87e2-4f10-b4c1-092b9d2c3a60", Equipamento: "Ar Condicionado", Status: "Ativo" },
+    { Patrimônio: "fb2a4d55-3456-4b0e-8c7f-d22bcb4f14a7", Equipamento: "Televisão", Status: "Inativo" },
+    { Patrimônio: "ab2f2c11-33c7-4231-897d-f32a1c6b1f65", Equipamento: "Microondas", Status: "Ativo" },
+    { Patrimônio: "c2bb0d1e-9d8e-4f2f-b6c1-12cde7f8c5b4", Equipamento: "Geladeira", Status: "Em Manutenção" }
   ];
 
   //Funções de contagem de cadastros

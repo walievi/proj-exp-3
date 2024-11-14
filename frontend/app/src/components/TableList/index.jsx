@@ -3,13 +3,11 @@ import './index.css'; // Importar estilos
 import { exportToCSV} from './ExportUtils'; // Importar script de exportação de dados
 
 //Importar componentes do projeto
-import FilterModal from '../FilterModal';
 import { useTableList } from '../../providers/TableListProvider';
 import { getPaginationPages} from './PaginationUtils.js';
 
 // Icones de Material UI
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -19,16 +17,6 @@ import InformationModal from '../InformationModal/index.jsx';
 
 
 const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
-//Configuração modal filtro
-    const [isFilterModalOpen, setFilterModalOpen] = useState(false);
-
-    const handleOpenFilterModal = () => {
-        setFilterModalOpen(true);
-    };
-
-    const handleCloseFilterModal = () => {
-        setFilterModalOpen(false);
-    };
 
 //Configuração modal visualização
     const [selectedItem, setSelectedItem] = useState(null);
@@ -73,6 +61,24 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
         exportToCSV(data, columns); // Chama a função exportando os dados
     };
 
+//Estados de controle de ordenação
+    const [sortConfig, setSortConfig] = useState({ key:null, direction: 'asc'});
+    
+// Função de ordenação
+    const handleSort = (column) => {
+        const direction = sortConfig.key === column && sortConfig.direction === 'asc' ? 'desc' : 'asc' ;
+        setSortConfig({ key: column, direction});
+        sortTable(column, direction);
+    };
+
+    const sortTable = (column, direction) => {
+        data.sort((a, b) => {
+            if (a[column] < b[column]) return direction === 'asc' ? -1 : 1;
+            if (a[column] > b[column]) return direction === 'asc' ? 1 : -1;
+            return null;
+        });
+    };
+
     return (
         <>
             <div className="list-container container">
@@ -87,10 +93,6 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                                 <button className="btn btn-danger me-2">
                                     <DeleteOutlineIcon /> {' '} 
                                     Deletar
-                                </button>
-                                <button className="btn btn-warning me-2" onClick={handleOpenFilterModal}>
-                                    <FilterListIcon /> {' '}
-                                    Filtrar
                                 </button>
                                 <button className="btn btn-success me-2" onClick={handleExport}>
                                     <CloudDownloadOutlinedIcon /> {' '}
@@ -110,7 +112,14 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                                     <Checkbox />
                                 </th>
                                 {columns && columns.length > 0 && columns.map((column, index) => (
-                                    <th key={index} className="table-row-header" scope="col">{column}</th>
+                                    <th key={index} className="table-row-header" scope="col">
+                                        <button className='sort-button' onClick={() => handleSort(column)}>
+                                            {column}
+                                            {sortConfig.key === column ? (
+                                                sortConfig.direction === 'asc' ? ' ↑' : ' ↓'
+                                            ) : null}
+                                        </button>
+                                    </th>
                                 ))}
                                 <th scope="col"></th>
                             </tr>
@@ -189,7 +198,6 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                     </div>  
                 </div>
             </div>
-            {isFilterModalOpen && <FilterModal onClose={handleCloseFilterModal} />}
             {tableListContext.read.showCreateModal ? createModal : null}
         </>
     );

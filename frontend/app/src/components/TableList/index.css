@@ -22,11 +22,15 @@
     border-bottom: 1px solid #EAECF0;
 }
 
-.table-row-header {
+.table-row-header{
     background: #FCFCFD;
     color: #667085;
     border-bottom: 0.961594px solid #EAECF0;
     text-align: center;
+}
+
+.sort-button {
+    color: #000000;
 }
 
 .table-row-data {
