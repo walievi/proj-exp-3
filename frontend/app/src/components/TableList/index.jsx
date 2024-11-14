@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css'; // Importar estilos
 import { exportToCSV} from './ExportUtils'; // Importar script de exportação de dados
 
@@ -47,7 +47,27 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
 
 //Configuração de paginação
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 9;
+    const [itemsPerPage, setItemsPerPage] = useState(9);
+    const updateItemsPerPage = () => {
+        const screenHeight = window.innerHeight;
+        if (screenHeight < 600) {
+            setItemsPerPage(3);
+        } else if (screenHeight <800) {
+            setItemsPerPage(4);
+        } else {
+            setItemsPerPage(9);
+        }
+    };
+
+    useEffect(() => {
+        updateItemsPerPage();
+        window.addEventListener('resize', updateItemsPerPage);
+
+        return() => {
+            window.removeEventListener('resize', updateItemsPerPage);
+        };
+    }, []);
+
     const totalPages = Math.ceil(data.length / itemsPerPage);
 
     const indexOfLastItem = currentPage * itemsPerPage;
