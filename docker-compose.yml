@@ -1,6 +1,7 @@
-version: '3.8'
 networks:
     ntwk:
+        driver: bridge
+
 
 services:
     frontend:
@@ -9,27 +10,72 @@ services:
             context: .
             dockerfile: docker/frontend/Dockerfile
         volumes:
-            - ./frontend:/app
+            - ./frontend/app:/app
         working_dir: /app
+        environment:
+            - BFF_SERVER=bff
+            - BFF_PORT=8000
+        ports:
+            - 5173:5173
         networks:
             - ntwk
 
-    keycloak:
-        image: keycloak/keycloak
-        container_name: keycloak
-        command: start-dev --import-realm
-        environment:
-            KEYCLOAK_ADMIN: admin
-            KEYCLOAK_ADMIN_PASSWORD: admin
-            KC_DB: dev-file
-        ports:
-            - 8080:8080
+    bff:
+        build:
+            context: .
+            dockerfile: docker/bff/Dockerfile
         volumes:
-            - ./docker/keycloak/import:/opt/keycloak/data/import
+            - ./bff:/app
+        ports:
+            - 8000:8000
+        depends_on:
+            -   redis
+        environment:
+            - OCTANE_SERVER=swoole
+            - APP_ENV=development
+            - APP_DEBUG=true
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
+            - PEOPLE_SERVER=people:8000
+            - DEVICE_SERVER=backend:8000
         networks:
             - ntwk
-        healthcheck:
-            test: ["CMD", "curl", "-f", "http://localhost:8080/auth/realms/master/protocol/openid-connect/certs"]
-            interval: 30s
-            timeout: 10s
-            retries: 5
+
+#    people:
+#        build:
+#            context: .
+#            dockerfile: docker/people/Dockerfile
+#        volumes:
+#            - .:/var/www
+#        ports:
+##            - "9000:9000"
+#        networks:
+#            - ntwk
+
+
+#    keycloak:
+#        image: keycloak/keycloak
+#        container_name: keycloak
+#        command: start-dev --import-realm
+#        environment:
+#            KEYCLOAK_ADMIN: admin
+#            KEYCLOAK_ADMIN_PASSWORD: admin
+#            KC_DB: dev-file
+#        ports:
+#            - 8080:8080
+#        volumes:
+#            - ./docker/keycloak/import:/opt/keycloak/data/import
+#        networks:
+#            - ntwk
+#        healthcheck:
+#            test: ["CMD", "curl", "-f", "http://localhost:8080/auth/realms/master/protocol/openid-connect/certs"]
+#            interval: 30s
+#            timeout: 10s
+#            retries: 5
+
+    redis:
+        image: redis:alpine
+        ports:
+            - 6379:6379
+        networks:
+            - ntwk
