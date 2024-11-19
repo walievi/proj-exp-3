@@ -1,26 +1,23 @@
 import React from "react";
 
-import './index.css'
-
-const InputText = ({ label, description, identifier, required, placeholder }) => {
+const InputDate = ({ label, description, identifier, required }) => {
     return (
         <div className="container-input">
             <div className="input-header">
-                <label htmlFor={identifier} className="labelInput">{label}</label>
+                <label htmlFor={identifier} className="input-label">{label}</label>
                 <span className="descriptionInput">{description}</span>
             </div>
             <div className="input-content">
                 <input
-                    type="text"
-                    name={identifier}
+                    type="date"
                     id={identifier}
-                    defaultValue=""
-                    placeholder={placeholder}
+                    name={identifier}
                     required={required}
+                    className="date-input-field"
                 />
             </div>
         </div>
     );
 };
 
-export default InputText
+export default InputDate;

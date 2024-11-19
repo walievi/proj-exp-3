@@ -7,12 +7,8 @@ const TextArea = ({label, description, identifier, required}) => {
     return (
         <div className="container-input">
             <div className="input-header">
-                <div className="labelInput">
-                    <label htmlFor={identifier}>{label}</label>
-                </div>
-                <div className="descriptionInput">
-                    <span>{description}</span>
-                </div>
+                <label htmlFor={identifier} className="labelInput">{label}</label>
+                <span className="descriptionInput">{description}</span>
             </div>
             <div className="input-content">
                 {
