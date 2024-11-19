@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import BasicTable  from '../../components/TableList'; // Importando a Tabela base do diretório components
 import './index.css'; // Importar estilos
 
-import Modal from '../../components/CreateModal';
+import Modal from '../../components/Modal';
 import InputText from '../../components/InputText';
 import Dropdown from '../../components/Dropdown';
 import TextArea from '../../components/TextArea';
@@ -91,30 +91,6 @@ const Emprestimos = () => {
     { Empréstimo: 10, Patrimônio: "c2bb0d1e-9d8e-4f2f-b6c1-12cde7f8c5b4", Status: "Em Manutenção" }
   ];
 
-  //Função controladora dos campos da modal de cadastro
-  const modalForm = [
-    {
-      id: 1,
-      field: <Dropdown label='Patrimônio' description='Obrigatório' identifier='patrimonyId' required={true} data={[{value: 1, description: 'dd4ebb0d-2352-4105-b502-092bc9c2ac60'}, {value: 2, description: 'dd4ebb0d-2352-4105-b502-092bc9c2ac60'}]} />
-    },
-    {
-      id: 2,
-      field: <Dropdown label='Paciente Responsável' description='Obrigatório' identifier='pacient' required={true} data={[{value: 1, description: 'Juliana'}, {value: 2, description: 'William'}, {value: 3, description: 'Daniel'}]} />
-    },
-    {
-      id: 4,
-      field: <InputText label='Data de Empréstimo' description='Obrigatório' identifier='startDate' required={true} />
-    },
-    {
-      id: 5,
-      field: <InputText label='Data de Vencimento' description='Obrigatório' identifier='endDate' required={true} />
-    },
-    {
-      id: 6,
-      field: <TextArea label='Comentários' description='Obrigatório' identifier='descLoan' required={true} />
-    }
-  ]
-
   return (
     <>
       <div className="equipment-container"> 
@@ -154,7 +130,6 @@ const Emprestimos = () => {
           createModal={
             <Modal 
               modalTitle="Cadastro de Empréstimo" 
-              modalForm={modalForm}
               // action={loansContext.write.loans} 
             />
           }

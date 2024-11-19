@@ -3,13 +3,14 @@ import { useLocation  } from "react-router-dom";
 
 import CloseIcon from '@mui/icons-material/Close';
 
+
 import './index.css'; // Importar estilos
 
 // import CategoryModal from '../CreateModal/CategoryModal';
-import EquipmentModal from '../CreateModal/EquipmentModal.jsx';
+import EquipmentModal from '../CreateModal/EquipmentModal';
 // import PatrimonyModal from '../CreateModal/PatrimonyModal';
 import PersonModal from '../CreateModal/PersonModal';
-// import LoanModal from '../CreateModal/LoanModal';
+import LoanModal from '../CreateModal/LoanModal';
 
 import { useTableList } from '../../providers/TableListProvider'
 
@@ -31,8 +32,8 @@ const Modal = ({ modalTitle }) => {
             //     return <PatrimonyModal />;
             case '/pacientes':
                 return <PersonModal />;
-            // case '/emprestimos':
-            //     return <LoanModal />;
+            case '/emprestimos':
+                return <LoanModal />;
             default:
                 return null;
         }

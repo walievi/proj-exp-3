@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputDate = ({ label, description, identifier, required }) => {
+const InputDate = ({ label, description, identifier, required, value, onChange, readOnly }) => {
     return (
         <div className="container-input">
             <div className="input-header">
@@ -13,6 +13,9 @@ const InputDate = ({ label, description, identifier, required }) => {
                     id={identifier}
                     name={identifier}
                     required={required}
+                    value={value}
+                    onChange={onChange}
+                    readOnly={readOnly}
                     className="date-input-field"
                 />
             </div>
