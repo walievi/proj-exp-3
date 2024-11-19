@@ -8,7 +8,7 @@ import './index.css'; // Importar estilos
 
 // import CategoryModal from '../CreateModal/CategoryModal';
 import EquipmentModal from '../CreateModal/EquipmentModal';
-// import PatrimonyModal from '../CreateModal/PatrimonyModal';
+import PatrimonyModal from '../CreateModal/PatrimonyModal';
 import PersonModal from '../CreateModal/PersonModal';
 import LoanModal from '../CreateModal/LoanModal';
 
@@ -28,8 +28,8 @@ const Modal = ({ modalTitle }) => {
             //     return <CategoryModal />;
             case '/equipamentos':
                 return <EquipmentModal />;
-            // case '/patrimonios':
-            //     return <PatrimonyModal />;
+            case '/patrimonios':
+                return <PatrimonyModal />;
             case '/pacientes':
                 return <PersonModal />;
             case '/emprestimos':
