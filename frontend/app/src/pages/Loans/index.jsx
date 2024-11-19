@@ -3,9 +3,6 @@ import BasicTable  from '../../components/TableList'; // Importando a Tabela bas
 import './index.css'; // Importar estilos
 
 import Modal from '../../components/Modal';
-import InputText from '../../components/InputText';
-import Dropdown from '../../components/Dropdown';
-import TextArea from '../../components/TextArea';
 // import { useLoan } from '../../providers/LoanContext';
 // import { usePatrimony } from '../../providers/PatrimonyContext';
 // import { useEquipament } from '../../providers/EquipamentsContext';
