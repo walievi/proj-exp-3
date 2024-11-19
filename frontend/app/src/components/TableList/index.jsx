@@ -45,6 +45,17 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
         tableListContext.write.showCreateModal(true);
     }
 
+// Estados de controle de pesquisa
+    const [searchColumn, setSearchColumn] = useState (columns[0]);
+    const [searchQuery, setSearchQuery] = useState ("");
+
+// Função de pesquisa
+    const filteredData = data.filter((item) => {
+        if (!searchColumn || !searchQuery) return true;
+        const value = item[searchColumn]?.toString().toLowerCase() || "";
+        return value.includes(searchQuery.toLowerCase());
+    });
+
 //Configuração de paginação
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(9);
@@ -68,11 +79,11 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
         };
     }, []);
 
-    const totalPages = Math.ceil(data.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
     const paginationPages = getPaginationPages(currentPage, totalPages);
 
@@ -108,6 +119,30 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                             <div>
                                 <div className="text-item-header">{title}</div>
                                 <div className="sub-item-header">{subtitle}</div>
+                            </div>
+                            <div className='searchContainer'>
+                                <div className="radio-buttons">
+                                    {columns.map((column, index) => (
+                                        <label key={index} className='radio-label'>
+                                            <input
+                                                type='radio'
+                                                name='searchColumn'
+                                                value={column}
+                                                checked={searchColumn === column}
+                                                onChange={() => setSearchColumn(column)}
+                                            />
+                                            {column}
+                                        </label>
+                                    ))}
+                                </div>
+                                <input
+                                    type="text"
+                                    className="search-input"
+                                    placeholder='Digite sua pesquisa'
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    disabled={!searchColumn}
+                                />
                             </div>
                             <div className="action-item-header d-flex">
                                 <button className="btn btn-danger me-2">
@@ -152,7 +187,8 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                                     </td>
                                     {columns.map((column, colIndex) => (
                                         <td key={colIndex} className="table-row-data" scope="row">
-                                            {column === "Status" ? renderStatus(row[column]) : row[column] || 'N/A'}
+                                            {/* {column === "Status" ? renderStatus(row[column]) : row[column] || 'N/A'} */}
+                                            {column === "SN" ? row["SN"] : row[column] || 'N/A'}
                                         </td>
                                     ))}
                                     <td className="table-row-data" scope="row">

@@ -53,3 +53,54 @@
 .pagination-container .btn {
     margin: 0 5px;
 }
+
+/* Container de busca ao lado do título e subtítulo */
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Radio buttons com espaço apropriado */
+.radio-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 14px;
+}
+
+.radio-label input[type="radio"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.radio-label input[type="radio"]:checked::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.search-input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px; /* Ajuste de largura */
+    max-width: 300px;
+}
