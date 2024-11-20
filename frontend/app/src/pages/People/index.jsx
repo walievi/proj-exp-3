@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import BasicTable  from '../../components/TableList'; // Importando a Tabela base do diretório components
 import './index.css'; // Importar estilos
 
-import Modal from '../../components/Modal';
+import Modal from '../../components/CreateModal';
 // import { usePeople } from '../..providers/PeopleContext';
 
 const People = () => {
