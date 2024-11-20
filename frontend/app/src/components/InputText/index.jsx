@@ -2,7 +2,7 @@ import React from "react";
 
 import './index.css'
 
-const InputText = ({ label, description, identifier, required, placeholder }) => {
+const InputText = ({ label, description, identifier, required, placeholder, disabled, defaultValue }) => {
     return (
         <div className="container-input">
             <div className="input-header">
@@ -14,9 +14,10 @@ const InputText = ({ label, description, identifier, required, placeholder }) =>
                     type="text"
                     name={identifier}
                     id={identifier}
-                    defaultValue=""
                     placeholder={placeholder}
+                    defaultValue={defaultValue}
                     required={required}
+                    disabled={disabled}
                 />
             </div>
         </div>

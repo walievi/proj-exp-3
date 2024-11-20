@@ -1,9 +1,8 @@
 import React from "react";
 
-import './index.css'
+import './index.css';
 
-const TextArea = ({label, description, identifier, required}) => {
-
+const TextArea = ({ label, description, identifier, required, disabled, defaultValue }) => {
     return (
         <div className="container-input">
             <div className="input-header">
@@ -11,15 +10,16 @@ const TextArea = ({label, description, identifier, required}) => {
                 <span className="descriptionInput">{description}</span>
             </div>
             <div className="input-content">
-                {
-                    required === true ?
-                        <textarea type="text" name={identifier} id={identifier} required />
-                    :
-                        <textarea type="text" name={identifier} id={identifier} />
-                }
+                <textarea 
+                    name={identifier} 
+                    id={identifier}
+                    defaultValue={defaultValue} 
+                    required={required} 
+                    disabled={disabled} // Passa o atributo disabled corretamente
+                />
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default TextArea
+export default TextArea;

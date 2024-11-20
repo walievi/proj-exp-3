@@ -7,15 +7,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import './index.css'; // Importar estilos
 
 // import CategoryModal from '../InformationModal/CategoryModal';
-// import EquipmentModal from '../InformationModal/EquipmentModal';
+import EquipmentModal from '../InformationModal/EquipmentModal';
 // import PatrimonyModal from '../InformationModal/PatrimonyModal';
 // import PersonModal from '../InformationModal/PersonModal';
 // import LoanModal from '../InformationModal/LoanModal';
 
 import { useTableList } from '../../providers/TableListProvider'
 
-const Modal = ({ itemId, onClose }) => {
-    console.log(itemId)
+const Modal = ({ itemId, onClose, action }) => {
     const location = useLocation();
     const tableListContext = useTableList();
 
@@ -28,14 +27,14 @@ const Modal = ({ itemId, onClose }) => {
         switch (location.pathname) {
             // case '/categorias':
             //     return <CategoryModal />;
-            // case '/equipamentos':
-            //     return <EquipmentModal id={itemId} />;
+            case '/equipamentos':
+                return <EquipmentModal id={itemId} action={action}/>;
             // case '/patrimonios':
-            //     return <PatrimonyModal id={itemId} />;
+            //     return <PatrimonyModal id={itemId} action={action}/>;
             // case '/pacientes':
-            //     return <PersonModal id={itemId} />;
+            //     return <PersonModal id={itemId} action={action}/>;
             // case '/emprestimos':
-            //     return <LoanModal id={itemId} />;
+            //     return <LoanModal id={itemId} action={action}/>;
             default:
                 return null;
         }

@@ -8,13 +8,13 @@ export default class Equipament extends BaseModel {
   static table = 'Equipament'
 
   @column({ isPrimary: true })
-  declare id: string
+  declare id: number
 
   @column()
   declare model: string
 
-  // @column()
-  // declare serialNumber: string
+  @column()
+  declare serialNumber: string
 
   @column()
   declare manufacturer: string
@@ -37,8 +37,8 @@ export default class Equipament extends BaseModel {
   @column.dateTime({ autoCreate: false, autoUpdate: false })
   declare deletedAt: DateTime
 
-  @beforeCreate()
-  static assignUuid(equipament: Equipament) {
-    equipament.id = randomUUID()
-  }
+  // @beforeCreate()
+  // static assignUuid(equipament: Equipament) {
+  //   equipament.id = randomUUID()
+  // }
 }

@@ -43,7 +43,7 @@ export default class EquipamentController {
     const equipamentoToStore = new Equipament()
     equipamentoToStore.manufacturer = payload.manufacturer
     equipamentoToStore.model = payload.model
-    // equipamentoToStore.serialNumber = payload.serialNumber
+    equipamentoToStore.serialNumber = payload.serialNumber
     equipamentoToStore.description = payload.description
 
     await equipamentoToStore.related('category').associate(categoryFound)
@@ -58,12 +58,66 @@ export default class EquipamentController {
   /**
    * Show individual record
    */
-  async show({ params }: HttpContext) {}
+  async show({ params, response }: HttpContext) {
+    const equipamentId = Number(params.id)
+  
+    // Carrega todos os equipamentos com a categoria
+    const equipaments = await Equipament.query().preload('category')
+  
+    // Serializa os equipamentos
+    const equipamentsJson = equipaments.map((equipament) => {
+      return equipament.serialize({
+        relations: {
+          category: {
+            fields: ['id', 'name'],
+          },
+        },
+      })
+    })
+  
+    // Filtra o equipamento pelo id
+    const equipament = equipamentsJson.find((equipament) => equipament.id === equipamentId)
+  
+    if (!equipament) {
+      return response.status(404).json({ message: "Equipamento não encontrado." })
+    }
+  
+    // Retorna o equipamento encontrado
+    return response.status(200).json(equipament)
+  }
+  
 
   /**
    * Handle form submission for the edit action
    */
-  async update({ params, request }: HttpContext) {}
+  async update({ params, request, response }: HttpContext) {
+    const equipamentId = params.id;
+    const data = request.body();
+
+    const equipament = await Equipament.find(equipamentId);
+
+    if (!equipament) {
+      return response.status(404).json({ message: "Equipamento não encontrado." });
+    }
+
+    const categoryFound = await Category.find(data.categoryId);
+
+    if (!categoryFound) {
+      return response.status(400).json({ message: "Categoria não encontrada." });
+    }
+
+    equipament.model = data.model || equipament.model;
+    equipament.serialNumber = data.serialNumber || equipament.serialNumber;
+    equipament.manufacturer = data.manufacturer || equipament.manufacturer;
+    equipament.description = data.description || equipament.description;
+
+    await equipament.related('category').associate(categoryFound);
+
+    await equipament.save();
+
+    await equipament.load('category');
+    return response.status(200).json(equipament);
+  }
 
   /**
    * Delete record

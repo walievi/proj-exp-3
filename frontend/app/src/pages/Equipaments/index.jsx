@@ -6,15 +6,15 @@ import Modal from '../../components/CreateModal';
 import { useEquipament } from '../../providers/EquipamentsContext';
 
 const Equipamentos = () => {
-  const columns = ["Modelo", "Fabricante", "Categoria"];
+  const columns = ["Modelo", "Número de Série","Fabricante", "Categoria"];
   const equipamentsContext = useEquipament();
 
   function serializeEquipaments() {
     return equipamentsContext.read.equipaments.map(equipament => {
       return {
-        // id: equipament.id,
+        id: equipament.id,
         Modelo: equipament.model,
-        // numeroSerie: equipament.serialNumber,
+        "Número de Série": equipament.serialNumber,
         Fabricante: equipament.manufacturer,
         Categoria: equipament.category.name,
       }

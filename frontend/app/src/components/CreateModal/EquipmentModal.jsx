@@ -29,6 +29,7 @@ const EquipmentModal = ({ action, dialogModal }) => {
     
         const formData = {
             model: event.target.model.value.trim(),
+            serialNumber: event.target.serialNumber.value.trim(),
             manufacturer: event.target.manufacturer.value.trim(),
             categoryId: event.target.categoryId.value.trim(),
             description: event.target.description.value.trim(),
@@ -60,6 +61,12 @@ const EquipmentModal = ({ action, dialogModal }) => {
                     label="Modelo"
                     description="Obrigatório"
                     identifier="model"
+                    required={true}
+                />
+                <InputText
+                    label="Número de Série"
+                    description="Obrigatório"
+                    identifier="serialNumber"
                     required={true}
                 />
                 <InputText
