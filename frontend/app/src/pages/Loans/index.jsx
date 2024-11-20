@@ -37,6 +37,7 @@ const Emprestimos = () => {
   // function serializeLoan() {
   //   return loansContext.read.loans.map(loan => {
   //     return {
+  //       id: load.id,
   //       Patrimônio: loan.patrimony.code,
   //       Status: loan.status,
   //     }

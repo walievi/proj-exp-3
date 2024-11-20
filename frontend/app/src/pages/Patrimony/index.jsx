@@ -25,6 +25,7 @@ const Patrimonios = () => {
   // function serializePatrimony() {
   //   return patrimonysContext.read.patrimonys.map(patrimony => {
   //     return {
+  //       id:patrimony.id,
   //       Patrimônio: patrimony.code,
   //       Equipamento: patrimony.equipament.id,
   //     }

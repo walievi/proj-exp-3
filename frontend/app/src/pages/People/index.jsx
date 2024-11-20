@@ -14,6 +14,7 @@ const People = () => {
   // function serializePeople() {
   //   return peopleContext.read.people.map(person => {
   //     return {
+  //       id: person.id,
   //       Nome: person.first_name + ' ' + person.surname,
   //       CPF: person.cpf,
   //       Endereço: person.address,
