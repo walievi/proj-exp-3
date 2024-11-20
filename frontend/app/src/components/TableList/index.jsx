@@ -23,10 +23,12 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
 
     const handleView = (item) => {
         setSelectedItem(item);
+        tableListContext.write.showInfoModal(true);
     };
 
     const handleCloseModal = () => {
         setSelectedItem(null);
+        tableListContext.write.showInfoModal(false);
     }
 
 //Configuração tabela
@@ -194,7 +196,7 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                                     <td className="table-row-data" scope="row">
                                         <button 
                                             className='btn btn-outline-info'
-                                            onClick={() => handleView(row)}
+                                            onClick={() => handleView(row.id)}
                                         >
                                             <VisibilityOutlinedIcon />{' '}
                                             Visualizar
@@ -206,12 +208,13 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                         
                     </table>
 
-                    <InformationModal
-                        open={Boolean(selectedItem)}
-                        item={selectedItem}
-                        columns={columns}
-                        onClose={handleCloseModal}
-                    />
+                    {tableListContext.read.showInfoModal && (
+                        <InformationModal
+                            open={Boolean(selectedItem)}
+                            itemId={selectedItem}
+                            onClose={handleCloseModal}
+                        />
+                    )}
 
                     <div className="pagination-container">
                         <button

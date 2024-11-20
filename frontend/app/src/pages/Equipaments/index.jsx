@@ -12,6 +12,7 @@ const Equipamentos = () => {
   function serializeEquipaments() {
     return equipamentsContext.read.equipaments.map(equipament => {
       return {
+        id: equipament.id,
         Modelo: equipament.model,
         // numeroSerie: equipament.serialNumber,
         Fabricante: equipament.manufacturer,

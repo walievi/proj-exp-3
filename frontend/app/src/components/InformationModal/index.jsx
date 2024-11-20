@@ -1,40 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLocation  } from "react-router-dom";
 
-import Modal from '@mui/material/Modal';
-import { Box, Typography } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
-const InformationModal = ({ open, item, columns, onClose }) => {
+
+import './index.css'; // Importar estilos
+
+// import CategoryModal from '../InformationModal/CategoryModal';
+// import EquipmentModal from '../InformationModal/EquipmentModal';
+// import PatrimonyModal from '../InformationModal/PatrimonyModal';
+// import PersonModal from '../InformationModal/PersonModal';
+// import LoanModal from '../InformationModal/LoanModal';
+
+import { useTableList } from '../../providers/TableListProvider'
+
+const Modal = ({ itemId, onClose }) => {
+    console.log(itemId)
+    const location = useLocation();
+    const tableListContext = useTableList();
+
+    function handleCloseButton() {
+        onClose()
+        tableListContext.write.showInfoModal(false)
+    }
+
+    function renderForm() {
+        switch (location.pathname) {
+            // case '/categorias':
+            //     return <CategoryModal />;
+            // case '/equipamentos':
+            //     return <EquipmentModal id={itemId} />;
+            // case '/patrimonios':
+            //     return <PatrimonyModal id={itemId} />;
+            // case '/pacientes':
+            //     return <PersonModal id={itemId} />;
+            // case '/emprestimos':
+            //     return <LoanModal id={itemId} />;
+            default:
+                return null;
+        }
+    }
+
     return (
-        <Modal open={open} onClose={close}>
-            <Box sx={{
-                position: 'absolute', 
-                top: '50%', 
-                left: '50%', 
-                transform: 'translate(-50%, -50%)',
-                width: 400, 
-                bgcolor: 'background.paper', 
-                borderRadius: 2, 
-                boxShadow: 24, 
-                p: 4
-            }}>
-                <Typography variant="h6" component="h2">
-                    Detalhes do Item
-                </Typography>
-                {item && (
-                    <Box mt={2}>
-                        {columns.map((column, index) => (
-                            <Typography key={index} variant="body1">
-                                <strong>{column}:</strong> {item[column] || 'N/A'}
-                            </Typography>
-                        ))}
-                    </Box>
-                )}
-                    <button onClick={onClose} style={{ marginTop: '10px', padding: '5px 15px', border: 'none', backgroundColor: '#007BFF', color: '#fff', borderRadius: '5px' }}>
-                        Fechar
-                    </button>
-            </Box>
-        </Modal> 
+        <div id="modal-blur">
+            <div id="modal-container">
+                <div id="modal-header">
+                    <div id="modal-title">Informações</div>
+                    <div id="modal-close">
+                        <button type="button" onClick={handleCloseButton}>
+                            <CloseIcon />
+                        </button>
+                    </div>
+                </div>
+                <div id="modal-content">
+                    {renderForm()}
+                </div>
+            </div>
+        </div>
     );
-}
+};
 
-export default InformationModal
+export default Modal;
