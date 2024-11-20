@@ -15,6 +15,7 @@ RUN apk add --no-cache \
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
 # Copie os arquivos do projeto para o container
+COPY ./docker/bff/.env /tmp/.env
 COPY docker/bff/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
