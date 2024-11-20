@@ -12,7 +12,7 @@ const Equipamentos = () => {
   function serializeEquipaments() {
     return equipamentsContext.read.equipaments.map(equipament => {
       return {
-        id: equipament.id,
+        // id: equipament.id,
         Modelo: equipament.model,
         // numeroSerie: equipament.serialNumber,
         Fabricante: equipament.manufacturer,
@@ -80,16 +80,19 @@ const Equipamentos = () => {
           </div>  
         </div>
 
-        <BasicTable 
+        <BasicTable
           title="Equipamentos"
-          subtitle="Listagem de Equipamentos" 
+          subtitle="Listagem de Equipamentos"
           columns={columns}
           data={serializeEquipaments()}
           createModal={
-            <Modal 
-              modalTitle="Cadastro de Equipamento" 
-              dialogModal={ { title: "Deseja continuar com o cadastro de Patrimônio desse Equipamento?", description: "Se continuar com o cadastro de Patrimônio todos os dados do Equipamento serão carregados automaticamente no formulário." } }
-              action={equipamentsContext.write.equipaments}
+            <Modal
+              modalTitle="Cadastro de Equipamento"
+              dialogModal={{
+                title: "Deseja continuar com o cadastro de Patrimônio desse Equipamento?",
+                description: "Se continuar com o cadastro de Patrimônio todos os dados do Equipamento serão carregados automaticamente no formulário."
+              }}
+              action={equipamentsContext.write.equipaments} // Aqui estamos passando a função corretamente
             />
           }
         />

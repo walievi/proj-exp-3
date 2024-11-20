@@ -9,7 +9,7 @@ import { useTableList } from '../../providers/TableListProvider'
 
 
 
-const EquipmentModal = () => {
+const EquipmentModal = ({ action, dialogModal }) => {
     const [showPosModal, setShowPosModal] = useState(false);
     const tableListContext = useTableList();
     const categoriesContext = useCategory()
@@ -26,15 +26,14 @@ const EquipmentModal = () => {
 
     function handleSubmit(event) {
         event.preventDefault();
-
+    
         const formData = {
             model: event.target.model.value.trim(),
-            // serialNumber: event.target.serialNumber.value.trim(),
             manufacturer: event.target.manufacturer.value.trim(),
             categoryId: event.target.categoryId.value.trim(),
             description: event.target.description.value.trim(),
         };
-        action(formData);
+        action(formData); // Chama a função de ação passada como prop
         setShowPosModal(true);
     }
 

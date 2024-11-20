@@ -14,7 +14,7 @@ import LoanModal from '../CreateModal/LoanModal';
 
 import { useTableList } from '../../providers/TableListProvider'
 
-const Modal = ({ modalTitle }) => {
+const Modal = ({ modalTitle, action, dialogModal }) => {
     const location = useLocation();
     const tableListContext = useTableList();
 
@@ -27,13 +27,13 @@ const Modal = ({ modalTitle }) => {
             // case '/categorias':
             //     return <CategoryModal />;
             case '/equipamentos':
-                return <EquipmentModal />;
+                return <EquipmentModal action={action} dialogModal={dialogModal} />;
             case '/patrimonios':
-                return <PatrimonyModal />;
+                return <PatrimonyModal action={action} dialogModal={dialogModal}/>;
             case '/pacientes':
-                return <PersonModal />;
+                return <PersonModal action={action} dialogModal={dialogModal}/>;
             case '/emprestimos':
-                return <LoanModal />;
+                return <LoanModal action={action} dialogModal={dialogModal}/>;
             default:
                 return null;
         }
