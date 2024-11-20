@@ -3,11 +3,9 @@ import BasicTable  from '../../components/TableList'; // Importando a Tabela bas
 import './index.css'; // Importar estilos
 
 import Modal from '../../components/CreateModal';
-import InputText from '../../components/InputText';
-import TextArea from '../../components/TextArea';
 // import { usePeople } from '../..providers/PeopleContext';
 
-const Emprestimos = () => {
+const People = () => {
   const columns = ["Nome", "CPF", "Endereço", "Telefone", "Email"];
 
   //Serialization dos dados necessário para a page
@@ -16,6 +14,7 @@ const Emprestimos = () => {
   // function serializePeople() {
   //   return peopleContext.read.people.map(person => {
   //     return {
+  //       id: person.id,
   //       Nome: person.first_name + ' ' + person.surname,
   //       CPF: person.cpf,
   //       Endereço: person.address,
@@ -45,36 +44,6 @@ const Emprestimos = () => {
     { Nome: "Juliana Mendes", CPF: "666.777.888-99", Endereço: "Avenida Brasil, 150", Telefone: "(91)92222-5555", Email: "juliana.mendes@email.com" }
     
   ];
-  const modalForm = [
-    {
-      id: 1,
-      field: <InputText label='Nome' description='Obrigatório' identifier='patientName' required={true} data={[{value: 1, description: 'dd4ebb0d-2352-4105-b502-092bc9c2ac60'}, {value: 2, description: 'dd4ebb0d-2352-4105-b502-092bc9c2ac60'}]} />
-    },
-    {
-      id: 2,
-      field: <InputText label='Sobrenome' description='Obrigatório' identifier='patientSurname' required={true} data={[{value: 1, description: 'Juliana'}, {value: 2, description: 'William'}, {value: 3, description: 'Daniel'}]} />
-    },
-    {
-      id: 4,
-      field: <InputText label='CPF' description='Obrigatório' identifier='patientDocument' required={true} />
-    },
-    {
-      id: 5,
-      field: <InputText label='Data de Nascimento' description='Obrigatório' identifier='patientBirthday' required={true} />
-    },
-    {
-      id: 6,
-      field: <InputText label='Email' description='Obrigatório' identifier='patientEmail' required={true} />
-    },
-    {
-       id: 7,
-       field: <InputText label='Telefone' description='Obrigatório' identifier='patientPhone' required={true} />
-    },
-    {
-       id: 8,
-       field: <TextArea label='Observações' identifier='patientObservation' required={false} />
-    }
-  ]
 
   return (
     <>
@@ -98,8 +67,7 @@ const Emprestimos = () => {
           // data={serializePeople()}
           createModal={
             <Modal 
-              modalTitle="Cadastro de Pacientes" 
-              modalForm={modalForm} 
+              modalTitle="Cadastro de Pacientes"  
               // action={peopleContext.write.people} 
             />
           }
@@ -109,4 +77,4 @@ const Emprestimos = () => {
   );
 };
 
-export default Emprestimos;
+export default People;

@@ -1,12 +1,8 @@
-
 import React, { useState } from 'react';
 import BasicTable  from '../../components/TableList'; // Importando a Tabela base do diretório components
 import './index.css'; // Importar estilos
 
 import Modal from '../../components/CreateModal';
-import InputText from '../../components/InputText';
-import Dropdown from '../../components/Dropdown';
-import TextArea from '../../components/TextArea';
 // import { usePatrimony } from '../../providers/PatrimonyContext';
 // import { useEquipament } from '../../providers/EquipamentsContext';
 
@@ -29,6 +25,7 @@ const Patrimonios = () => {
   // function serializePatrimony() {
   //   return patrimonysContext.read.patrimonys.map(patrimony => {
   //     return {
+  //       id:patrimony.id,
   //       Patrimônio: patrimony.code,
   //       Equipamento: patrimony.equipament.id,
   //     }
@@ -78,22 +75,6 @@ const Patrimonios = () => {
   //   };
   // }
 
-
-  const modalForm = [
-    {
-      id: 1,
-      field: <InputText label='Código' description='Obrigatório' identifier='EquipamentId' required={true} />
-    },
-    {
-      id: 2,
-      field: <Dropdown label='Equipamento' description='Obrigatório' identifier='categEquipament' required={true} data={[{value: 1, description: 'Teclado'}]} />
-    },
-    {
-      id: 4,
-      field: <TextArea label='Comentários' description='Obrigatório' identifier='descEquipament' required={true} />
-    }
-  ]
-
   return (
     <>
       <div className="equipment-container"> 
@@ -133,7 +114,6 @@ const Patrimonios = () => {
           createModal={
             <Modal 
               modalTitle="Cadastro de Patrimônio" 
-              modalForm={modalForm} 
               // action={patrimonysContext.write.patrimonys} 
             />
           }
