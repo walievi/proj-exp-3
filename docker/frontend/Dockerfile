@@ -1,13 +1,11 @@
 # Use a imagem do Node com Alpine como base
 FROM node:lts-alpine
 
-# Configure Yarn Repo
 RUN yarn config set registry https://registry.npmjs.org/
 
-# Defina o diretório de trabalho no container
-WORKDIR /app
+COPY docker/frontend/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Exponha a porta que a aplicação vai rodar
 EXPOSE 5173
 
-CMD ["yarn", "dev", "--host", "0.0.0.0"]
+CMD ["entrypoint.sh"]
