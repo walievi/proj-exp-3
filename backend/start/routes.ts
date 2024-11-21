@@ -10,6 +10,7 @@ import router from '@adonisjs/core/services/router'
 
 const CategoryController = () => import('#controllers/category_controller')
 const EquipamentController = () => import('#controllers/equipament_controller')
+const PatrimonyController = () => import('#controllers/patrimonies_controller')
 
 router
   .group(() => {
@@ -26,3 +27,12 @@ router
     router.put('/:id', [EquipamentController, 'update'])
   })
   .prefix('/equipament')
+
+  router
+  .group(() => {
+    router.get('/', [PatrimonyController, 'index'])
+    router.post('/', [PatrimonyController, 'store'])
+    router.get('/:id', [PatrimonyController, 'show'])
+    router.put('/:id', [PatrimonyController, 'update'])
+  })
+  .prefix('/patrimony')

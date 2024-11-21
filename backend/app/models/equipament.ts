@@ -1,8 +1,10 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, beforeCreate } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, hasOne } from '@adonisjs/lucid/orm'
+// import { BaseModel, belongsTo, column, beforeCreate } from '@adonisjs/lucid/orm'
 import Category from './category.js'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
-import { randomUUID } from 'node:crypto'
+import Patrimony from './patrimony.js'
+import type { BelongsTo, HasOne } from '@adonisjs/lucid/types/relations'
+// import { randomUUID } from 'node:crypto'
 
 export default class Equipament extends BaseModel {
   static table = 'Equipament'
@@ -24,6 +26,9 @@ export default class Equipament extends BaseModel {
 
   @belongsTo(() => Category)
   declare category: BelongsTo<typeof Category>
+
+  @hasOne(() => Patrimony)
+  declare patrimony: HasOne<typeof Patrimony>
 
   @column()
   declare description: string | null

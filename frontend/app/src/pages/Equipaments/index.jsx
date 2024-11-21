@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import BasicTable  from '../../components/TableList'; // Importando a Tabela base do diretório components
 import './index.css'; // Importar estilos
 

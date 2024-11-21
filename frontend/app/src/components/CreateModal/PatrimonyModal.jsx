@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Dropdown from "../Dropdown";
 import TextArea from "../TextArea";
+import InputText from "../InputText";
 import { useEquipament } from '../../providers/EquipamentsContext';
 import { useTableList } from '../../providers/TableListProvider'
 
-const EquipmentModal = () => {
+const PatrimonyModal = ({ action }) => {
     const tableListContext = useTableList();
     const equipamentsContext = useEquipament()
 
@@ -12,8 +13,7 @@ const EquipmentModal = () => {
         return equipamentsContext.read.equipaments.map(equipament => {
           return {
             value: equipament.id,
-            description: equipament.model,
-            // numeroSerie: equipament.serialNumber,
+            description: `${equipament.model} - ${equipament.serialNumber}`,
           }
         })
       }
@@ -22,9 +22,12 @@ const EquipmentModal = () => {
         event.preventDefault();
 
         const formData = {
-            equipmentId: event.target.equipmentId.value.trim(),
+            patrimonyCode: event.target.patrimonyCode.value.trim(),
+            equipamentId: event.target.equipamentId.value.trim(),
             description: event.target.description.value.trim(),
         };
+
+        console.log(formData)
         action(formData);
 
     }
@@ -36,10 +39,16 @@ const EquipmentModal = () => {
     return (
         <>
             <form className="modal-form" onSubmit={handleSubmit}>
+                <InputText
+                    label="Patrimônio"
+                    description="Obrigatório"
+                    identifier="patrimonyCode"
+                    required={true}
+                />
                 <Dropdown
                     label="Equipamento"
                     description="Obrigatório"
-                    identifier="equipmentId"
+                    identifier="equipamentId"
                     required={true}
                     data={serializeEquipaments()}
                 />
@@ -60,4 +69,4 @@ const EquipmentModal = () => {
     )
 }
 
-export default EquipmentModal;
+export default PatrimonyModal;
