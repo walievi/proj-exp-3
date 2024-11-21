@@ -46,12 +46,8 @@ const EquipmentModal = ({ id }) => {
             description: event.target.description.value.trim(),
         };
 
-        // Aqui você pode chamar o método de atualização (update) do contexto, se necessário
+        // Chama a função de update
         equipamentsContext.write.updatesEquipament(id, formData);
-    }
-
-    function handleEdit() {
-        setIsEditable(true);
     }
 
     function handleCloseButton() {
@@ -62,7 +58,6 @@ const EquipmentModal = ({ id }) => {
         return <p>Carregando...</p>;
     }
 
-    console.log(isEditable)
     return (
         <>
             <form className="modal-form" onSubmit={handleSubmit}>
@@ -101,6 +96,9 @@ const EquipmentModal = ({ id }) => {
                     defaultValue={equipamentData.description}
                     disabled={!isEditable}
                 />
+                <div>
+                    
+                </div>
                 <div id="modal-footer">
                     <button type="button" className="btn btn-danger" onClick={handleCloseButton}>
                         Cancelar
@@ -108,9 +106,15 @@ const EquipmentModal = ({ id }) => {
                     <button type="submit" className="btn btn-primary">
                         Atualizar
                     </button>
-                    <button type="button" className="btn btn-success" onClick={handleEdit}>
-                        Permitir Edição
-                    </button>
+                    <input
+                        type="checkbox"
+                        checked={isEditable}
+                        onChange={() => setIsEditable((prev) => !prev)}
+                        className="form-check-input border-primary"
+                        />
+                    <label>
+                        Habilitar Edição
+                    </label>
                 </div>
             </form>
         </>

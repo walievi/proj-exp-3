@@ -68,7 +68,7 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
         } else if (screenHeight <800) {
             setItemsPerPage(4);
         } else {
-            setItemsPerPage(9);
+            setItemsPerPage(7);
         }
     };
 
