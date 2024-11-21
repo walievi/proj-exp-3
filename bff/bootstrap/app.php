@@ -12,7 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->prepend(KeycloakAuthMiddleware::class);
+        $middleware->prependToGroup('auth', [
+            KeycloakAuthMiddleware::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

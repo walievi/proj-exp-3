@@ -36,7 +36,10 @@ return [
     'client_secret' => env('KEYCLOAK_CLIENT_SECRET', null),
 
     // Chave pública do Keycloak
-    'public_key' => sprintf("", env('KEYCLOAK_PUBLIC_KEY', '')),
+    'public_key' => sprintf(
+        "-----BEGIN PUBLIC KEY-----\n%s\n-----END PUBLIC KEY-----",
+        env('KEYCLOAK_PUBLIC_KEY', '')
+    ),
 
     // URLs adicionais do OpenID Connect
     'openid_urls' => [

@@ -1,8 +1,9 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\People;
 
-use App\Services\PersonService;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePersonRequest;
+use App\Services\People\PersonService;
 use Illuminate\Http\Request;
 
 class PersonController extends Controller

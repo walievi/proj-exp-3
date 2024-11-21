@@ -10,5 +10,4 @@ WORKDIR /app
 # Exponha a porta que a aplicação vai rodar
 EXPOSE 5173
 
-# Comando para iniciar o servidor do Laravel
-CMD ["yarn", "dev", "--host"]
+CMD ["yarn", "dev", "--host", "0.0.0.0"]

@@ -38,6 +38,7 @@ class KeycloakAuthMiddleware
 
     private function decodeToken($token)
     {
+        // Obter a chave pública do arquivo de configuração
         $publicKey = config('keycloak.public_key');
 
         try {
@@ -53,7 +54,8 @@ class KeycloakAuthMiddleware
 
     private function extractPermissions($decodedToken)
     {
-        $clientId = "your-client-id";
+        // Obter o client ID do arquivo de configuração
+        $clientId = config('keycloak.client_id');
 
         $clientRoles = $decodedToken->resource_access->{$clientId}->roles ?? [];
         $realmRoles = $decodedToken->realm_access->roles ?? [];
@@ -71,6 +73,10 @@ class KeycloakAuthMiddleware
     {
         $method = $request->method(); // Exemplo: GET, POST, PUT, DELETE
         $resource = $request->route()->getName(); // Nome do recurso (ex: "people.index")
+
+        if (!$resource) {
+            throw new \Exception('A rota não possui um nome configurado.');
+        }
 
         // Extrair o recurso base (antes do ".index" ou similar)
         $resourceBase = explode('.', $resource)[0];
