@@ -1,6 +1,6 @@
-version: '3.8'
 networks:
     ntwk:
+        driver: bridge
 
 services:
     frontend:
@@ -9,25 +9,155 @@ services:
             context: .
             dockerfile: docker/frontend/Dockerfile
         volumes:
-            - ./frontend:/app
+            - ./frontend/app:/app
         working_dir: /app
+        ports:
+            - 8100:5173
         networks:
             - ntwk
+
+    bff:
+        container_name: bff
+        build:
+            context: .
+            dockerfile: docker/bff/Dockerfile
+        volumes:
+            - ./bff:/app:delegated
+        ports:
+            - 8102:8000
+        depends_on:
+            redis:
+                condition: service_healthy
+            keycloak:
+                condition: service_healthy
+        networks:
+            - ntwk
+
+    stock:
+        container_name: stock
+        build:
+            context: .
+            dockerfile: docker/stock/Dockerfile
+        volumes:
+            - ./backend:/app
+        depends_on:
+            db_mysql:
+                condition: service_healthy
+        networks:
+            - ntwk
+
+    people:
+        container_name: people
+        build:
+            context: .
+            dockerfile: docker/people/Dockerfile
+        volumes:
+            - ./people:/var/www/html
+        depends_on:
+            db_prefeitura:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+        networks:
+            - ntwk
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:8000"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+
+#    loans:
+#        container_name: loans
+#        build:
+#            context: .
+#            dockerfile: docker/people/Dockerfile
+#        volumes:
+#            - ./people:/var/www
+#        ports:
+#            - 8001:8000
+#        networks:
+#            - ntwk
+#        healthcheck:
+#            test: ["CMD", "curl", "-f", "http://localhost:8000"]
+#            interval: 30s
+#            timeout: 10s
+#            retries: 5
+
+    db_prefeitura:
+        image: postgres:15
+        container_name: db_prefeitura
+        ports:
+            - "5432:5432" # Porta padrão do PostgreSQL
+        environment:
+            POSTGRES_USER: "postgres"             # Nome do usuário principal
+            POSTGRES_PASSWORD: "umaSenhaSegura"  # Senha do usuário principal
+            POSTGRES_DB: "default"             # Nome do banco de dados inicial
+        networks:
+            - ntwk
+        volumes:
+            - ./local-data/db_prefeitura:/var/lib/postgresql/data
+            - ./docker/db_prefeitura/init.sql:/docker-entrypoint-initdb.d/init.sql
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+
+    db_mysql:
+        image: mysql:8.0
+        container_name: db_mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: "umaSenhaSegura"
+            MYSQL_USER: "mysql"
+            MYSQL_DATABASE: "DEFAULT"
+            MYSQL_PASSWORD: "umaSenhaSegura"
+        volumes:
+            - ./local-data/db_mysql:/var/lib/mysql
+            - ./docker/db_mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+        networks:
+            - ntwk
+        healthcheck:
+            test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+
+    redis:
+        image: redis:alpine
+        container_name: redis
+        networks:
+            - ntwk
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
 
     keycloak:
         image: keycloak/keycloak
         container_name: keycloak
-        command: start-dev --import-realm
+        command: start-dev --import-realm --features=scripts --verbose
+#        command: export --realm proj-exp-3 --dir /opt/keycloak/data/import --users realm_file
         environment:
             KEYCLOAK_ADMIN: admin
             KEYCLOAK_ADMIN_PASSWORD: admin
+            KC_FEATURE_SCRIPTS: enabled
             KC_DB: dev-file
+#            KC_DB: postgres
+#            KC_DB_URL: jdbc:postgresql://db_prefeitura:5432/keycloak
+#            KC_DB_USERNAME: postgres
+#            KC_DB_PASSWORD: umaSenhaSegura
         ports:
-            - 8080:8080
+            - 8101:8080
         volumes:
             - ./docker/keycloak/import:/opt/keycloak/data/import
         networks:
             - ntwk
+        depends_on:
+            db_prefeitura:
+                condition: service_healthy
         healthcheck:
             test: ["CMD", "curl", "-f", "http://localhost:8080/auth/realms/master/protocol/openid-connect/certs"]
             interval: 30s
