@@ -5,6 +5,7 @@ import './index.css';
 import Icon from '@mui/material/Icon';
 import { FaEdit } from "react-icons/fa";
 import { PiPulseBold } from "react-icons/pi";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
@@ -20,7 +21,7 @@ const SideMenu = () => {
   }, [location.pathname]);
 
   const menuItems = [
-    { path: '/', label: '     Home', icon: <PiPulseBold /> },
+    { path: '/', label: '     Home', icon: <HomeOutlinedIcon /> },
     { path: '/equipamentos', label: '     Equipamentos', icon: <Inventory2OutlinedIcon /> },
     { path: '/patrimonios', label: '     Patrimônios', icon: <Inventory2OutlinedIcon /> },
     { path: '/emprestimos', label: '     Empréstimos', icon: <Inventory2OutlinedIcon /> },

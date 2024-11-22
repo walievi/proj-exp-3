@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './index.css'; // Importar estilos
 
 import { useEquipament } from '../../providers/EquipamentsContext';
-// import { usePatrimony } from '../../providers/PatrimonyContext';
+import { usePatrimony } from '../../providers/PatrimonyContext';
 // import { useLoan } from '../../providers/LoanContext';
 // import { usePeople } from '../..providers/PeopleContext';
 
@@ -10,7 +10,7 @@ const Home = () => {
 //Inicialização dos dados necessário para a page
   const equipamentsContext = useEquipament();
   // const loansContext = useLoan();
-  // const patrimonysContext = usePatrimony();
+  const patrimonysContext = usePatrimony();
   // const peopleContext = usePeople();
 
 //Funções de contagem de cadastros de equipamentos
@@ -42,10 +42,10 @@ const Home = () => {
     };
   }
 
-  //Funções de contagem de cadastros de patrimônios
-  // function getTotalPatrimonys() {
-  //   return patrimonysContext.read.patrimonys.length;
-  // }
+  // Funções de contagem de cadastros de patrimônios
+  function getTotalPatrimonys() {
+    return patrimonysContext.read.patrimonys.length;
+  }
 
   // function getTotalActivePatrimonys() {
   //   const activePatrimonys = new Set();
@@ -148,7 +148,7 @@ const Home = () => {
                         
                   <div className="count-container bg-light-primary p-3 mb-3 rounded">
                     <p className="fs-5 fw-normal">Total:</p>
-                    <p className="fs-1 fw-bold">{/* {getTotalPatrimonys()} */}</p>
+                    <p className="fs-1 fw-bold">{getTotalPatrimonys()}</p>
                   </div>
                         
                   <div className="count-container bg-light-primary p-3 mb-3 rounded">
