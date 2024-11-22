@@ -5,7 +5,7 @@ export const PatrimonyContext = createContext();
 
 export const PatrimonyProvider = ({ children }) => {
     const [patrimonys, setPatrimony] = useState([]);  // Corrigido para 'patrimonys'
-    const apiPath = '/patrimony';
+    const apiPath = '/patrimonies';
 
     async function getPatrimonyById(id) {
         try {
@@ -42,7 +42,6 @@ export const PatrimonyProvider = ({ children }) => {
         postPatrimonyAPI(value)
             .then(res => setPatrimony([...patrimonys, res.data])) // Corrigido para usar 'patrimonys'
             .catch(err => console.error("Erro ao adicionar patrimônio:", err));
-            console.log(value)
     }
 
     useEffect(() => {

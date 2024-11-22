@@ -5,7 +5,7 @@ export const EquipamentsContext = createContext();
 
 export const EquipamentsProvider = ({ children }) => {
     const [equipaments, setEquipament] = useState([]);
-    const apiPath = '/equipament';
+    const apiPath = '/equipaments';
 
     async function getEquipamentById(id) {
         try {

@@ -23,13 +23,13 @@ class EquipamentController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|integer',
-            'description' => 'nullable|string|max:255',
-        ]);
+        // $validated = $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'category_id' => 'required|integer',
+        //     'description' => 'nullable|string|max:255',
+        // ]);
 
-        $equipament = $this->equipamentService->createEquipament($validated);
+        $equipament = $this->equipamentService->createEquipament($request);
         return response()->json($equipament, 201);
     }
 
@@ -41,13 +41,13 @@ class EquipamentController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|integer',
-            'description' => 'nullable|string|max:255',
-        ]);
+        // $validated = $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'category_id' => 'required|integer',
+        //     'description' => 'nullable|string|max:255',
+        // ]);
 
-        $equipament = $this->equipamentService->updateEquipament($id, $validated);
+        $equipament = $this->equipamentService->updateEquipament($id, $request);
         return response()->json($equipament);
     }
 

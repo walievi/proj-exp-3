@@ -25,11 +25,11 @@ services:
             - ./bff:/app:delegated
         ports:
             - 8102:8000
-        depends_on:
-            redis:
-                condition: service_healthy
-            keycloak:
-                condition: service_healthy
+        # depends_on:
+        #     redis:
+        #         condition: service_healthy
+        #     keycloak:
+        #         condition: service_healthy
         networks:
             - ntwk
 
@@ -45,6 +45,8 @@ services:
                 condition: service_healthy
         networks:
             - ntwk
+        ports:
+            - 3333:3333
 
     people:
         container_name: people

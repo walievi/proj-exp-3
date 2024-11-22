@@ -12,7 +12,7 @@ export const CategoryProvider = ({ children }) => {
 
     useEffect(() => {
         async function fetchCategoriesAPI() {
-            return await ApiAxios.get('/category')
+            return await ApiAxios.get('/categories')
         }
 
         fetchCategoriesAPI()

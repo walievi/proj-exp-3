@@ -12,7 +12,7 @@ export const LoansProvider = ({ children }) => {
 
     useEffect(() => {
         async function fetchLoansAPI() {
-            return await ApiAxios.get('/loan')
+            return await ApiAxios.get('/loans')
         }
 
         fetchLoansAPI()
