@@ -15,8 +15,9 @@ Route::post('auth', [AuthController::class, 'getToken']);
 
 Route::apiResource('equipaments', EquipamentController::class);
 Route::apiResource('patrimonies', PatrimonyController::class);
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('people', PersonController::class);
 
 Route::middleware(KeycloakAuthMiddleware::class)->group(function () {
-    Route::apiResource('categories', CategoryController::class);
-    Route::apiResource('people', PersonController::class);
+
 });
