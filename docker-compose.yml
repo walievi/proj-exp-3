@@ -47,6 +47,7 @@ services:
             - ntwk
         ports:
             - 3333:3333
+            - 8501:3333
 
     people:
         container_name: people
@@ -62,6 +63,8 @@ services:
                 condition: service_healthy
         networks:
             - ntwk
+        ports:
+          - 8502:8000
         healthcheck:
             test: ["CMD", "curl", "-f", "http://localhost:8000"]
             interval: 30s
@@ -98,7 +101,7 @@ services:
             - ntwk
         volumes:
             - ./local-data/db_prefeitura:/var/lib/postgresql/data
-            - ./docker/db_prefeitura/init.sql:/docker-entrypoint-initdb.d/init.sql
+            - ./docker/db_prefeitura/initdb:/docker-entrypoint-initdb.d
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -U postgres"]
             interval: 30s
@@ -157,9 +160,6 @@ services:
             - ./docker/keycloak/import:/opt/keycloak/data/import
         networks:
             - ntwk
-        depends_on:
-            db_prefeitura:
-                condition: service_healthy
         healthcheck:
             test: ["CMD", "curl", "-f", "http://localhost:8080/auth/realms/master/protocol/openid-connect/certs"]
             interval: 30s

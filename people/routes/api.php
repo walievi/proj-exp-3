@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PatientController;
-use App\Http\Controllers\People\PersonController;
+use App\Http\Controllers\PersonController;
 use Illuminate\Support\Facades\Route;
 
 Route::apiResource('people', PersonController::class);

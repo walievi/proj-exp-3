@@ -1,11 +1,14 @@
 # Use a imagem do Node com Alpine como base
 FROM node:lts-alpine
 
+WORKDIR /app
+
 RUN yarn config set registry https://registry.npmjs.org/
 
-COPY docker/frontend/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+COPY frontend /app
+
+RUN yarn install
 
 EXPOSE 5173
 
-CMD ["entrypoint.sh"]
+CMD ["yarn", "dev", "--host", "0.0.0.0"]
