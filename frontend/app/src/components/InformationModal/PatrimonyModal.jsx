@@ -35,17 +35,51 @@ const PatrimonyModal = ({ id }) => {
         });
     }
 
+    function serializePatrimony() {
+        return patrimonyContext.read.patrimonys.map(patrimony => {
+            return{
+                patrimonyId: patrimony.id,
+                equipamentId: patrimony.equipament.id,
+            }
+        })
+    }
+
+    function availableEquipaments() {
+        const allEquipaments = serializeEquipaments(); // Lista de todos os equipamentos
+        const assignedEquipamentIds = serializePatrimony().map(patrimony => patrimony.equipamentId); // IDs de equipamentos atribuídos
+    
+        // Filtra equipamentos que não estão atribuídos a um patrimônio
+        return allEquipaments.filter(equipament => !assignedEquipamentIds.includes(equipament.value));
+    }
+
+    function verifyPatrimonyCode(patrimonyCode) {
+        const existingPatrimonyCodes = patrimonyContext.read.patrimonys.map(patrimony => patrimony.patrimonyCode);
+        return existingPatrimonyCodes.includes(patrimonyCode);
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
 
+        const verifyPatrimony = event.target.patrimonyCode.value.trim();
+
+        // Verifica se o número de série já existe
+        if (verifyPatrimonyCode(verifyPatrimony)) {
+            alert(`Erro: O número de patrimônio "${verifyPatrimony}" já está cadastrado!`);
+            return;  // Impede o envio do formulário
+        }
+
+        const defaultEquipamentId = event.target.equipamentId.value.trim() || patrimonyData.equipament.id;
         const formData = {
-            patrimonyCode: event.target.patrimonyCode.value.trim(),
-            equipamentId: event.target.equipamentId.value.trim(),
+            patrimonyCode: verifyPatrimony,
+            equipamentId: defaultEquipamentId,
             description: event.target.description.value.trim(),
         };
 
         // Chama a função de update
         patrimonyContext.write.updatesPatrimony(id, formData);
+        alert(`Patrimônio cadastrado com sucesso. \n\nCódigo do Patrimônio Cadastrador:"${verifyPatrimony}" `);
+        handleCloseButton();
+
     }
 
     function handleCloseButton() {
@@ -55,6 +89,8 @@ const PatrimonyModal = ({ id }) => {
     if (!patrimonyData) {
         return <p>Carregando...</p>;
     }
+
+    
 
     return (
         <>
@@ -70,9 +106,8 @@ const PatrimonyModal = ({ id }) => {
                 <Dropdown
                     label="Equipamento"
                     identifier="equipamentId"
-                    required={true}
-                    data={serializeEquipaments()}
-                    defaultValue={patrimonyData.equipament.id}
+                    data={availableEquipaments()}
+                    defaultValue={(patrimonyData.equipament.id)}
                     disabled={!isEditable}
                 />
                 <TextArea

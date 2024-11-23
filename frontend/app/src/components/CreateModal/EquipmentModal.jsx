@@ -5,60 +5,76 @@ import Dropdown from "../Dropdown";
 import TextArea from "../TextArea";
 import DialogModal from "../DialogModal";
 import { useCategory } from '../../providers/CategoryContext';
-import { useTableList } from '../../providers/TableListProvider'
-
-
+import { useEquipament } from '../../providers/EquipamentsContext';  // Corrigido de 'useCategory' para 'useEquipament'
+import { useTableList } from '../../providers/TableListProvider';
 
 const EquipmentModal = ({ action, dialogModal }) => {
     const [showPosModal, setShowPosModal] = useState(false);
     const tableListContext = useTableList();
-    const categoriesContext = useCategory()
+    const categoriesContext = useCategory();
+    const equipamentsContext = useEquipament();  // Corrigido de 'useCategory' para 'useEquipament'
     const navigate = useNavigate();
+
+    // Função para verificar se o número de série já existe
+    function verifySerialNumber(serialNumber) {
+        const existingSerialNumbers = equipamentsContext.read.equipaments.map(equipament => equipament.serialNumber);
+        return existingSerialNumbers.includes(serialNumber);
+    }
 
     function serializeCategories() {
         return categoriesContext.read.categories.map(category => {
-          return {
-            value: category.id,
-            description: category.name
-          }
-        })
-      }
+            return {
+                value: category.id,
+                description: category.name
+            }
+        });
+    }
 
     function handleSubmit(event) {
         event.preventDefault();
-    
+
+        const verifySN = event.target.serialNumber.value.trim();
+
+        // Verifica se o número de série já existe
+        if (verifySerialNumber(verifySN)) {
+            alert(`Erro: O número de série "${verifySN}" já está cadastrado!`);
+            return;  // Impede o envio do formulário
+        }
+
         const formData = {
             model: event.target.model.value.trim(),
-            serialNumber: event.target.serialNumber.value.trim(),
+            serialNumber: verifySN,
             manufacturer: event.target.manufacturer.value.trim(),
             categoryId: event.target.categoryId.value.trim(),
             description: event.target.description.value.trim(),
         };
-        action(formData); // Chama a função de ação passada como prop
+
+        action(formData); // Chama a função de ação passada como prop\
+        alert(`Equipamento cadastrado com sucesso. \n\nDados Principais: \n\nEquipamento:"${event.target.model.value}" \n\nNúmero de Série: "${verifySN}"`);
         setShowPosModal(true);
     }
 
     function handleCloseButton() {
-        tableListContext.write.showCreateModal(false)
+        tableListContext.write.showCreateModal(false);
     }
 
     function handleCloseDialogModal() {
-        setShowPosModal(false)
-        handleCloseButton()
+        setShowPosModal(false);
+        handleCloseButton();
     }
 
     function handleConfirmationDialogModal() {
-        setShowPosModal(false)
-        handleCloseButton()
-        navigate('/patrimonios')
-        tableListContext.write.showCreateModal(true)
+        setShowPosModal(false);
+        handleCloseButton();
+        navigate('/patrimonios');
+        tableListContext.write.showCreateModal(true);
     }
 
     return (
         <>
             <form className="modal-form" onSubmit={handleSubmit}>
                 <InputText
-                    label="Modelo"
+                    label="Equipamento"
                     description="Obrigatório"
                     identifier="model"
                     required={true}
@@ -96,10 +112,10 @@ const EquipmentModal = ({ action, dialogModal }) => {
                 </div>
             </form>
             {
-            showPosModal ? <DialogModal title={dialogModal.title} description={dialogModal.description} handleCancel={handleCloseDialogModal} handleConfirmation={handleConfirmationDialogModal} /> : null
+                showPosModal ? <DialogModal title={dialogModal.title} description={dialogModal.description} handleCancel={handleCloseDialogModal} handleConfirmation={handleConfirmationDialogModal} /> : null
             }
         </>
-    )
-}
+    );
+};
 
 export default EquipmentModal;

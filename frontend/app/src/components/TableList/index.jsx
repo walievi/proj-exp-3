@@ -11,6 +11,9 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import SortByAlphaOutlinedIcon from '@mui/icons-material/SortByAlphaOutlined';
+import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
+import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
 // Importando componentes de Material UI
 import Checkbox from '@mui/material/Checkbox';
 import InformationModal from '../InformationModal/index.jsx';
@@ -52,11 +55,17 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
     const [searchQuery, setSearchQuery] = useState ("");
 
 // Função de pesquisa
-    const filteredData = data.filter((item) => {
-        if (!searchColumn || !searchQuery) return true;
-        const value = item[searchColumn]?.toString().toLowerCase() || "";
-        return value.includes(searchQuery.toLowerCase());
-    });
+    const [filteredData, setFilteredData] = useState(data);
+
+    useEffect(() => {
+        setFilteredData(
+            data.filter((item) => {
+                if (!searchColumn || !searchQuery) return true;
+                const value = item[searchColumn]?.toString().toLowerCase() || "";
+                return value.includes(searchQuery.toLowerCase());
+            })
+        );
+    }, [searchColumn, searchQuery, data]);
 
 //Configuração de paginação
     const [currentPage, setCurrentPage] = useState(1);
@@ -105,11 +114,19 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
     };
 
     const sortTable = (column, direction) => {
-        data.sort((a, b) => {
+        const sortedData = [...filteredData].sort((a, b) => {
             if (a[column] < b[column]) return direction === 'asc' ? -1 : 1;
             if (a[column] > b[column]) return direction === 'asc' ? 1 : -1;
-            return null;
+            return 0;
         });
+        setFilteredData(sortedData);
+    };
+
+    const resetOrder = () => {
+        setFilteredData([...data]); // Restaura a lista original
+        setSearchQuery(""); // Limpa a busca
+        setSearchColumn(columns[0]); // Reseta a coluna de busca
+        setSortConfig({ key: null, direction: 'asc' }); // Reseta a ordenação
     };
 
     return (
@@ -118,35 +135,45 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                 <div className="table-container bg-white border rounded">
                     <div className="table-header-container sticky-top bg-white">
                         <div className="items-table-header-container d-flex align-items-center justify-content-between py-3">
-                            <div>
+                            {/* <div>
                                 <div className="text-item-header">{title}</div>
                                 <div className="sub-item-header">{subtitle}</div>
-                            </div>
+                            </div> */}
                             <div className='searchContainer'>
                                 <div className="radio-buttons">
-                                    {columns.map((column, index) => (
-                                        <label key={index} className='radio-label'>
-                                            <input
-                                                type='radio'
-                                                name='searchColumn'
-                                                value={column}
-                                                checked={searchColumn === column}
-                                                onChange={() => setSearchColumn(column)}
-                                            />
-                                            {column}
-                                        </label>
-                                    ))}
+                                    <label htmlFor="searchColumn" className="select-label">
+                                        Selecione a coluna:
+                                    </label>
                                 </div>
-                                <input
-                                    type="text"
-                                    className="search-input"
-                                    placeholder='Digite sua pesquisa'
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    disabled={!searchColumn}
-                                />
+                                <div className="search-container">
+                                    <select
+                                        className="form-select"
+                                        id="searchColumn"
+                                        name="searchColumn"
+                                        value={searchColumn}
+                                        onChange={(e) => setSearchColumn(e.target.value)}
+                                    >
+                                        {columns.map((column, index) => (
+                                            <option key={index} value={column}>
+                                                {column}
+                                            </option>
+                                        ))}
+                                    </select>
+
+                                    <input
+                                        type="text"
+                                        className="search-input"
+                                        placeholder="Digite sua pesquisa"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        disabled={!searchColumn}
+                                    />
+                                </div>
                             </div>
                             <div className="action-item-header d-flex">
+                                <button className="btn btn-secondary me-2" onClick={resetOrder}>
+                                    Redefinir
+                                </button>
                                 <button className="btn btn-danger me-2">
                                     <DeleteOutlineIcon /> {' '} 
                                     Deletar
@@ -166,15 +193,17 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                         <thead>
                             <tr>
                                 <th className="checkbox-header" scope="col">
-                                    <Checkbox />
+
                                 </th>
                                 {columns && columns.length > 0 && columns.map((column, index) => (
                                     <th key={index} className="table-row-header" scope="col">
                                         <button className='sort-button' onClick={() => handleSort(column)}>
                                             {column}
                                             {sortConfig.key === column ? (
-                                                sortConfig.direction === 'asc' ? ' ↑' : ' ↓'
-                                            ) : null}
+                                                sortConfig.direction === 'asc' ? <ArrowUpwardOutlinedIcon fontSize="small"/> : <ArrowDownwardOutlinedIcon fontSize="small"/>
+                                            ) : (
+                                                <SortByAlphaOutlinedIcon fontSize="small"/>
+                                            )}
                                         </button>
                                     </th>
                                 ))}

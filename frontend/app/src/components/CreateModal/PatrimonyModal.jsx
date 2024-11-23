@@ -3,32 +3,62 @@ import Dropdown from "../Dropdown";
 import TextArea from "../TextArea";
 import InputText from "../InputText";
 import { useEquipament } from '../../providers/EquipamentsContext';
+import { usePatrimony } from '../../providers/PatrimonyContext';
 import { useTableList } from '../../providers/TableListProvider'
 
 const PatrimonyModal = ({ action }) => {
     const tableListContext = useTableList();
-    const equipamentsContext = useEquipament()
+    const equipamentsContext = useEquipament();
+    const patrimonyContext = usePatrimony();
 
     function serializeEquipaments() {
         return equipamentsContext.read.equipaments.map(equipament => {
-          return {
-            value: equipament.id,
-            description: `${equipament.model} - ${equipament.serialNumber}`,
-          }
+            return {
+                value: equipament.id,
+                description: `${equipament.model} - ${equipament.serialNumber}`,
+            }
         })
-      }
+    }
+    
+    function serializePatrimony() {
+        return patrimonyContext.read.patrimonys.map(patrimony => {
+            return{
+                patrimonyId: patrimony.id,
+                equipamentId: patrimony.equipament.id,
+            }
+        })
+    }
+
+    function availableEquipaments() {
+        const allEquipaments = serializeEquipaments(); // Lista de todos os equipamentos
+        const assignedEquipamentIds = serializePatrimony().map(patrimony => patrimony.equipamentId); // IDs de equipamentos atribuídos
+    
+        // Filtra equipamentos que não estão atribuídos a um patrimônio
+        return allEquipaments.filter(equipament => !assignedEquipamentIds.includes(equipament.value));
+    }
+
+    
 
     function handleSubmit(event) {
         event.preventDefault();
 
+        const verifyPatrimony = event.target.PatrimonyCode.value.trim();
+
+        // Verifica se o número de série já existe
+        if (verifyPatrimonyCode(verifyPatrimony)) {
+            alert(`Erro: O número de patrimônio "${verifyPatrimony}" já está cadastrado!`);
+            return;  // Impede o envio do formulário
+        }
+
         const formData = {
-            patrimonyCode: event.target.patrimonyCode.value.trim(),
+            patrimonyCode: verifyPatrimony,
             equipamentId: event.target.equipamentId.value.trim(),
             description: event.target.description.value.trim(),
         };
 
-        console.log(formData)
         action(formData);
+        alert(`Patrimônio cadastrado com sucesso. \n\nCódigo do Patrimônio Cadastrador:"${verifyPatrimony}" `);
+        handleCloseButton();
 
     }
 
@@ -50,7 +80,7 @@ const PatrimonyModal = ({ action }) => {
                     description="Obrigatório"
                     identifier="equipamentId"
                     required={true}
-                    data={serializeEquipaments()}
+                    data={availableEquipaments()}
                 />
                 <TextArea
                     label="Descrição"

@@ -17,7 +17,7 @@ export default class PatrimoniesController {
         },
         relations: {
           equipament: {
-            fields: ['id', 'model', 'serial_number'],
+            fields: ['id', 'model', 'serialNumber'],
           },
         },
       })
@@ -67,7 +67,7 @@ export default class PatrimoniesController {
     const patrimony = await Patrimony.query()
       .where('id', patrimonyId)
       .preload('equipament', (query) => {
-        query.select(['id', 'model', 'serial_number']);
+        query.select(['id', 'model', 'serialNumber']);
       })
       .first();
 

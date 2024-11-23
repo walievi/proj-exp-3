@@ -29,7 +29,7 @@ class PatrimonyController extends Controller
         //     'description' => 'nullable|string|max:255',
         // ]);
 
-        $patrimony = $this->patrimonyService->createPatrimony($request);
+        $patrimony = $this->patrimonyService->createPatrimony($request->all());
         return response()->json($patrimony, 201);
     }
 
@@ -47,7 +47,7 @@ class PatrimonyController extends Controller
         //     'description' => 'nullable|string|max:255',
         // ]);
 
-        $patrimony = $this->patrimonyService->updatePatrimony($id, $request);
+        $patrimony = $this->patrimonyService->updatePatrimony($id, $request->all());
         return response()->json($patrimony);
     }
 

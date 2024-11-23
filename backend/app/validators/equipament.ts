@@ -5,11 +5,7 @@ export const createPostValidator = vine.compile(
     model: vine
       .string()
       .trim()
-      .maxLength(100)
-      .unique(async (db, value, field) => {
-        const equipament = await db.from('Equipament').where('model', value).first()
-        return !equipament
-      }),
+      .maxLength(100),
     serialNumber: vine.string().trim().maxLength(20).unique(async (db, value, field) => {
       const equipament = await db.from('Equipament').where('serial_number', value).first()
       return !equipament

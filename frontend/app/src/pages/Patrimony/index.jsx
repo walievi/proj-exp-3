@@ -6,7 +6,7 @@ import Modal from '../../components/CreateModal';
 import { usePatrimony } from '../../providers/PatrimonyContext';
 
 const Patrimonios = () => {
-  const columns = ["Patrimônio", "Equipamento"];
+  const columns = ["Patrimônio", "Equipamento", "Número de Série"];
   // const columns = ["Patrimônio", "Equipamento", "Disponível", "Status"];
 
   // Serialization dos dados necessário para a page
@@ -18,6 +18,7 @@ const Patrimonios = () => {
         id: patrimony.id,
         Patrimônio: patrimony.patrimonyCode,
         Equipamento: patrimony.equipament.model,
+        "Número de Série": patrimony.equipament.serialNumber,
       }
     })
   }

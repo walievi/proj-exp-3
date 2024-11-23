@@ -35,12 +35,25 @@ const EquipmentModal = ({ id }) => {
         });
     }
 
+    function verifySerialNumber(serialNumber) {
+        const existingSerialNumbers = equipamentsContext.read.equipaments.map(equipament => equipament.serialNumber);
+        return existingSerialNumbers.includes(serialNumber);
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
 
+        const verifySN = event.target.serialNumber.value.trim();
+
+        // Verifica se o número de série já existe
+        if (verifySerialNumber(verifySN)) {
+            alert(`Erro: O número de série "${verifySN}" já está cadastrado!`);
+            return;  // Impede o envio do formulário
+        }
+
         const formData = {
             model: event.target.model.value.trim(),
-            serialNumber: event.target.serialNumber.value.trim(),
+            serialNumber: verifySN,
             manufacturer: event.target.manufacturer.value.trim(),
             categoryId: event.target.categoryId.value.trim(),
             description: event.target.description.value.trim(),
@@ -48,6 +61,9 @@ const EquipmentModal = ({ id }) => {
 
         // Chama a função de update
         equipamentsContext.write.updatesEquipament(id, formData);
+        alert(`Equipamento atualizado com sucesso. \n\nDados Principais: \n\nEquipamento:"${event.target.model.value}" \n\nNúmero de Série: "${verifySN}"`);
+        handleCloseButton()
+
     }
 
     function handleCloseButton() {

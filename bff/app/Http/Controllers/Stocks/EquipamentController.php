@@ -29,7 +29,7 @@ class EquipamentController extends Controller
         //     'description' => 'nullable|string|max:255',
         // ]);
 
-        $equipament = $this->equipamentService->createEquipament($request);
+        $equipament = $this->equipamentService->createEquipament($request->all());
         return response()->json($equipament, 201);
     }
 
@@ -47,7 +47,7 @@ class EquipamentController extends Controller
         //     'description' => 'nullable|string|max:255',
         // ]);
 
-        $equipament = $this->equipamentService->updateEquipament($id, $request);
+        $equipament = $this->equipamentService->updateEquipament($id, $request->all());
         return response()->json($equipament);
     }
 
