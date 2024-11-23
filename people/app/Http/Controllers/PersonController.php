@@ -43,7 +43,7 @@ class PersonController extends Controller
 
         $validated = $request->validate([
             'name' => 'sometimes|string|max:255',
-            'cpf' => 'sometimes|string|size:11|unique:people,cpf,' . $id,
+            'cpf' => 'sometimes|string|size:14|unique:people,cpf,' . $id,
             'rg' => 'nullable|string|max:20',
             'birth_date' => 'sometimes|date',
             'email' => 'sometimes|email|unique:people,email,' . $id,

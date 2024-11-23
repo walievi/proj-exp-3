@@ -5,9 +5,20 @@ export const PeopleContext = createContext()
 
 export const PeopleProvider = ({ children }) => {
     const [people, setPerson] = useState([])
+    const apiPath = '/people';
 
     function updatePerson(value) {
         setPerson([...people, value])
+    }
+
+    async function getPersonById(id) {
+        try {
+            const response = await ApiAxios.get(`${apiPath}/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error("Erro ao buscar pessoa:", error);
+            return null;
+        }
     }
 
     useEffect(() => {
@@ -21,18 +32,19 @@ export const PeopleProvider = ({ children }) => {
     }, [])
 
     return (
-        <PersonContext.Provider
+        <PeopleContext.Provider
             value={{
                 write: {
                     people: updatePerson
                 },
                 read: {
-                    people
+                    people,
+                    getPersonById,
                 }
             }}
         >
             {children}
-        </PersonContext.Provider>
+        </PeopleContext.Provider>
     )
 }
 

@@ -2,7 +2,7 @@ import InputMask from "react-input-mask";
 
 import './index.css';
 
-const InputTextMasked = ({ label, description, identifier, mask, placeholder, required, pattern, title }) => {
+const InputTextMasked = ({ label, description, identifier, mask, placeholder, required, pattern, title, defaultValue, disabled }) => {
     return (
         <div className="container-input">
             <div className="input-header">
@@ -18,6 +18,8 @@ const InputTextMasked = ({ label, description, identifier, mask, placeholder, re
                     required={required}
                     pattern={pattern}
                     title={title}
+                    defaultValue={defaultValue}
+                    disabled={disabled}
                 >
                     {(inputProps) => <input {...inputProps} type="text" />}
                 </InputMask>
