@@ -2,6 +2,8 @@ import Patrimony from '#models/patrimony'
 import Equipament from '#models/equipament'
 import { createPostValidator } from '#validators/patrimony'
 import type { HttpContext } from '@adonisjs/core/http'
+import { DateTime } from 'luxon';
+
 
 export default class PatrimoniesController {
   /**
@@ -103,6 +105,8 @@ export default class PatrimoniesController {
     patrimony.patrimonyCode = data.patrimonyCode || patrimony.patrimonyCode;
     patrimony.description = data.description || patrimony.description;
 
+    patrimony.deletedAt = null;
+
     // Salva as alterações
     await patrimony.save();
     await patrimony.load('equipament');
@@ -113,5 +117,20 @@ export default class PatrimoniesController {
   /**
    * Delete record
    */
-  async destroy({ params }: HttpContext) {}
+  async destroy({ params, response }: HttpContext) {
+    const patrimonyId = params.id;
+  
+    const patrimony = await Patrimony.find(patrimonyId);
+  
+    if (!patrimony) {
+      return response.status(404).json({ message: "Patrimônio não encontrado." });
+    }
+  
+    // Define a data atual no campo deletedAt
+    patrimony.deletedAt = DateTime.now();
+  
+    await patrimony.save();
+  
+    return response.status(200).json({ message: "Patrimônio desativado com sucesso." });
+  }
 }

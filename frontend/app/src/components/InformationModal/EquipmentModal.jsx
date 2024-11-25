@@ -37,6 +37,10 @@ const EquipmentModal = ({ id }) => {
 
     function verifySerialNumber(serialNumber) {
         const existingSerialNumbers = equipamentsContext.read.equipaments.map(equipament => equipament.serialNumber);
+
+        if (serialNumber === equipamentData.serialNumber) {
+            return false;
+        }
         return existingSerialNumbers.includes(serialNumber);
     }
 

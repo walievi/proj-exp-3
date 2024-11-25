@@ -61,12 +61,17 @@ export const EquipamentsProvider = ({ children }) => {
         }
     }, [user.signed]);
 
+    async function deactivateEquipamentAPI(id) {
+        await ApiAxios.delete(`${apiPath}/${id}`); 
+    }
+
     return (
         <EquipamentsContext.Provider
             value={{
                 write: {
                     equipaments: updateEquipament,
-                    updatesEquipament: updateEquipamentAPI
+                    updatesEquipament: updateEquipamentAPI,
+                    deactivatesEquipament: deactivateEquipamentAPI
                 },
                 read: {
                     equipaments,

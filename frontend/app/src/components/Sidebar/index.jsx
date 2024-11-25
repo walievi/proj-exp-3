@@ -27,7 +27,6 @@ const SideMenu = () => {
     { path: '/emprestimos', label: '     Empréstimos', icon: <Inventory2OutlinedIcon /> },
     { path: '/pacientes', label: '     Pacientes', icon: <SupervisedUserCircleIcon /> },
     { path: '/relatorios', label: '     Relatórios', icon: <TrendingUpIcon /> },
-    { path: '/configuracoes', label: '     Configurações', icon: <SettingsOutlinedIcon /> },
   ];
 
   return (
@@ -59,12 +58,6 @@ const SideMenu = () => {
               <div className="text-muted">Role</div>
             </div>
           </div>
-        </div>
-        <div>
-          <button className="btn btn-light mt-3 w-100 d-flex align-items-center justify-content-center">
-            <FaEdit className='me-2'/>
-            Editar Perfil
-          </button>
         </div>
     </div>
   );
