@@ -21,7 +21,7 @@ export const LoansProvider = ({ children }) => {
             fetchLoansAPI()
                 .then(data => setLoan(data.data))
         }
-    }, [])
+    }, [user.signed])
 
     return (
         <LoansContext.Provider
