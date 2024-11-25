@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import ApiAxios from './ApiAxios'
+import { useAuth } from "./AuthContext";
 
 export const PeopleContext = createContext()
 
 export const PeopleProvider = ({ children }) => {
     const [people, setPerson] = useState([])
     const apiPath = '/people';
+    const { user } = useAuth()
 
     function updatePerson(value) {
         setPerson([...people, value])
@@ -26,10 +28,11 @@ export const PeopleProvider = ({ children }) => {
             return await ApiAxios.get('/people')
         }
 
-        fetchPeopleAPI()
-            .then(data => setPerson(data.data))
-
-    }, [])
+        if(user.signed) {
+            fetchPeopleAPI()
+                .then(data => setPerson(data.data))
+        }
+    }, [user.signed])
 
     return (
         <PeopleContext.Provider

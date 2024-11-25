@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import ApiAxios from './ApiAxios';
+import { useAuth } from "./AuthContext";
 
 export const PatrimonyContext = createContext();
 
 export const PatrimonyProvider = ({ children }) => {
     const [patrimonys, setPatrimony] = useState([]);  // Corrigido para 'patrimonys'
     const apiPath = '/patrimonies';
+    const { user } = useAuth()
 
     async function getPatrimonyById(id) {
         try {
@@ -54,8 +56,10 @@ export const PatrimonyProvider = ({ children }) => {
             }
         }
 
-        fetchPatrimonyAPI();
-    }, []);
+        if(user.signed) {
+            fetchPatrimonyAPI();
+        }
+    }, [user.signed]);
 
     return (
         <PatrimonyContext.Provider

@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import ApiAxios from './ApiAxios'
+import { useAuth } from "./AuthContext";
 
 export const LoansContext = createContext()
 
 export const LoansProvider = ({ children }) => {
     const [loans, setLoan] = useState([])
+    const { user } = useAuth()
 
     function updateLoan(value) {
         setLoan([...loans, value])
@@ -15,13 +17,14 @@ export const LoansProvider = ({ children }) => {
             return await ApiAxios.get('/loans')
         }
 
-        fetchLoansAPI()
-            .then(data => setLoan(data.data))
-
+        if(user.signed) {
+            fetchLoansAPI()
+                .then(data => setLoan(data.data))
+        }
     }, [])
 
     return (
-        <LoanContext.Provider
+        <LoansContext.Provider
             value={{
                 write: {
                     loans: updateLoan
@@ -32,10 +35,10 @@ export const LoansProvider = ({ children }) => {
             }}
         >
             {children}
-        </LoanContext.Provider>
+        </LoansContext.Provider>
     )
 }
 
 export const useLoan = () => {
-    return useContext(LoanContext)
+    return useContext(LoansContext)
 }
