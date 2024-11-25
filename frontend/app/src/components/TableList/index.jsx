@@ -283,14 +283,16 @@ const BasicTable = ({ columns, data, createModal }) => {
                                         }
                                     })}
                                     <td className="table-row-data" scope="row">
-                                    <button 
-                                        className="btn btn-danger me-2" 
-                                        onClick={() => handleDeactivateItem(row.id)} 
-                                        disabled={row.Status === "Inativo"}
-                                    >
-                                        <CloseTwoToneIcon /> {' '} 
-                                        Desativar
-                                    </button>
+                                        {location.pathname === '/equipamentos' || location.pathname === '/patrimonios' ? (
+                                                <button 
+                                                    className="btn btn-danger me-2" 
+                                                    onClick={() => handleDeactivateItem(row.id)} 
+                                                    disabled={row.Status === "Inativo"}
+                                                >
+                                                    <CloseTwoToneIcon /> {' '} 
+                                                    Desativar
+                                                </button>
+                                            ) : null}
                                         <button 
                                             className='btn btn-outline-info'
                                             onClick={() => handleView(row.id)}

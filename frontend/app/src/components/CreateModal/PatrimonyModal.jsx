@@ -37,12 +37,17 @@ const PatrimonyModal = ({ action }) => {
         return allEquipaments.filter(equipament => !assignedEquipamentIds.includes(equipament.value));
     }
 
+    function verifyPatrimonyCode(patrimonyCode) {
+        const existingPatrimonyCodes = patrimonyContext.read.patrimonys.map(patrimony => patrimony.patrimonyCode);
+        return existingPatrimonyCodes.includes(patrimonyCode);
+    }
+
     
 
     function handleSubmit(event) {
         event.preventDefault();
 
-        const verifyPatrimony = event.target.PatrimonyCode.value.trim();
+        const verifyPatrimony = event.target.patrimonyCode.value.trim();
 
         // Verifica se o número de série já existe
         if (verifyPatrimonyCode(verifyPatrimony)) {
