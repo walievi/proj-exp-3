@@ -5,17 +5,19 @@ import Modal from '../../components/CreateModal';
 import { useEquipament } from '../../providers/EquipamentsContext';
 
 const Equipamentos = () => {
-  const columns = ["Equipamento", "Número de Série","Fabricante", "Categoria"];
+  const columns = ["Equipamento", "Número de Série","Fabricante", "Categoria", "Status"];
   const equipamentsContext = useEquipament();
 
   function serializeEquipaments() {
     return equipamentsContext.read.equipaments.map(equipament => {
+      const status = equipament.deletedAt ? "Inativo" : "Ativo";
       return {
         id: equipament.id,
         Equipamento: equipament.model,
         "Número de Série": equipament.serialNumber,
         Fabricante: equipament.manufacturer,
         Categoria: equipament.category.name,
+        Status: status,
       }
     })
   }
