@@ -131,8 +131,8 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
 
     return (
         <>
-            <div className="list-container container">
-                <div className="table-container bg-white border rounded">
+            <div className="w-100 p-3">
+                <div className="table-container bg-white border rounded p-3">
                     <div className="table-header-container sticky-top bg-white">
                         <div className="items-table-header-container d-flex align-items-center justify-content-between py-3">
                             {/* <div>
