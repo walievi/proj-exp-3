@@ -6,19 +6,20 @@ import Modal from '../../components/CreateModal';
 import { usePatrimony } from '../../providers/PatrimonyContext';
 
 const Patrimonios = () => {
-  const columns = ["Patrimônio", "Equipamento", "Número de Série"];
-  // const columns = ["Patrimônio", "Equipamento", "Disponível", "Status"];
+  const columns = ["Patrimônio", "Equipamento", "Número de Série", "Status"];
 
   // Serialization dos dados necessário para a page
   const patrimonysContext = usePatrimony();
 
   function serializePatrimony() {
     return patrimonysContext.read.patrimonys.map(patrimony => {
+      const status = patrimony.deletedAt ? "Inativo" : "Ativo";
       return {
         id: patrimony.id,
         Patrimônio: patrimony.patrimonyCode,
         Equipamento: patrimony.equipament.model,
         "Número de Série": patrimony.equipament.serialNumber,
+        Status: status,
       }
     })
   }
