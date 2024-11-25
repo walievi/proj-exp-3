@@ -6,7 +6,7 @@ import axios from 'axios'
 // axios.defaults.baseURL = 'http://localhost:8000/v1/dev'
 
 
-axios.defaults.baseURL = 'http://localhost:8102/v1'
+axios.defaults.baseURL = 'http://localhost:8100/v1'
 
 const axiosInstance = axios.create()
 
