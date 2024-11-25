@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import ApiAxios from './ApiAxios'
+import { useAuth } from "./AuthContext";
 
 export const CategoryContext = createContext()
 
 export const CategoryProvider = ({ children }) => {
     const [categories, setCategory] = useState([])
+    const { user } = useAuth()
 
     function updateCategory(value) {
         setCategory([...categories, value])
@@ -15,10 +17,12 @@ export const CategoryProvider = ({ children }) => {
             return await ApiAxios.get('/categories')
         }
 
-        fetchCategoriesAPI()
+        if(user.signed) {
+            fetchCategoriesAPI()
             .then(data => setCategory(data.data))
+        }
 
-    }, [])
+    }, [user.signed])
 
     return (
         <CategoryContext.Provider

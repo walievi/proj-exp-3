@@ -14,53 +14,32 @@ class PersonController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'cpf' => 'required|string|size:11|unique:people',
-            'rg' => 'nullable|string|max:20',
-            'birth_date' => 'required|date',
-            'email' => 'required|email|unique:people',
-            'phone' => 'nullable|string|max:15',
-            'is_disabled' => 'boolean',
-            'card_sus' => 'nullable|string|max:255',
-            'education_level' => 'nullable|string|max:255',
-        ]);
-
-        $person = Person::create($validated);
-
-        return response()->json($person, 201);
+        try {
+            $person = Person::create($request->json()->all());
+            return response()->json($person, 201);
+        }catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
-    public function show($id)
+    public function show(Person $person)
     {
-        $person = Person::findOrFail($id);
         return response()->json($person, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Person $person)
     {
-        $person = Person::findOrFail($id);
+        try {
+            $person->update($request->json()->all());
+            return response()->json($person, 200);
 
-        $validated = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'cpf' => 'sometimes|string|size:14|unique:people,cpf,' . $id,
-            'rg' => 'nullable|string|max:20',
-            'birth_date' => 'sometimes|date',
-            'email' => 'sometimes|email|unique:people,email,' . $id,
-            'phone' => 'nullable|string|max:15',
-            'is_disabled' => 'boolean',
-            'card_sus' => 'nullable|string|max:255',
-            'education_level' => 'nullable|string|max:255',
-        ]);
-
-        $person->update($validated);
-
-        return response()->json($person, 200);
+        }catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
-    public function destroy($id)
+    public function destroy(Person $person)
     {
-        $person = Person::findOrFail($id);
         $person->delete();
 
         return response()->json(null, 204);

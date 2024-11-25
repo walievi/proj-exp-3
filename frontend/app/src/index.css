@@ -63,9 +63,9 @@ ul {
   list-style: none;
 }
 
-input {
+/* input {
   all: unset;
-}
+} */
 
 textarea {
   border: none;

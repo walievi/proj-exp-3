@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import ApiAxios from './ApiAxios';
+import { useAuth } from "./AuthContext";
 
 export const EquipamentsContext = createContext();
 
 export const EquipamentsProvider = ({ children }) => {
     const [equipaments, setEquipament] = useState([]);
     const apiPath = '/equipaments';
+    const { user } = useAuth()
 
     async function getEquipamentById(id) {
         try {
@@ -51,11 +53,13 @@ export const EquipamentsProvider = ({ children }) => {
             return await ApiAxios.get(apiPath);
         }
 
-        fetchEquipamentAPI()
+        if(user.signed) {
+            fetchEquipamentAPI()
             .then(data => {
                 setEquipament(data.data);
             });
-    }, []);
+        }
+    }, [user.signed]);
 
     async function deactivateEquipamentAPI(id) {
         await ApiAxios.delete(`${apiPath}/${id}`); 
