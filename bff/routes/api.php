@@ -7,7 +7,7 @@ use App\Http\Controllers\Stocks\EquipamentController;
 use App\Http\Controllers\Stocks\PatrimonyController;
 use App\Http\Middleware\KeycloakAuthMiddleware;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 
 Route::post('auth', [AuthController::class, 'getToken']);
 

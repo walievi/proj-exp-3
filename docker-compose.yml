@@ -3,13 +3,24 @@ networks:
         driver: bridge
 
 services:
+    nginx:
+        image: nginx:latest
+        container_name: nginx
+        ports:
+          - "8000:80"
+        volumes:
+            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+        depends_on:
+            - bff
+            - frontend
+        networks:
+            - ntwk
+
     frontend:
         container_name: frontend
         build:
             context: .
             dockerfile: docker/frontend/Dockerfile
-        volumes:
-            - ./frontend/app:/app
         working_dir: /app
         ports:
             - 8100:5173
@@ -25,11 +36,6 @@ services:
             - ./bff:/app:delegated
         ports:
             - 8102:8000
-        # depends_on:
-        #     redis:
-        #         condition: service_healthy
-        #     keycloak:
-        #         condition: service_healthy
         networks:
             - ntwk
 
@@ -150,10 +156,6 @@ services:
             KEYCLOAK_ADMIN_PASSWORD: admin
             KC_FEATURE_SCRIPTS: enabled
             KC_DB: dev-file
-#            KC_DB: postgres
-#            KC_DB_URL: jdbc:postgresql://db_prefeitura:5432/keycloak
-#            KC_DB_USERNAME: postgres
-#            KC_DB_PASSWORD: umaSenhaSegura
         ports:
             - 8101:8080
         volumes:

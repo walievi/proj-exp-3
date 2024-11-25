@@ -5,7 +5,7 @@ WORKDIR /app
 
 RUN yarn config set registry https://registry.npmjs.org/
 
-COPY frontend /app
+COPY ./frontend/app /app
 
 RUN yarn install
 
