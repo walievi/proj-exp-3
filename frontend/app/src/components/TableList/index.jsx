@@ -18,11 +18,10 @@ import SortByAlphaOutlinedIcon from '@mui/icons-material/SortByAlphaOutlined';
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
 // Importando componentes de Material UI
-import Checkbox from '@mui/material/Checkbox';
 import InformationModal from '../InformationModal/index.jsx';
 
 
-const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
+const BasicTable = ({ columns, data, createModal }) => {
 
 //Configuração modal visualização
     const [selectedItem, setSelectedItem] = useState(null);
@@ -43,11 +42,33 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
     const patrimonyContext = usePatrimony();
     const tableListContext = useTableList();
 
+    const renderSNColumn = (row) => {
+        return row["SN"] || 'N/A'; // Exibe 'N/A' caso SN não exista
+    };
+
+    const renderStatusColumn = (row) => {
+        return renderStatus(row["Status"]); // Chama a função renderStatus para exibir o status formatado
+    };
+
     const renderStatus = (status) => {
         if (status === "Ativo") {
-            return <span className="status-active">Ativo</span>;
+            return (
+                <span className="d-flex align-items-center">
+                    <span className="badge bg-success text-light p-2 rounded-pill d-flex align-items-center">
+                        <span className="status-circle bg-success-circle"></span>
+                        Ativo
+                    </span>
+                </span>
+            );
         } else if (status === "Inativo") {
-            return <span className="status-inactive">Inativo</span>;
+            return (
+                <span className="d-flex align-items-center">
+                    <span className="badge bg-secondary text-light p-2 rounded-pill d-flex align-items-center">
+                        <span className="status-circle bg-secondary-circle"></span>
+                        Inativo
+                    </span>
+                </span>
+            );
         }
         return status || "N/A";
     };
@@ -58,12 +79,18 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
 
     function handleDeactivateEquipament(id) {
         alert('Equipamento desativado');
-        equipamentContext.write.deactivatesEquipament(id);
+        equipamentContext.write.deactivatesEquipament(id).then(() => {
+
+            window.location.reload();
+        })
     }
 
     function handleDeactivatePatrimony(id) {
         alert('Patrimônio desativado');
-        patrimonyContext.write.deactivatesPatrimony(id);
+        patrimonyContext.write.deactivatesPatrimony(id).then(() => {
+
+            window.location.reload();
+        })
     }
 
     function handleDeactivateItem(id) {
@@ -166,10 +193,6 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                 <div className="table-container bg-white border rounded p-3">
                     <div className="table-header-container sticky-top bg-white">
                         <div className="items-table-header-container d-flex align-items-center justify-content-between py-3">
-                            {/* <div>
-                                <div className="text-item-header">{title}</div>
-                                <div className="sub-item-header">{subtitle}</div>
-                            </div> */}
                             <div className='searchContainer'>
                                 <div className="radio-buttons">
                                     <label htmlFor="searchColumn" className="select-label">
@@ -238,19 +261,36 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                             {currentItems.map((row, rowIndex) => (
                                 <tr key={rowIndex}>
 
-                                    {columns.map((column, colIndex) => (
-                                        <td key={colIndex} className="table-row-data" scope="row">
-                                            {/* {column === "Status" ? renderStatus(row[column]) : row[column] || 'N/A'} */}
-                                            {column === "SN" ? row["SN"] : row[column] || 'N/A'}
-                                        </td>
-                                        
-                                    ))}
+                                    {columns.map((column, colIndex) => {
+                                        if (column === "SN") {
+                                            return (
+                                                <td key={colIndex} className="table-row-data" scope="row">
+                                                    {renderSNColumn(row)}
+                                                </td>
+                                            );
+                                        } else if (column === "Status") {
+                                            return (
+                                                <td key={colIndex} className="table-row-data status-column" scope="row">
+                                                    {renderStatusColumn(row)}
+                                                </td>
+                                            );
+                                        } else {
+                                            return (
+                                                <td key={colIndex} className="table-row-data" scope="row">
+                                                    {row[column] || 'N/A'}
+                                                </td>
+                                            );
+                                        }
+                                    })}
                                     <td className="table-row-data" scope="row">
-                                        <button className="btn btn-danger me-2" onClick={() => handleDeactivateItem(row.id)}>
-                                            <CloseTwoToneIcon /> {' '} 
-                                            
-                                            Desativar
-                                        </button>
+                                    <button 
+                                        className="btn btn-danger me-2" 
+                                        onClick={() => handleDeactivateItem(row.id)} 
+                                        disabled={row.Status === "Inativo"}
+                                    >
+                                        <CloseTwoToneIcon /> {' '} 
+                                        Desativar
+                                    </button>
                                         <button 
                                             className='btn btn-outline-info'
                                             onClick={() => handleView(row.id)}

@@ -58,8 +58,7 @@ export const EquipamentsProvider = ({ children }) => {
     }, []);
 
     async function deactivateEquipamentAPI(id) {
-            await ApiAxios.delete(`${apiPath}/${id}`); 
-            console.log(id);
+        await ApiAxios.delete(`${apiPath}/${id}`); 
     }
 
     return (
