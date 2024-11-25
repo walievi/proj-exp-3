@@ -29,29 +29,17 @@ const Patrimonios = () => {
     return patrimonysContext.read.patrimonys.length;
   }
 
-  // function getTotalActivepatrimonys() {
-  //   const activepatrimonys = new Set();
-  
-  //   patrimonysContext.read.patrimonys.forEach(patrimonys => {
-  //     activepatrimonys.add(patrimonys.status.active);
-  //   });
-  
-  //   return {
-  //     totalActivepatrimonys: activepatrimonys.size,
-  //   };
-  // }
+  function getTotalActivePatrimonys() {
+    return patrimonysContext.read.patrimonys.filter(
+        patrimony => !patrimony.deletedAt // Consideramos "Ativo" se `deletedAt` for `null` ou `undefined`
+    ).length;
+}
 
-  // function getTotalInactivepatrimonys() {
-  //   const inactivepatrimonys = new Set();
-  
-  //   patrimonysContext.read.patrimonys.forEach(patrimonys => {
-  //     inactivepatrimonys.add(patrimonys.status.inactive);
-  //   });
-  
-  //   return {
-  //     totalInactivepatrimonys: inactivepatrimonys.size,
-  //   };
-  // }
+function getTotalInactivePatrimonys() {
+    return patrimonysContext.read.patrimonys.filter(
+        patrimony => patrimony.deletedAt // Consideramos "Inativo" se `deletedAt` tiver um valor
+    ).length;
+}
 
   return (
     <>
@@ -70,7 +58,7 @@ const Patrimonios = () => {
               Ativos
             </div>
             <div className="count-quantity-container fs-1 fw-bold d-flex align-items-end text-white">
-              {/* {getTotalActivepatrimonys().totalActivePatrimonys}  */}
+              {getTotalActivePatrimonys()} 
             </div>
           </div>
           <div className="count-container d-flex flex-column align-items-start p-3 gap-3 w-25 h-100 bg-primary rounded">
@@ -78,7 +66,7 @@ const Patrimonios = () => {
             Inativos
             </div>
             <div className="count-quantity-container fs-1 fw-bold d-flex align-items-end text-white">
-              {/* {getTotalInactivepatrimonys().totalInactivePatrimonys} */}
+              {getTotalInactivePatrimonys()}
             </div>
           </div>  
         </div>

@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import './index.css'; // Importar estilos
 
 import { useEquipament } from '../../providers/EquipamentsContext';
@@ -47,29 +46,17 @@ const Home = () => {
     return patrimonysContext.read.patrimonys.length;
   }
 
-  // function getTotalActivePatrimonys() {
-  //   const activePatrimonys = new Set();
-  
-  //   patrimonysContext.read.patrimonys.forEach(patrimonys => {
-  //     activePatrimonys.add(patrimonys.status.active);
-  //   });
-  
-  //   return {
-  //     totalActivePatrimonys: activePatrimonys.size,
-  //   };
-  // }
+  function getTotalActivePatrimonys() {
+    return patrimonysContext.read.patrimonys.filter(
+        patrimony => !patrimony.deletedAt // Consideramos "Ativo" se `deletedAt` for `null` ou `undefined`
+    ).length;
+}
 
-  // function getTotalInactivePatrimonys() {
-  //   const inactivePatrimonys = new Set();
-  
-  //   patrimonysContext.read.patrimonys.forEach(patrimonys => {
-  //     inactivePatrimonys.add(patrimonys.status.inactive);
-  //   });
-  
-  //   return {
-  //     totalInactivePatrimonys: inactivePatrimonys.size,
-  //   };
-  // }
+function getTotalInactivePatrimonys() {
+    return patrimonysContext.read.patrimonys.filter(
+        patrimony => patrimony.deletedAt // Consideramos "Inativo" se `deletedAt` tiver um valor
+    ).length;
+}
 
     //Funções de contagem de cadastros de empréstimos
   // function getTotalLoans() {
@@ -153,12 +140,12 @@ const Home = () => {
                         
                   <div className="count-container bg-light-primary p-3 mb-3 rounded">
                     <p className="fs-5 fw-normal">Ativos:</p>
-                    <p className="fs-1 fw-bold">{/* {getTotalActivePatrimonys().totalActivePatrimonys} */}</p>
+                    <p className="fs-1 fw-bold">{getTotalActivePatrimonys()}</p>
                   </div>
                         
                   <div className="count-container bg-light-primary p-3 rounded">
                     <p className="fs-5 fw-normal">Inativos:</p>
-                    <p className="fs-1 fw-bold">{/* {getTotalInactivePatrimonys().totalInactivePatrimonys} */}</p>
+                    <p className="fs-1 fw-bold">{getTotalInactivePatrimonys()}</p>
                   </div>
                 </div>
               </div>
