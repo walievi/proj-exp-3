@@ -29,7 +29,7 @@ export default class Patrimony extends BaseModel {
   declare updatedAt: DateTime
 
   @column.dateTime({ autoCreate: false, autoUpdate: false })
-  declare deletedAt: DateTime
+  declare deletedAt: DateTime | null;
 
 
   @beforeCreate()

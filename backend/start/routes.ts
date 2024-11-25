@@ -25,6 +25,7 @@ router
     router.post('/', [EquipamentController, 'store'])
     router.get('/:id', [EquipamentController, 'show'])
     router.put('/:id', [EquipamentController, 'update'])
+    router.delete('/:id', [EquipamentController, 'destroy'])
   })
   .prefix('/equipament')
 
@@ -34,5 +35,6 @@ router
     router.post('/', [PatrimonyController, 'store'])
     router.get('/:id', [PatrimonyController, 'show'])
     router.put('/:id', [PatrimonyController, 'update'])
+    router.delete('/:id', [PatrimonyController, 'destroy'])
   })
   .prefix('/patrimony')

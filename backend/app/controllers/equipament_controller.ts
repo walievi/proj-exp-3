@@ -2,6 +2,7 @@ import Category from '#models/category'
 import Equipament from '#models/equipament'
 import { createPostValidator } from '#validators/equipament'
 import type { HttpContext } from '@adonisjs/core/http'
+import { DateTime } from 'luxon';
 
 export default class EquipamentController {
   /**
@@ -111,6 +112,8 @@ export default class EquipamentController {
     equipament.manufacturer = data.manufacturer || equipament.manufacturer;
     equipament.description = data.description || equipament.description;
 
+    equipament.deletedAt = null;
+
     await equipament.related('category').associate(categoryFound);
 
     await equipament.save();
@@ -122,5 +125,20 @@ export default class EquipamentController {
   /**
    * Delete record
    */
-  async destroy({ params }: HttpContext) {}
+  async destroy({ params, response }: HttpContext) {
+    const equipamentId = params.id;
+  
+    const equipament = await Equipament.find(equipamentId);
+  
+    if (!equipament) {
+      return response.status(404).json({ message: "Equipamento não encontrado." });
+    }
+  
+    // Define a data atual no campo deletedAt
+    equipament.deletedAt = DateTime.now();
+  
+    await equipament.save();
+  
+    return response.status(200).json({ message: "Equipamento desativado com sucesso." });
+  }
 }

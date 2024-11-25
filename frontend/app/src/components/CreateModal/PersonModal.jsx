@@ -67,20 +67,10 @@ const PersonModal = ({ action }) => {
                     placeholder="Digite o endereço"
                     required={true}
                 />
-                <InputTextMasked
-                    label="CPF"
-                    description="Obrigatório"
-                    identifier="patientDocument"
-                    mask="999.999.999-99"
-                    placeholder="000.000.000-00"
-                    required={true}
-                    pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
-                    title="Digite um CPF no formato 000.000.000-00"
-                />
                 <InputDate
                     label="Data de Nascimento"
                     description="Obrigatório"
-                    identifier="patientBirthday"
+                    identifier="birth_date"
                     required={true}
                 />
                 <InputText

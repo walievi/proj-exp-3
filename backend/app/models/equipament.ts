@@ -40,7 +40,7 @@ export default class Equipament extends BaseModel {
   declare updatedAt: DateTime
 
   @column.dateTime({ autoCreate: false, autoUpdate: false })
-  declare deletedAt: DateTime
+  declare deletedAt: DateTime | null;
 
   // @beforeCreate()
   // static assignUuid(equipament: Equipament) {

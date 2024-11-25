@@ -54,6 +54,11 @@ const PatrimonyModal = ({ id }) => {
 
     function verifyPatrimonyCode(patrimonyCode) {
         const existingPatrimonyCodes = patrimonyContext.read.patrimonys.map(patrimony => patrimony.patrimonyCode);
+        
+        if (patrimonyCode === patrimonyData.patrimonyCode) {
+            return false;
+        }
+        
         return existingPatrimonyCodes.includes(patrimonyCode);
     }
 
@@ -77,7 +82,7 @@ const PatrimonyModal = ({ id }) => {
 
         // Chama a função de update
         patrimonyContext.write.updatesPatrimony(id, formData);
-        alert(`Patrimônio cadastrado com sucesso. \n\nCódigo do Patrimônio Cadastrador:"${verifyPatrimony}" `);
+        alert(`Patrimônio atualizado com sucesso. \n\nCódigo do Patrimônio Atualizado:"${verifyPatrimony}" `);
         handleCloseButton();
 
     }

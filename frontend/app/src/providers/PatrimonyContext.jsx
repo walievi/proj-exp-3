@@ -57,12 +57,17 @@ export const PatrimonyProvider = ({ children }) => {
         fetchPatrimonyAPI();
     }, []);
 
+    async function deactivatePatrimonyAPI(id) {
+        await ApiAxios.delete(`${apiPath}/${id}`);
+    }
+
     return (
         <PatrimonyContext.Provider
             value={{
                 write: {
                     patrimonys: updatePatrimony,
-                    updatesPatrimony: updatePatrimonyAPI
+                    updatesPatrimony: updatePatrimonyAPI,
+                    deactivatesPatrimony: deactivatePatrimonyAPI
                 },
                 read: {
                     patrimonys,  // Passando 'patrimonys' para o contexto

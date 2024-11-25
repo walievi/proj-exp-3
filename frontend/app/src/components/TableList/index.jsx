@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation  } from "react-router-dom";
 import './index.css'; // Importar estilos
-import { exportToCSV} from './ExportUtils'; // Importar script de exportação de dados
 
 //Importar componentes do projeto
 import { useTableList } from '../../providers/TableListProvider';
-import { getPaginationPages} from './PaginationUtils.js';
+import { useEquipament } from '../../providers/EquipamentsContext';
+import { usePatrimony } from '../../providers/PatrimonyContext';
+import { getPaginationPages } from './PaginationUtils.js';
+import { exportToCSV } from './ExportUtils'; // Importar script de exportação de dados
 
 // Icones de Material UI
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -35,6 +38,9 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
     }
 
 //Configuração tabela
+    const location = useLocation();
+    const equipamentContext = useEquipament();
+    const patrimonyContext = usePatrimony();
     const tableListContext = useTableList();
 
     const renderStatus = (status) => {
@@ -48,6 +54,31 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
 
     function handleClickAdd() {
         tableListContext.write.showCreateModal(true);
+    }
+
+    function handleDeactivateEquipament(id) {
+        alert('Equipamento desativado');
+        equipamentContext.write.deactivatesEquipament(id);
+    }
+
+    function handleDeactivatePatrimony(id) {
+        alert('Patrimônio desativado');
+        patrimonyContext.write.deactivatesPatrimony(id);
+    }
+
+    function handleDeactivateItem(id) {
+        switch (location.pathname) {
+            // case '/categorias':
+            //     return <CategoryModal />;
+            case '/equipamentos':
+                handleDeactivateEquipament(id);
+                break;
+            case '/patrimonios':
+                handleDeactivatePatrimony(id);
+                break;
+            default:
+                return null;
+        }
     }
 
 // Estados de controle de pesquisa
@@ -174,10 +205,6 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                                 <button className="btn btn-secondary me-2" onClick={resetOrder}>
                                     Redefinir
                                 </button>
-                                <button className="btn btn-danger me-2">
-                                    <DeleteOutlineIcon /> {' '} 
-                                    Deletar
-                                </button>
                                 <button className="btn btn-success me-2" onClick={handleExport}>
                                     <CloudDownloadOutlinedIcon /> {' '}
                                     Exportar
@@ -192,9 +219,6 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                     <table className="table table-sm align-middle">
                         <thead>
                             <tr>
-                                <th className="checkbox-header" scope="col">
-
-                                </th>
                                 {columns && columns.length > 0 && columns.map((column, index) => (
                                     <th key={index} className="table-row-header" scope="col">
                                         <button className='sort-button' onClick={() => handleSort(column)}>
@@ -213,16 +237,20 @@ const BasicTable = ({ title, subtitle, columns, data, createModal }) => {
                         <tbody>
                             {currentItems.map((row, rowIndex) => (
                                 <tr key={rowIndex}>
-                                    <td className="checkbox-column" scope="row">
-                                        <Checkbox />
-                                    </td>
+
                                     {columns.map((column, colIndex) => (
                                         <td key={colIndex} className="table-row-data" scope="row">
                                             {/* {column === "Status" ? renderStatus(row[column]) : row[column] || 'N/A'} */}
                                             {column === "SN" ? row["SN"] : row[column] || 'N/A'}
                                         </td>
+                                        
                                     ))}
                                     <td className="table-row-data" scope="row">
+                                        <button className="btn btn-danger me-2" onClick={() => handleDeactivateItem(row.id)}>
+                                            <CloseTwoToneIcon /> {' '} 
+                                            
+                                            Desativar
+                                        </button>
                                         <button 
                                             className='btn btn-outline-info'
                                             onClick={() => handleView(row.id)}
