@@ -16,7 +16,7 @@ const PrivateRoute = ({ children }) => {
     const auth = useAuth()
     const location = useLocation()
 
-    console.log('oi daniel' + auth.user.signIn)
+    // console.log('oi daniel' + auth.user.signIn)
 
     return auth.user.signed ? (
         <>{ children }</>

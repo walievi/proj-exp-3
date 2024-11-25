@@ -49,11 +49,11 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const tokenStorage = localStorage.getItem('token')
 
-        console.log('oi daniel' + JSON.stringify(location))
-        console.log('oi daniel token' + JSON.stringify(tokenStorage))
+        // console.log('oi daniel' + JSON.stringify(location))
+        // console.log('oi daniel token' + JSON.stringify(tokenStorage))
 
         if(tokenStorage !== null) {
-            console.log('Alguma coisa no useEffect')
+            // console.log('Alguma coisa no useEffect')
             setUser({ 
                 signed: true, 
                 access_token: tokenStorage 

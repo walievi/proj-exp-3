@@ -26,37 +26,96 @@ const PersonModal = ({ id }) => {
         }
     }, [id, peopleContext.read]);
 
+    function serializePeople() {
+        return peopleContext.read.people.map((person) => {
+            return {
+                value: person.id,
+                description: person.name,
 
-    // function verifySerialNumber(serialNumber) {
-    //     const existingSerialNumbers = equipamentsContext.read.equipaments.map(equipament => equipament.serialNumber);
-    //     return existingSerialNumbers.includes(serialNumber);
-    // }
+            };
+        });
+    }
 
-    // function handleSubmit(event) {
-    //     event.preventDefault();
 
-    //     const verifySN = event.target.serialNumber.value.trim();
+    function verifyEmailData(email) {
+        const existingEmails = peopleContext.read.people.map(person => person.email);
 
-    //     // Verifica se o número de série já existe
-    //     if (verifySerialNumber(verifySN)) {
-    //         alert(`Erro: O número de série "${verifySN}" já está cadastrado!`);
-    //         return;  // Impede o envio do formulário
-    //     }
+        if (email === personData.email) {
+            return false;
+        }
+        return existingEmails.includes(email);
+    }
 
-    //     const formData = {
-    //         model: event.target.model.value.trim(),
-    //         serialNumber: verifySN,
-    //         manufacturer: event.target.manufacturer.value.trim(),
-    //         categoryId: event.target.categoryId.value.trim(),
-    //         description: event.target.description.value.trim(),
-    //     };
+    function verifyCPFData(CPF) {
+        const existingCPFs = peopleContext.read.people.map(person => person.CPF);
 
-    //     // Chama a função de update
-    //     equipamentsContext.write.updatesEquipament(id, formData);
-    //     alert(`Equipamento atualizado com sucesso. \n\nDados Principais: \n\nEquipamento:"${event.target.model.value}" \n\nNúmero de Série: "${verifySN}"`);
-    //     handleCloseButton()
+        if (CPF === personData.CPF) {
+            return false;
+        }
+        return existingCPFs.includes(CPF);
+    }
 
-    // }
+    function verifyRGData(RG) {
+        const existingRGs = peopleContext.read.people.map(person => person.RG);
+
+        if (RG === personData.RG) {
+            return false;
+        }
+        return existingRGs.includes(RG);
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const verifyEmail = event.target.email.value.trim();
+        const verifyCPF = event.target.cpf.value.trim();
+        const verifyRG = event.target.rg.value.trim();
+
+        // Verifica se o email já existe
+        if (verifyEmailData(verifyEmail)) {
+            alert(`Erro: O email "${verifyEmail}" já está cadastrado!`);
+            return;  // Impede o envio do formulário
+        }
+
+        // Verifica se o email já existe
+        if (verifyCPFData(verifyCPF)) {
+            alert(`Erro: O CPF "${verifyCPF}" já está cadastrado!`);
+            return;  // Impede o envio do formulário
+        }
+
+        // Verifica se o email já existe
+        if (verifyRGData(verifyRG)) {
+            alert(`Erro: O RG "${verifyRG}" já está cadastrado!`);
+            return;  // Impede o envio do formulário
+        }
+
+        const formData = {
+            name: event.target.name.value.trim(),
+            cpf: verifyCPF,
+            rg: verifyRG,
+            email: verifyEmail,
+            birth_date: event.target.birth_date.value.trim(),
+            phone: event.target.phone.value.trim(),
+            mother_name: event.target.mother_name.value.trim(),
+            father_name: event.target.father_name.value.trim(),
+            is_disabled: event.target.is_disabled.value.trim(),
+            card_sus: event.target.card_sus.value.trim(),
+            education_level: event.target.education_level.value.trim(),
+        };
+
+        // Chama a função de update
+        peopleContext.write.updatesPeople(id, formData);
+        console.log(formData)
+        alert(`Cadastro do paciente "${event.target.name.value}" atualizado com sucesso. 
+            \n\nDados Principais:
+            \n\nNome:"${event.target.name.value}" 
+            \n\nCPF: "${verifyCPF}"
+            \n\nRG: "${verifyRG}"
+            \n\nEmail: "${verifyEmail}"
+        `);
+        handleCloseButton()
+
+    }
 
     function handleCloseButton() {
         tableListContext.write.showInfoModal(false);
@@ -68,7 +127,7 @@ const PersonModal = ({ id }) => {
 
     return (
         <>
-            <form className="modal-form" >
+            <form className="modal-form" onSubmit={handleSubmit}>
                 <InputText
                     label="Nome"
                     identifier="name"
@@ -119,11 +178,50 @@ const PersonModal = ({ id }) => {
                     defaultValue={personData.phone}
                     disabled={!isEditable}
                 />
+                <Dropdown
+                    label="Mãe"
+                    identifier="mother_name"
+                    required={true}
+                    data={serializePeople()}
+                    defaultValue={personData.mother_id}
+                    disabled={!isEditable}
+                />
+                <Dropdown
+                    label="Pai"
+                    identifier="father_name"
+                    required={true}
+                    data={serializePeople()}
+                    defaultValue={personData.father_id}
+                    disabled={!isEditable}
+                />
+                <Dropdown
+                    label="Deficiente?"
+                    identifier="is_disabled"
+                    required={true}
+                    data={[
+                        { value: true, description: 'Sim' },
+                        { value: false, description: 'Não' },
+                    ]}
+                    defaultValue={personData.is_disabled}
+                    disabled={!isEditable}
+                />
                 <InputText
                     label="Cartão SUS"
                     identifier="card_sus"
                     required={true}
                     defaultValue={personData.card_sus}
+                    disabled={!isEditable}
+                />
+                <Dropdown
+                    label="Nível de Educação"
+                    identifier="education_level"
+                    required={true}
+                    data={[
+                        { value: 'Fundamental', description: 'Fundamental' },
+                        { value: 'Médio', description: 'Médio' },
+                        { value: 'Faculdade', description: 'Faculdade' }
+                    ]}
+                    defaultValue={personData.education_level}
                     disabled={!isEditable}
                 />
                 <div>

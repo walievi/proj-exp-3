@@ -34,11 +34,47 @@ export const PeopleProvider = ({ children }) => {
         }
     }, [user.signed])
 
+    async function postPersonAPI(newPerson) {
+        return await ApiAxios.post(apiPath, {
+            name: newPerson.name,
+            cpf: newPerson.cpf,
+            rg: newPerson.rg,
+            birth_date: newPerson.birth_date,
+            email: newPerson.email,
+            phone: newPerson.phone,
+            mother_name: newPerson.mother_name,
+            father_name: newPerson.father_name,
+            is_disabled: newPerson.is_disabled,
+            card_sus: newPerson.card_sus,
+            education_level: newPerson.education_level,
+        });
+    }
+
+    function updatePerson(value) {
+        postPersonAPI(value)
+            .then(res => setPerson([...people, res.data]))
+            .then(err => console.log(err));
+    }
+
+    async function updatePersonAPI(id, updatedPerson) {
+        try {
+            const response = await ApiAxios.put(`${apiPath}/${id}`, updatedPerson);
+            setPerson((prevPeople) =>
+                prevPeople.map((person) =>
+                    person.id === id ? response. data : person
+                )
+            );
+        } catch (erro) {
+            console.erro("Erro ao atualizar pessoa: ", error);
+        }
+    }
+
     return (
         <PeopleContext.Provider
             value={{
                 write: {
-                    people: updatePerson
+                    people: updatePerson,
+                    updatesPeople: updatePersonAPI
                 },
                 read: {
                     people,
