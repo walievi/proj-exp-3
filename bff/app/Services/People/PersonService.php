@@ -30,6 +30,7 @@ class PersonService
     public function createPerson(array $data)
     {
         $response = $this->httpClient->post('/api/people', [
+            'headers' => ['Content-Type' => 'application/json'],
             'json' => $data,
         ]);
         return json_decode($response->getBody()->getContents(), true);
@@ -38,6 +39,7 @@ class PersonService
     public function updatePerson($id, array $data)
     {
         $response = $this->httpClient->put("/api/people/{$id}", [
+            'headers' => ['Content-Type' => 'application/json'],
             'json' => $data,
         ]);
         return json_decode($response->getBody()->getContents(), true);

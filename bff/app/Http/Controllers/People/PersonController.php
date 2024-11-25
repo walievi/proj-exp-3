@@ -36,20 +36,18 @@ class PersonController extends Controller
     /**
      * Cria uma nova pessoa
      */
-    public function store(StorePersonRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated(); // Validação feita pela Request
-        $person = $this->personService->createPerson($data);
+        $person = $this->personService->createPerson($request->all());
         return response()->json($person, 201);
     }
 
     /**
      * Atualiza os dados de uma pessoa
      */
-    public function update(StorePersonRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $data = $request->validated(); // Validação feita pela Request
-        $person = $this->personService->updatePerson($id, $data);
+        $person = $this->personService->updatePerson($id, $request->all());
         return response()->json($person);
     }
 
