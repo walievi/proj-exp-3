@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ApiAxios from './ApiAxios';
 import { useAuth } from "./AuthContext";
 
@@ -7,7 +8,8 @@ export const EquipamentsContext = createContext();
 export const EquipamentsProvider = ({ children }) => {
     const [equipaments, setEquipament] = useState([]);
     const apiPath = '/equipaments';
-    const { user } = useAuth()
+    const navigate = useNavigate();
+    const { user, setUser } = useAuth()
 
     async function getEquipamentById(id) {
         try {
@@ -49,17 +51,31 @@ export const EquipamentsProvider = ({ children }) => {
     }
 
     async function fetchEquipamentAPI() {
-        return await ApiAxios.get(apiPath);
+        try {
+            return await ApiAxios.get(apiPath);
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                // Token inválido ou expirado
+                console.error("Token inválido ou expirado. Redirecionando para login.");
+                localStorage.removeItem("token"); // Remove o token do localStorage
+                setUser({ signed: false, access_token: "" }); // Atualiza o estado do usuário
+                navigate("/signIn"); // Redireciona para a página de login
+            } else {
+                console.error("Erro ao buscar os equipamentos:", error);
+            }
+        }
     }
 
     useEffect(() => {
-        if(user.signed) {
+        
+    
+        if (user.signed) {
             fetchEquipamentAPI()
-            .then(data => {
-                setEquipament(data.data);
-            });
+                .then(res => {
+                    setEquipament(res.data)
+                })
         }
-    }, [user.signed]);
+    }, [user.signed, apiPath, navigate]);
 
     async function deactivateEquipamentAPI(id) {
         await ApiAxios.delete(`${apiPath}/${id}`); 

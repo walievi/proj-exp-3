@@ -3,7 +3,6 @@ import InputTextMasked from "../InputTextMasked";
 import InputText from "../InputText";
 import InputDate from "../DateInput";
 import Dropdown from "../Dropdown";
-import TextArea from "../TextArea";
 import { usePeople } from "../../providers/PeopleContext";
 import { useTableList } from "../../providers/TableListProvider";
 
@@ -96,8 +95,8 @@ const PersonModal = ({ id }) => {
             email: verifyEmail,
             birth_date: event.target.birth_date.value.trim(),
             phone: event.target.phone.value.trim(),
-            mother_name: event.target.mother_name.value.trim(),
-            father_name: event.target.father_name.value.trim(),
+            mother_id: event.target.mother_id.value.trim(),
+            father_id: event.target.father_id.value.trim(),
             is_disabled: event.target.is_disabled.value.trim(),
             card_sus: event.target.card_sus.value.trim(),
             education_level: event.target.education_level.value.trim(),
@@ -180,7 +179,7 @@ const PersonModal = ({ id }) => {
                 />
                 <Dropdown
                     label="Mãe"
-                    identifier="mother_name"
+                    identifier="mother_id"
                     required={true}
                     data={serializePeople()}
                     defaultValue={personData.mother_id}
@@ -188,7 +187,7 @@ const PersonModal = ({ id }) => {
                 />
                 <Dropdown
                     label="Pai"
-                    identifier="father_name"
+                    identifier="father_id"
                     required={true}
                     data={serializePeople()}
                     defaultValue={personData.father_id}
