@@ -3,7 +3,6 @@ import InputTextMasked from "../InputTextMasked";
 import InputText from "../InputText";
 import InputDate from "../DateInput";
 import Dropdown from "../Dropdown";
-import TextArea from "../TextArea";
 import { usePeople } from "../../providers/PeopleContext";
 import { useTableList } from "../../providers/TableListProvider";
 

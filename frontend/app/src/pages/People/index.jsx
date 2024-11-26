@@ -55,7 +55,7 @@ const People = () => {
           createModal={
             <Modal 
               modalTitle="Cadastro de Pacientes"  
-              // action={peopleContext.write.people} 
+              action={peopleContext.write.people} 
             />
           }
         />

@@ -34,7 +34,7 @@ const RoutesApp = () => {
             <Route path='/signIn' element={<SignIn />}/>
             <Route element={<DefaultLayout />}>
                 <Route
-                    index
+                    
                     path='/' 
                     element={
                         <PrivateRoute>

@@ -6,7 +6,6 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import './index.css'; // Importar estilos
 
-// import CategoryModal from '../CreateModal/CategoryModal';
 import EquipmentModal from '../CreateModal/EquipmentModal';
 import PatrimonyModal from '../CreateModal/PatrimonyModal';
 import PersonModal from '../CreateModal/PersonModal';
@@ -29,11 +28,11 @@ const Modal = ({ modalTitle, action, dialogModal }) => {
             case '/equipamentos':
                 return <EquipmentModal action={action} dialogModal={dialogModal} />;
             case '/patrimonios':
-                return <PatrimonyModal action={action} dialogModal={dialogModal}/>;
+                return <PatrimonyModal action={action} />;
             case '/pacientes':
-                return <PersonModal action={action} dialogModal={dialogModal}/>;
+                return <PersonModal action={action} />;
             case '/emprestimos':
-                return <LoanModal action={action} dialogModal={dialogModal}/>;
+                return <LoanModal action={action} />;
             default:
                 return null;
         }
