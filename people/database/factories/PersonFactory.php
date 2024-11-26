@@ -20,7 +20,6 @@ class PersonFactory extends Factory
             'phone' => $this->faker->optional()->numerify('(##) #####-####'), // Telefone
             'mother_id' => $this->faker->boolean(90) ? Person::factory() : null, // 50% chance de ter mãe
             'father_id' => $this->faker->boolean(60) ? Person::factory() : null, // 50% chance de ter pai
-            'father_name' => $this->faker->optional()->name('male'), // Nome do pai (se necessário)
             'is_disabled' => $this->faker->boolean(10), // 10% de chance de ser true
             'card_sus' => $this->faker->optional()->numerify('##############'), // Número do cartão SUS
             'education_level' => $this->faker->optional()->randomElement([
