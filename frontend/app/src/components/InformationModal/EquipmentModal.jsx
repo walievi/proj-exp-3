@@ -131,7 +131,8 @@ const EquipmentModal = ({ id }) => {
                         checked={isEditable}
                         onChange={() => setIsEditable((prev) => !prev)}
                         className="form-check-input border-primary"
-                        />
+                        id="enabledEdit"
+                    />
                     <label>
                         Habilitar Edição
                     </label>

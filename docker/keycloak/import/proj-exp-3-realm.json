@@ -246,7 +246,39 @@
         "containerId" : "7dbdea4c-264d-425d-9495-c4766cddb1fd",
         "attributes" : { }
       } ],
-      "bff" : [ {
+      "bff" : [{
+        "id" : "585dd916-8fa4-4bd8-bd2f-d87cc6765d71",
+        "name" : "patrimonies-PUT",
+        "description" : "",
+        "composite" : false,
+        "clientRole" : true,
+        "containerId" : "cc7bbfd4-b8d9-4604-8267-fb7fa5cf5b98",
+        "attributes" : { }
+      }, {
+        "id" : "b957ec66-b5cf-453a-bace-4c42f757f2de",
+        "name" : "patrimonies-POST",
+        "description" : "",
+        "composite" : false,
+        "clientRole" : true,
+        "containerId" : "cc7bbfd4-b8d9-4604-8267-fb7fa5cf5b98",
+        "attributes" : { }
+      }, {
+        "id" : "0e9a851d-9b07-4f41-aa30-acc06b2a4ece",
+        "name" : "patrimonies-DELETE",
+        "description" : "",
+        "composite" : false,
+        "clientRole" : true,
+        "containerId" : "cc7bbfd4-b8d9-4604-8267-fb7fa5cf5b98",
+        "attributes" : { }
+      }, {
+        "id" : "0e6d7bfe-2bfa-493b-a3e2-ee562619274c",
+        "name" : "patrimonies-GET",
+        "description" : "",
+        "composite" : false,
+        "clientRole" : true,
+        "containerId" : "cc7bbfd4-b8d9-4604-8267-fb7fa5cf5b98",
+        "attributes" : { }
+      }, {
         "id" : "19cb0841-4c49-45af-a237-5f9ce3a33a39",
         "name" : "people-PUT",
         "description" : "",
@@ -527,7 +559,7 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "default-roles-proj-exp-3" ],
     "clientRoles" : {
-      "bff" : [ "people-PUT", "categories-POST", "categories-DELETE", "equipaments-PUT", "people-POST", "people-DELETE", "categories-GET", "people-GET", "loans-DELETE", "loans-PUT", "equipaments-POST", "equipaments-DELETE", "categories-PUT", "loans-POST", "equipaments-GET", "loans-GET" ]
+      "bff" : [ "patrimonies-PUT", "patrimonies-POST", "patrimonies-DELETE", "patrimonies-GET", "people-PUT", "categories-POST", "categories-DELETE", "equipaments-PUT", "people-POST", "people-DELETE", "categories-GET", "people-GET", "loans-DELETE", "loans-PUT", "equipaments-POST", "equipaments-DELETE", "categories-PUT", "loans-POST", "equipaments-GET", "loans-GET" ]
     },
     "notBefore" : 0,
     "groups" : [ ]

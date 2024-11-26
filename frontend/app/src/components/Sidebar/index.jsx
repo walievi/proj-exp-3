@@ -42,6 +42,7 @@ const SideMenu = () => {
                  to={item.path}
                  className={`nav-link d-flex align-items-center ${activePath === item.path ? 'active-link' : 'hover-effect'}`}
                  onClick={() => setActivePath(item.path)}
+                 id={`${item.label.trim()}Link`}
                >
                  {item.icon}
                  <span className="ms-2">{item.label}</span>
@@ -54,7 +55,7 @@ const SideMenu = () => {
           <div className='d-flex flex-column align-items-center'>
             <Icon fontSize='large'><AccountCircleIcon className="mb-2" fontSize='large' /> </Icon>         
             <div className="profile-info">
-              <div className="fw-bold">Usuário</div>
+              <div className="fw-bold" id="userLogged">Usuário</div>
               <div className="text-muted">Role</div>
             </div>
           </div>

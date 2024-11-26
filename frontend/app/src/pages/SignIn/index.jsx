@@ -38,7 +38,7 @@ export default function SignIn() {
                             <Form.Label>Senha</Form.Label>
                             <Form.Control type="password" placeholder="name@example.com" required />
                         </Form.Group>
-                        <Button type='submit' className='mb-3'>Entrar</Button>
+                        <Button id='login'  type='submit' className='mb-3'>Entrar</Button>
                     </Form>
                     
                 </div>

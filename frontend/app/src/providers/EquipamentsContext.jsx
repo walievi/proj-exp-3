@@ -48,11 +48,11 @@ export const EquipamentsProvider = ({ children }) => {
             .then(err => console.log(err));
     }
 
-    useEffect(() => {
-        async function fetchEquipamentAPI() {
-            return await ApiAxios.get(apiPath);
-        }
+    async function fetchEquipamentAPI() {
+        return await ApiAxios.get(apiPath);
+    }
 
+    useEffect(() => {
         if(user.signed) {
             fetchEquipamentAPI()
             .then(data => {
@@ -63,6 +63,10 @@ export const EquipamentsProvider = ({ children }) => {
 
     async function deactivateEquipamentAPI(id) {
         await ApiAxios.delete(`${apiPath}/${id}`); 
+        fetchEquipamentAPI()
+            .then(data => {
+                setEquipament(data.data);
+            });
     }
 
     return (
