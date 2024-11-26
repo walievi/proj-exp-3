@@ -9,7 +9,7 @@ import Modal from '../../components/CreateModal';
 // import { usePeople } from '../..providers/PeopleContext';
 
 const Emprestimos = () => {
-  const columns = ["Empréstimo", "Patrimônio", "Disponível", "Status"];
+  const columns = ["Patrimônio", "Número de Série", "Responsável", "Status"];
 
   //Serialization dos dados necessário para a page
   // const equipamentsContext = useEquipament();
@@ -77,16 +77,36 @@ const Emprestimos = () => {
 
 
   const data = [
-    { Empréstimo: 1, Patrimônio: "dd4ebb0d-2352-4105-b502-092bc9c2ac60", Status: "Ativo" },
-    { Empréstimo: 2, Patrimônio: "a1d5b2c9-134b-4c8d-9b82-ef4ac7c1a1c2", Status: "Inativo" },
-    { Empréstimo: 3, Patrimônio: "b5ff4e00-2235-4d7f-a5b7-01babc8b4533", Status: "Em Manutenção" },
-    { Empréstimo: 4, Patrimônio: "fa3dc2d8-3af4-47a5-b1b1-e9f4bb234d10", Status: "Ativo" },
-    { Empréstimo: 5, Patrimônio: "c6aa5d22-16a7-42c8-a987-53c5f3b23445", Status: "Inativo" },
-    { Empréstimo: 6, Patrimônio: "ee4dc340-46f4-441f-9654-a32bc6c4d1a3", Status: "Em Manutenção" },
-    { Empréstimo: 7, Patrimônio: "dc0ebb0d-87e2-4f10-b4c1-092b9d2c3a60", Status: "Ativo" },
-    { Empréstimo: 8, Patrimônio: "fb2a4d55-3456-4b0e-8c7f-d22bcb4f14a7", Status: "Inativo" },
-    { Empréstimo: 9, Patrimônio: "ab2f2c11-33c7-4231-897d-f32a1c6b1f65", Status: "Ativo" },
-    { Empréstimo: 10, Patrimônio: "c2bb0d1e-9d8e-4f2f-b6c1-12cde7f8c5b4", Status: "Em Manutenção" }
+    { Patrimônio: 'P0001', "Número de Série": 'SN2032132', Responsável: 'João Silva', Status: 'Ativo' },
+    { Patrimônio: 'P0002', "Número de Série": 'SN3049238', Responsável: 'Maria Oliveira', Status: 'Inativo' },
+    { Patrimônio: 'P0003', "Número de Série": 'SN9273847', Responsável: 'João Silva', Status: 'Ativo' },
+    { Patrimônio: 'P0004', "Número de Série": 'SN3849201', Responsável: 'Maria Oliveira', Status: 'Ativo' },
+    { Patrimônio: 'P0005', "Número de Série": 'SN2840193', Responsável: 'João Silva', Status: 'Inativo' },
+    { Patrimônio: 'P0006', "Número de Série": 'SN7293940', Responsável: 'Maria Oliveira', Status: 'Ativo' },
+    { Patrimônio: 'P0007', "Número de Série": 'SN1827364', Responsável: 'João Silva', Status: 'Ativo' },
+    { Patrimônio: 'P0008', "Número de Série": 'SN3948281', Responsável: 'Maria Oliveira', Status: 'Inativo' },
+    { Patrimônio: 'P0009', "Número de Série": 'SN2029384', Responsável: 'João Silva', Status: 'Ativo' },
+    { Patrimônio: 'P0010', "Número de Série": 'SN1938492', Responsável: 'Maria Oliveira', Status: 'Inativo' },
+    { Patrimônio: 'P0011', "Número de Série": 'SN2032132', Responsável: 'João Silva', Status: 'Ativo' },
+    { Patrimônio: 'P0012', "Número de Série": 'SN3049238', Responsável: 'Maria Oliveira', Status: 'Inativo' },
+    { Patrimônio: 'P0013', "Número de Série": 'SN9273847', Responsável: 'João Silva', Status: 'Ativo' },
+    { Patrimônio: 'P0014', "Número de Série": 'SN3849201', Responsável: 'Maria Oliveira', Status: 'Ativo' },
+    { Patrimônio: 'P0015', "Número de Série": 'SN2840193', Responsável: 'João Silva', Status: 'Inativo' },
+    { Patrimônio: 'P0016', "Número de Série": 'SN7293940', Responsável: 'Maria Oliveira', Status: 'Ativo' },
+    { Patrimônio: 'P0017', "Número de Série": 'SN1827364', Responsável: 'João Silva', Status: 'Ativo' },
+    { Patrimônio: 'P0018', "Número de Série": 'SN3948281', Responsável: 'Maria Oliveira', Status: 'Inativo' },
+    { Patrimônio: 'P0019', "Número de Série": 'SN2029384', Responsável: 'João Silva', Status: 'Ativo' },
+    { Patrimônio: 'P0020', "Número de Série": 'SN1938492', Responsável: 'Maria Oliveira', Status: 'Inativo' },
+    { Patrimônio: 'P0021', "Número de Série": 'SN2032132', Responsável: 'João Silva', Status: 'Ativo' },
+    { Patrimônio: 'P0022', "Número de Série": 'SN3049238', Responsável: 'Maria Oliveira', Status: 'Inativo' },
+    { Patrimônio: 'P0023', "Número de Série": 'SN9273847', Responsável: 'João Silva', Status: 'Ativo' },
+    { Patrimônio: 'P0024', "Número de Série": 'SN3849201', Responsável: 'Maria Oliveira', Status: 'Ativo' },
+    { Patrimônio: 'P0025', "Número de Série": 'SN2840193', Responsável: 'João Silva', Status: 'Inativo' },
+    { Patrimônio: 'P0026', "Número de Série": 'SN7293940', Responsável: 'Maria Oliveira', Status: 'Ativo' },
+    { Patrimônio: 'P0027', "Número de Série": 'SN1827364', Responsável: 'João Silva', Status: 'Ativo' },
+    { Patrimônio: 'P0028', "Número de Série": 'SN3948281', Responsável: 'Maria Oliveira', Status: 'Inativo' },
+    { Patrimônio: 'P0029', "Número de Série": 'SN2029384', Responsável: 'João Silva', Status: 'Ativo' },
+    { Patrimônio: 'P0030', "Número de Série": 'SN1938492', Responsável: 'Maria Oliveira', Status: 'Inativo' }
   ];
 
   return (
@@ -98,7 +118,7 @@ const Emprestimos = () => {
               Total
             </div>
             <div className="count-quantity-container fs-1 fw-bold d-flex align-items-end text-white">
-              {/* {getTotalLoans()} */} 
+              30
             </div>
           </div>
           <div className="count-container d-flex flex-column align-items-start p-3 gap-3 w-25 h-100 bg-primary rounded">
@@ -106,7 +126,7 @@ const Emprestimos = () => {
               Ativos
             </div>
             <div className="count-quantity-container fs-1 fw-bold d-flex align-items-end text-white">
-              {/* {getTotalActiveLoans().totalActiveLoans} */}  
+              18  
             </div>
           </div>
           <div className="count-container d-flex flex-column align-items-start p-3 gap-3 w-25 h-100 bg-primary rounded">
@@ -114,7 +134,7 @@ const Emprestimos = () => {
             Inativos
             </div>
             <div className="count-quantity-container fs-1 fw-bold d-flex align-items-end text-white">
-              {/* {getTotalInactiveLoans().totalInactiveLoans} */}  
+              12 
             </div>
           </div>  
         </div>

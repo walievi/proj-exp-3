@@ -1,41 +1,28 @@
-import React, { useState } from 'react';
-import { useTableList } from '../../providers/TableListProvider'
-
+import React, { useState, useEffect } from "react";
 import TextArea from "../TextArea";
 import InputDate from "../DateInput";
 import Dropdown from "../Dropdown";
-
-// import { useLoan } from '../../providers/LoanContext';
+import { useTableList } from "../../providers/TableListProvider";
 import { usePatrimony } from '../../providers/PatrimonyContext';
 import { usePeople } from "../../providers/PeopleContext";
 
-const LoanModal = ({ action }) => {
 
-//Serialization dos dados necessário para a page
-  // const loansContext = useLoan();
+const LoanModal = ({ id }) => {
     const patrimonysContext = usePatrimony();
     const peopleContext = usePeople();
     const tableListContext = useTableList();
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [isEditable, setIsEditable] = useState(false);
 
-  function serializePatrimony() {
-    return patrimonysContext.read.patrimonys.map(patrimony => {
-      return {
-        value: patrimony.id,
-        description: patrimony.patrimonyCode,
-      }
-    })
-  }
-
-  // function serializeLoan() {
-  //   return loansContext.read.loans.map(loan => {
-  //     return {
-  //       Patrimônio: loan.patrimony.code,
-  //       Status: loan.status,
-  //     }
-  //   })
-  // }
+    function serializePatrimony() {
+        return patrimonysContext.read.patrimonys.map(patrimony => {
+            return {
+                value: patrimony.id,
+                description: patrimony.patrimonyCode,
+            }
+        })
+    }
 
     function serializePeople() {
         return peopleContext.read.people.map((person) => {
@@ -47,15 +34,6 @@ const LoanModal = ({ action }) => {
         });
     }
 
-    const handleStartDateChange = event => {
-        const newStartDate = event.target.value;
-        setStartDate(newStartDate);
-
-        const newEndDate = new Date(newStartDate);
-        newEndDate.setDate(newEndDate.getDate() + 14);
-        setEndDate(newEndDate.toISOString().split('T') [0]);
-    };
-
     function handleSubmit(event) {
         event.preventDefault();
 
@@ -66,8 +44,9 @@ const LoanModal = ({ action }) => {
             endDate: event.target.endDate.value.trim(),
             comment: event.target.comment.value.trim(),
         };
-        // action(formData);
 
+        // Chama a função de update
+        // equipamentsContext.write.updatesEquipament(id, formData);
         alert(`Cadastro do Empréstimo realizado com sucesso. 
             \n\nDados Principais:
             \n\nPatrimônio: "${event.target.patrimonyId.value.trim()}"
@@ -77,19 +56,31 @@ const LoanModal = ({ action }) => {
         handleCloseButton()
     }
 
+    const handleStartDateChange = event => {
+        const newStartDate = event.target.value;
+        setStartDate(newStartDate);
+
+        const newEndDate = new Date(newStartDate);
+        newEndDate.setDate(newEndDate.getDate() + 14);
+        setEndDate(newEndDate.toISOString().split('T') [0]);
+    };
+
+
     function handleCloseButton() {
-        tableListContext.write.showCreateModal(false)
+        tableListContext.write.showInfoModal(false);
     }
+
 
     return (
         <>
             <form className="modal-form" onSubmit={handleSubmit}>
-                <Dropdown
+            <Dropdown
                     label="Patrimônio"
                     description="Obrigatório"
                     identifier="patrimonyId"
                     required={true}
                     data={serializePatrimony()}
+                    disabled={!isEditable}
                 /> 
                 <Dropdown
                     label="Responsável"
@@ -97,12 +88,14 @@ const LoanModal = ({ action }) => {
                     identifier="personId"
                     required={true}
                     data={serializePeople()}
+                    disabled={!isEditable}
                 />
                 <TextArea
                     label="Descrição"
                     description="Opcional"
                     identifier="comment"
                     required={false}
+                    disabled={!isEditable}
                 />
                 <InputDate
                     label="Data de Empréstimo"
@@ -111,6 +104,7 @@ const LoanModal = ({ action }) => {
                     defaultValue={startDate}
                     onChange={handleStartDateChange}
                     required={true}
+                    disabled={!isEditable}
                 />
                 <InputDate
                     label="Data de Devolução"
@@ -119,16 +113,31 @@ const LoanModal = ({ action }) => {
                     defaultValue={endDate}
                     onChange={handleStartDateChange}
                     readOnly={true}
+                    disabled={!isEditable}
                 />
+                <div>
+                    
+                </div>
                 <div id="modal-footer">
                     <button type="button" className="btn btn-danger" onClick={handleCloseButton}>
                         Cancelar
                     </button>
-                    <button type="submit" className="btn btn-primary">Cadastrar</button>
+                    <button type="submit" className="btn btn-primary">
+                        Atualizar
+                    </button>
+                    <input
+                        type="checkbox"
+                        checked={isEditable}
+                        onChange={() => setIsEditable((prev) => !prev)}
+                        className="form-check-input border-primary"
+                        />
+                    <label>
+                        Habilitar Edição
+                    </label>
                 </div>
             </form>
         </>
-    )
-}
+    );
+};
 
 export default LoanModal;

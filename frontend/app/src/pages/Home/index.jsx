@@ -157,17 +157,17 @@ function getTotalInactivePatrimonys() {
                         
                   <div className="count-container bg-light-primary p-3 mb-3 rounded">
                       <p className="fs-5 fw-normal">Total:</p>
-                      <p className="fs-1 fw-bold">{/* {getTotalLoans()} */}</p>
+                      <p className="fs-1 fw-bold">30</p>
                   </div>
                         
                   <div className="count-container bg-light-primary p-3 mb-3 rounded">
                       <p className="fs-5 fw-normal">Ativos:</p>
-                      <p className="fs-1 fw-bold">{/* {getTotalActiveLoans().totalActiveLoans} */}</p>
+                      <p className="fs-1 fw-bold">18</p>
                   </div>
                         
                   <div className="count-container bg-light-primary p-3 rounded">
                       <p className="fs-5 fw-normal">Inativos:</p>
-                      <p className="fs-1 fw-bold">{/* {getTotalInactiveLoans().totalInactiveLoans} */}</p>
+                      <p className="fs-1 fw-bold">12</p>
                   </div>
               </div>
             </div>
