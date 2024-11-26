@@ -46,23 +46,29 @@ export const PatrimonyProvider = ({ children }) => {
             .catch(err => console.error("Erro ao adicionar patrimônio:", err));
     }
 
-    useEffect(() => {
-        async function fetchPatrimonyAPI() {
-            try {
-                const response = await ApiAxios.get(apiPath);
-                setPatrimony(response.data); // Atualiza o estado com os dados recebidos
-            } catch (error) {
-                console.error("Erro ao buscar patrimonios:", error); // Log de erro
-            }
+    async function fetchPatrimonyAPI() {
+        try {
+            return await ApiAxios.get(apiPath);
+        } catch (error) {
+            console.error("Erro ao buscar patrimonios:", error); // Log de erro
         }
+    }
 
+    useEffect(() => {
         if(user.signed) {
-            fetchPatrimonyAPI();
+            fetchPatrimonyAPI()
+                .then(res => [
+                    setPatrimony(res.data)
+                ])
         }
     }, [user.signed]);
 
     async function deactivatePatrimonyAPI(id) {
         await ApiAxios.delete(`${apiPath}/${id}`);
+        fetchPatrimonyAPI()
+                .then(res => [
+                    setPatrimony(res.data)
+                ])
     }
 
     return (

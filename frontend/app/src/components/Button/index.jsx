@@ -2,7 +2,7 @@ import React from "react";
 
 import './index.css'
 
-const Button = ({text, opacity, width, type, onClick, disabled}) => {
+const Button = ({text, opacity, width, type, onClick, disabled, ...rest}) => {
     
     return (
         <button
@@ -11,6 +11,7 @@ const Button = ({text, opacity, width, type, onClick, disabled}) => {
             type={type}
             onClick={onClick}
             disabled={disabled}
+            {...rest}
         >
             {text}
         </button>

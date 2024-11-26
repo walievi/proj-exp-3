@@ -9,7 +9,7 @@ export const EquipamentsProvider = ({ children }) => {
     const [equipaments, setEquipament] = useState([]);
     const apiPath = '/equipaments';
     const navigate = useNavigate();
-    const { user } = useAuth()
+    const { user, setUser } = useAuth()
 
     async function getEquipamentById(id) {
         try {
@@ -50,31 +50,39 @@ export const EquipamentsProvider = ({ children }) => {
             .then(err => console.log(err));
     }
 
-    useEffect(() => {
-        async function fetchEquipamentAPI() {
-            try {
-                const response = await ApiAxios.get(apiPath);
-                setEquipament(response.data); // Define os dados no estado
-            } catch (error) {
-                if (error.response && error.response.status === 401) {
-                    // Token inválido ou expirado
-                    console.error("Token inválido ou expirado. Redirecionando para login.");
-                    localStorage.removeItem("token"); // Remove o token do localStorage
-                    setUser({ signed: false, access_token: "" }); // Atualiza o estado do usuário
-                    navigate("/signIn"); // Redireciona para a página de login
-                } else {
-                    console.error("Erro ao buscar os equipamentos:", error);
-                }
+    async function fetchEquipamentAPI() {
+        try {
+            return await ApiAxios.get(apiPath);
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                // Token inválido ou expirado
+                console.error("Token inválido ou expirado. Redirecionando para login.");
+                localStorage.removeItem("token"); // Remove o token do localStorage
+                setUser({ signed: false, access_token: "" }); // Atualiza o estado do usuário
+                navigate("/signIn"); // Redireciona para a página de login
+            } else {
+                console.error("Erro ao buscar os equipamentos:", error);
             }
         }
+    }
+
+    useEffect(() => {
+        
     
         if (user.signed) {
-            fetchEquipamentAPI();
+            fetchEquipamentAPI()
+                .then(res => {
+                    setEquipament(res.data)
+                })
         }
     }, [user.signed, apiPath, navigate]);
 
     async function deactivateEquipamentAPI(id) {
         await ApiAxios.delete(`${apiPath}/${id}`); 
+        fetchEquipamentAPI()
+            .then(data => {
+                setEquipament(data.data);
+            });
     }
 
     return (

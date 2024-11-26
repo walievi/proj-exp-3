@@ -37,7 +37,6 @@ const EquipmentModal = ({ action, dialogModal }) => {
 
         // Verifica se o número de série já existe
         if (verifySerialNumber(verifySN)) {
-            alert(`Erro: O número de série "${verifySN}" já está cadastrado!`);
             return;  // Impede o envio do formulário
         }
 
@@ -108,7 +107,7 @@ const EquipmentModal = ({ action, dialogModal }) => {
                     <button type="button" className="btn btn-danger" onClick={handleCloseButton}>
                         Cancelar
                     </button>
-                    <button type="submit" className="btn btn-primary">Cadastrar</button>
+                    <button type="submit" className="btn btn-primary" id="save">Cadastrar</button>
                 </div>
             </form>
             {

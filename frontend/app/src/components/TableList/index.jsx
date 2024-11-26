@@ -79,18 +79,12 @@ const BasicTable = ({ columns, data, createModal }) => {
 
     function handleDeactivateEquipament(id) {
         alert('Equipamento desativado');
-        equipamentContext.write.deactivatesEquipament(id).then(() => {
-
-            window.location.reload();
-        })
+        equipamentContext.write.deactivatesEquipament(id)
     }
 
     function handleDeactivatePatrimony(id) {
         alert('Patrimônio desativado');
-        patrimonyContext.write.deactivatesPatrimony(id).then(() => {
-
-            window.location.reload();
-        })
+        patrimonyContext.write.deactivatesPatrimony(id)
     }
 
     function handleDeactivateItem(id) {
@@ -221,6 +215,8 @@ const BasicTable = ({ columns, data, createModal }) => {
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                         disabled={!searchColumn}
+                                        id="search"
+                                        style={{color: '#000'}}
                                     />
                                 </div>
                             </div>
@@ -232,14 +228,14 @@ const BasicTable = ({ columns, data, createModal }) => {
                                     <CloudDownloadOutlinedIcon /> {' '}
                                     Exportar
                                 </button>
-                                <button className="btn btn-primary" onClick={handleClickAdd}>
+                                <button id="AddItem" className="btn btn-primary" onClick={handleClickAdd}>
                                     <AddCircleOutlineIcon /> {' '}
                                     Adicionar
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <table className="table table-sm align-middle">
+                    <table className="table table-sm align-middle" id='table-data'>
                         <thead>
                             <tr>
                                 {columns && columns.length > 0 && columns.map((column, index) => (
